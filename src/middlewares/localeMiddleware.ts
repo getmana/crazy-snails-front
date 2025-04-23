@@ -6,7 +6,7 @@ import { i18n } from '../../i18n-config';
 export const localeMiddleware: MiddlewareFunction = {
     run: (request) => {
         const pathname = request.nextUrl.pathname;
-        console.log('pathname=', pathname)
+        console.log('pathname=', pathname);
 
         const pathnameIsMissingLocale = i18n.locales.every((locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`);
 

@@ -6,10 +6,10 @@ export default function Home() {
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
-          src="/next.svg"
+          src="/icons/logo.svg"
           alt="Next.js logo"
-          width={180}
-          height={38}
+          width={455}
+          height={104}
           priority
         />
         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
@@ -23,7 +23,11 @@ export default function Home() {
           <li className="tracking-[-.01em]">
             Save and see your changes instantly.
           </li>
+          <li className="font-raleway">This is another font</li>
         </ol>
+        <h1 className="font-pacifico text-5xl">Hello World</h1>
+        <h1 className="font-pacifico">А якщо кирилиця...</h1>
+        <h2 className="font-pacifico text-common-green text-2xl">Історії</h2>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a

@@ -1,0 +1,10 @@
+{
+    "menu": {
+        "home": "Home",
+        "stories": "Stories",
+        "albums": "Albums"
+    },
+    "title": {
+        "stories": "Stories"
+    }
+}

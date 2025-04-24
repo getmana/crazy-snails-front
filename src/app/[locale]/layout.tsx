@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Pacifico, Raleway } from 'next/font/google';
+import { Caveat, Pacifico, Raleway } from 'next/font/google';
 
 import { i18n, type Locale } from '../../../i18n-config';
 
@@ -14,7 +14,13 @@ const raleway = Raleway({
 const pacifico = Pacifico({
     variable: '--font-pacifico',
     weight: ['400'],
-    subsets: ['latin'],
+    subsets: ['latin', 'cyrillic'],
+});
+
+const caveat = Caveat({
+    variable: '--font-caveat',
+    weight: ['400'],
+    subsets: ['latin', 'cyrillic'],
 });
 
 export const metadata: Metadata = {
@@ -36,7 +42,7 @@ export default async function RootLayout(
 
     return (
         <html lang={params.locale}>
-            <body className={`${pacifico.variable} ${raleway.variable} antialiased`}>{props.children}</body>
+            <body className={`${pacifico.variable} ${raleway.variable} ${caveat.variable} antialiased`}>{props.children}</body>
         </html>
     );
 }

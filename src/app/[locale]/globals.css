@@ -1,33 +1,72 @@
 @import 'tailwindcss';
 
 :root {
-    --background: #f5f5f5;
-    --foreground: #7e7e7e;
-    --common-green: #a0d24a;
+  --background: #f5f5f5;
+  --background-footer: #2F2F2F;
+  --foreground: #7e7e7e;
+  --common-green: #a0d24a;
+  --custom-blue: #2C375F;
+  --grey-blue-border: #B7CBE7;
+  --grey-border: #E6E6E6;
+  --grey-footer-text: #848383;
+  --grey-nav: #2D2E2D;
+
 }
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-common-green: var(--common-green);
-    --font-raleway: var(--font-raleway);
-    --font-pacifico: var(--font-pacifico);
-    --text-heading-2: 2.5rem;
+  --color-background: var(--background);
+  --color-background-footer: var(--background-footer);
+  --color-foreground: var(--foreground);
+  --color-common-green: var(--common-green);
+  --color-custom-blue: var(--custom-blue);
+  --color-grey-blue-border: var(--grey-blue-border);
+  --color-grey-border: var(--grey-border);
+  --color-grey-footer-text: var(--grey-footer-text);
+  --color-grey-nav: var(--grey-nav);
+
+  --font-raleway: var(--font-raleway);
+  --font-pacifico: var(--font-pacifico);
+  --font-caveat: var(--font-caveat);
+
+  --text-heading-1: 6.25rem;
+  --text-heading-2: 5rem;
+  --text-heading-2-custom: 4rem;
+  --text-heading-3: 2.5rem;
+
+  --text-shadow-l: 0 4px 4px rgb(0, 0, 0 / 0.25);
+
+  --container-8xl: 87.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-raleway);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-raleway);
+}
+
+.heading-1 {
+  @apply font-pacifico text-white text-heading-1 text-shadow-l;
 }
 
 .heading-2 {
-    @apply font-pacifico text-common-green text-heading-2;
+  @apply font-pacifico text-white text-heading-2;
+}
+
+.heading-2-custom {
+  @apply font-caveat text-custom-blue text-heading-2-custom;
+}
+
+.heading-3 {
+  @apply font-pacifico text-common-green text-heading-3;
+}
+
+.content {
+  @apply max-w-8xl container mx-auto px-4 md:px-8 lg:px-16;
 }

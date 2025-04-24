@@ -9,7 +9,7 @@ export default async function Stories(props: { params: Promise<{ locale: Locale 
 
     return (
         <div>
-            <h1 className="heading-2">{dictionary.title.stories}</h1>
+            <h1 className="heading-3">{dictionary.title.stories}</h1>
         </div>
     );
 }

@@ -7,7 +7,6 @@ import { MiddlewareFunction } from './index';
 export const localeMiddleware: MiddlewareFunction = {
     run: (request) => {
         const pathname = request.nextUrl.pathname;
-        console.log('pathname=================', pathname);
 
         const pathnameIsMissingLocale = i18n.locales.every((locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`);
 
@@ -17,5 +16,5 @@ export const localeMiddleware: MiddlewareFunction = {
 
         return NextResponse.next();
     },
-    match: '/src/app/[en|uk].*',
+    match: '^/((?!api/|images/|icons/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)',
 };

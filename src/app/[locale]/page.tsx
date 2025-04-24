@@ -1,21 +1,39 @@
 import Image from 'next/image';
 
+import { Header, Icon } from '@/components';
+import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
-import { Locale } from '../../../i18n-config';
+const getMenuItems = (menu: { [key: string]: string }, locale: Locale) =>
+    Object.entries(menu).map(([key, value]) => ({
+        link: key === 'home' ? `/${locale}` : `/${locale}/${key}`,
+        text: value,
+    }));
 
 export default async function Home(props: { params: Promise<{ locale: Locale }> }) {
-    const { locale } = await props.params;
+    const params = await props.params;
+    console.log('params=====', params);
 
-    const dictionary = await getDictionary(locale);
+    const dictionary = await getDictionary(params.locale);
+    console.log(getMenuItems(dictionary.menu, params.locale));
 
     return (
-        <div>
-            <header className="content flex justify-between">
-                <Image className="dark:invert" src="/icons/logo.svg" alt="Next.js logo" width={455} height={104} priority />
-                <li>{dictionary.menu.home}</li>
-            </header>
+        <div className="bg-home bg-center-top bg-cover">
+            <Header items={getMenuItems(dictionary.menu, params.locale)} hasBorder={true} />
+            {/* <header className="content">
+                <div className="border-grey-blue-border flex items-center justify-between border-b">
+                    <Icon icon="Logo" className="text-grey-nav h-32 w-md" />
+                    <ul className="flex gap-4 pt-6">
+                        {Object.values(dictionary.menu).map((item) => (
+                            <li className="text-grey-nav font-extrabold uppercase" key={item}>
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </header> */}
             <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
+                <Icon icon="Bicycle" className="h-16 w-16 text-green-900" />
                 <ol className="list-inside list-decimal text-center font-[family-name:var(--font-geist-mono)] text-sm/6 sm:text-left">
                     <li className="mb-2 tracking-[-.01em]">
                         Get started by editing{' '}

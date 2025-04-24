@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { Caveat, Pacifico, Raleway } from 'next/font/google';
 
-import { i18n, type Locale } from '../../../i18n-config';
+import { i18n, type Locale } from '@/i18n-config';
 
 import './globals.css';
 
 const raleway = Raleway({
     variable: '--font-raleway',
-    weight: ['400', '600'],
+    weight: ['400', '600', '800'],
     subsets: ['latin', 'cyrillic'],
 });
 

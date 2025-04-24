@@ -7,6 +7,7 @@ export const middleware = async (request: NextRequest) => {
     let response = NextResponse.next();
 
     for (const middlewareFunction of middlewares) {
+        console.log('==================', request.nextUrl.pathname);
         if (!middlewareFunction.match || new RegExp(middlewareFunction.match).test(request.nextUrl.pathname)) {
             response = await middlewareFunction.run(request, response);
         }

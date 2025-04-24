@@ -1,6 +1,5 @@
+import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
-
-import { Locale } from '../../../../i18n-config';
 
 export default async function Stories(props: { params: Promise<{ locale: Locale }> }) {
     const { locale } = await props.params;

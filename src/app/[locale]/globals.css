@@ -4,27 +4,37 @@
   --background: #f5f5f5;
   --background-footer: #2F2F2F;
   --foreground: #7e7e7e;
+  --foreground-custom: #6A6765;
   --common-green: #a0d24a;
   --custom-blue: #2C375F;
   --grey-blue-border: #B7CBE7;
-  --grey-border: #E6E6E6;
+  --grey-border: #D6D4D4;
   --grey-footer-text: #848383;
+  --grey-footer-text-rgb: 132, 131, 131;
   --grey-nav: #2D2E2D;
+  --brown-light: #DFCFBC;
+  --brown-light-rgb: 106, 103, 101;
 
 }
 
 @theme inline {
   --background-image-home: url('/images/about-bg.jpeg');
+  --background-image-page: url('/images/page-bg.jpeg');
+  --background-image-grandpa: url('/images/grandpa-bg.png');
 
   --color-background: var(--background);
   --color-background-footer: var(--background-footer);
   --color-foreground: var(--foreground);
+  --color-foreground-custom: var(--foreground-custom);
   --color-common-green: var(--common-green);
   --color-custom-blue: var(--custom-blue);
   --color-grey-blue-border: var(--grey-blue-border);
   --color-grey-border: var(--grey-border);
   --color-grey-footer-text: var(--grey-footer-text);
+  --color-grey-footer-text-15: rgba(var(--grey-footer-text-rgb), 0.15);
   --color-grey-nav: var(--grey-nav);
+  --color-brown-light: var(--brown-light);
+  --color-brown-light-15: rgba(var(--brown-light-rgb), 0.15);
 
   --font-raleway: var(--font-raleway);
   --font-pacifico: var(--font-pacifico);

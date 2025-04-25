@@ -5,6 +5,13 @@
         "albums": "Albums"
     },
     "title": {
-        "stories": "Stories"
+        "stories": "Stories",
+        "albums": "Albums",
+        "grandpa": "My grandpa's album"
+    },
+    "subtitles": {
+        "albums": "Our travelling photos",
+        "stories": "Our travelling stories",
+        "grandpa": "Great bicycle trip, notated by my grandpa"
     }
 }

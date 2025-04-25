@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { Caveat, Pacifico, Raleway } from 'next/font/google';
 
+import { Footer } from '@/components';
 import { i18n, type Locale } from '@/i18n-config';
+import { getDictionary } from '@/utils';
 
 import './globals.css';
 
@@ -38,11 +40,16 @@ export default async function RootLayout(
         params: Promise<{ locale: Locale }>;
     }>,
 ) {
-    const params = await props.params;
+    const { locale } = await props.params;
+
+    const dictionary = await getDictionary(locale);
 
     return (
-        <html lang={params.locale}>
-            <body className={`${pacifico.variable} ${raleway.variable} ${caveat.variable} antialiased`}>{props.children}</body>
+        <html lang={locale}>
+            <body className={`${pacifico.variable} ${raleway.variable} ${caveat.variable} flex min-h-dvh flex-col`}>
+                <div className="flex flex-1">{props.children}</div>
+                <Footer items={dictionary.menu} locale={locale} />
+            </body>
         </html>
     );
 }

@@ -14,7 +14,6 @@ export default async function Grandpa(props: { params: Promise<{ locale: Locale 
                 locale={locale}
                 bgClassName="bg-brown-light"
                 textClassName="text-custom-blue font-caveat"
-                activeLink={`/${locale}/grandpa`}
                 hasDivider={true}
             />
             <main className="">

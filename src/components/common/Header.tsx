@@ -15,7 +15,6 @@ type HeaderProps = {
     bgClassName?: string;
     hasBorder?: boolean;
     textClassName?: string;
-    activeLink?: string;
     hasDivider?: boolean;
 };
 
@@ -25,7 +24,6 @@ export const Header = ({
     locale,
     bgClassName = '',
     textClassName = 'text-grey-nav',
-    activeLink = '',
     hasDivider = false,
 }: HeaderProps) => {
     return (
@@ -35,13 +33,7 @@ export const Header = ({
                     <Link href={`/${locale}`}>
                         <Icon icon="Logo" className={`${textClassName} h-32 w-md`} />
                     </Link>
-                    <MenuItems
-                        items={items}
-                        locale={locale}
-                        textClassName={textClassName}
-                        activeLink={activeLink}
-                        hasDivider={hasDivider}
-                    />
+                    <MenuItems items={items} locale={locale} textClassName={textClassName} hasDivider={hasDivider} />
                 </div>
             </div>
         </header>

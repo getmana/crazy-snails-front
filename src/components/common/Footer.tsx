@@ -22,7 +22,7 @@ export const Footer = ({ items, locale }: FooterProps) => {
                 <div
                     className={`${isCustom ? 'border-brown-light-15' : 'border-grey-footer-text-15'} flex items-center justify-between border-b`}
                 >
-                    <MenuItems items={items} locale={locale} textClassName={textStyle} hasDivider={isCustom} />
+                    <MenuItems items={items} locale={locale} textClassName={textStyle} hasDivider={isCustom} isFooter={true} />
                     <Icon icon="Logo" className={`${textStyle} h-32 w-md`} />
                 </div>
                 <p className={`${textStyle} py-6 text-center`}>Copyright CrazySnails 2025</p>

@@ -1,12 +1,15 @@
 import Bicycle from '@/public/icons/bicycle.svg';
+import Camping from '@/public/icons/camping-icon.svg';
 import Logo from '@/public/icons/logo.svg';
 
 export const IconMap = {
-    Logo,
     Bicycle,
+    Camping,
+    Logo,
 };
 
 export const IconAriaLabelMap: Record<keyof typeof IconMap, string> = {
-    Logo: 'Crazy Snails Logo',
+    Camping: 'Camping Icon',
     Bicycle: 'Bicycle Icon',
+    Logo: 'Crazy Snails Logo',
 };

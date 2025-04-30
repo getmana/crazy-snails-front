@@ -21,7 +21,7 @@ export default async function Grandpa(props: { params: Promise<{ locale: Locale 
                     heading={dictionary.title.grandpa}
                     className="font-caveat text-custom-blue text-heading-2-custom"
                     headingTag="h1"
-                    subheading={dictionary.subtitles.grandpa}
+                    subheading={dictionary.subtitle.grandpa}
                     subheadingClassName="font-caveat text-foreground-custom text-4xl"
                 />
             </main>

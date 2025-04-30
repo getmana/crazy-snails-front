@@ -7,11 +7,29 @@
     "title": {
         "stories": "Stories",
         "albums": "Albums",
-        "grandpa": "My grandpa's album"
+        "grandpa": "My grandpa's album",
+        "aboutSection": "What's this about?",
+        "grandpaSection": "My grandpa's bicycle trip"
     },
-    "subtitles": {
+    "subtitle": {
         "albums": "Our travelling photos",
         "stories": "Our travelling stories",
-        "grandpa": "Great bicycle trip, notated by my grandpa"
+        "grandpa": "Great bicycle trip, notated by my grandpa",
+        "albumsSection": "Crazy travel photos"
+    },
+    "about": [
+        "Hey, welcome to my page!",
+        "What's this about? It's just some funny stories and bright photos of our travelling.",
+        "Why Crazy? Well, is it a regular thing to jump on the motorcycle in Kharkiv, Ukaraine, and ride about 4000 km to visit Zeus on his Olimpus Mountain? If not, the answer is ready.",
+        "Then, you're asking, why Snails? Just because we like to sleep in the morning and not to miss our relaxable breakfast before the start, and the clear outcome - to be slow on our way because of that late sign off, so, yes, definitely, snails. How to enjoy when in a hurry? So - never hurrying.",
+        "Now you're wondering why not to use some available services to share albums, like Google photo e.g. Ha, this is the key point. I've always been irritated of how Google mix the photos in the albums - just no way to put them in the order I like. But how to tell a story when things are mixed? So, beeing a JS dev, I've decided to create a nice service to share travelling impressions in a way I like it.",
+        "And you're welcome to view all this stuff - maybe you'll find something interesting or funny to yourself. So, enjoy with us! Dive into some Greece or Georgian atmosphere looking with the eyes of Crazy Snails!"
+    ],
+    "button": {
+        "readMore": "Read More",
+        "readAll": "Read All",
+        "goToAlbum": "Go to Album",
+        "allAlbums": "Show All Albums",
+        "readStory": "Read Story"
     }
 }

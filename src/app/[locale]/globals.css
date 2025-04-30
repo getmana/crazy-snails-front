@@ -14,13 +14,13 @@
   --grey-nav: #2D2E2D;
   --brown-light: #DFCFBC;
   --brown-light-rgb: 106, 103, 101;
-
 }
 
 @theme inline {
   --background-image-home: url('/images/about-bg.jpeg');
   --background-image-page: url('/images/page-bg.jpeg');
   --background-image-grandpa: url('/images/grandpa-bg.png');
+  --background-image-grandpa-section: url('/images/grandpa-section-bg.jpg');
 
   --color-background: var(--background);
   --color-background-footer: var(--background-footer);
@@ -63,12 +63,20 @@ body {
   font-family: var(--font-raleway);
 }
 
+button {
+  @apply cursor-pointer;
+}
+
+p {
+  @apply pb-4
+}
+
 .heading-1 {
-  @apply font-pacifico text-white text-heading-1 text-shadow-l;
+  @apply font-pacifico text-white text-heading-3 md:text-heading-2 lg:text-heading-1 leading-16 md:leading-32 text-shadow-lg/15 pb-4;
 }
 
 .heading-2 {
-  @apply font-pacifico text-white text-heading-2;
+  @apply font-pacifico text-white text-heading-3 md:text-heading-2;
 }
 
 .heading-2-custom {
@@ -80,5 +88,26 @@ body {
 }
 
 .content {
-  @apply max-w-8xl container mx-auto px-4 md:px-8 lg:px-16;
+  @apply 2xl:max-w-8xl container mx-auto px-4 md:px-8 lg:px-16;
+}
+
+.section {
+  @apply py-4 md:py-8 lg:py-16
+}
+
+.btn-primary {
+  @apply bg-common-green text-white text-sm font-bold uppercase rounded-3xl py-2 w-full sm:w-48 md:w-3xs text-center hover:shadow-md;
+}
+
+.btn-secondary {
+  @apply border-2 border-white text-white text-sm font-bold uppercase rounded-3xl py-2 w-full sm:w-48 md:w-3xs text-center hover:shadow-md;
+}
+
+.grandpa-section {
+  @apply relative z-1 bg-grandpa-section bg-cover py-32 px-4 md:px-8;
+}
+
+.grandpa-section::before {
+  content: "";
+  @apply absolute inset-0 bg-black/40 z-0;
 }

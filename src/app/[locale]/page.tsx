@@ -1,4 +1,4 @@
-import { Header, Icon } from '@/components';
+import { About, AlbumsSection, GrandpaSection, Header, StoriesSection } from '@/components';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
@@ -8,10 +8,16 @@ export default async function Home(props: { params: Promise<{ locale: Locale }> 
     const dictionary = await getDictionary(locale);
 
     return (
-        <div className="bg-home bg-center-top flex-grow bg-cover">
-            <Header items={dictionary.menu} locale={locale} hasBorder={true} />
+        <div className="w-full">
+            <div className="bg-home aspect-[4/3] w-full bg-cover bg-top bg-no-repeat pb-36">
+                <Header items={dictionary.menu} locale={locale} hasBorder={true} />
+                <About text={dictionary.about} buttonText={dictionary.button.readMore} title={dictionary.title.aboutSection} />
+            </div>
             <main className="">
-                <Icon icon="Bicycle" className="h-16 w-16 text-green-900" />
+                <StoriesSection locale={locale} dictionary={dictionary} />
+                <GrandpaSection locale={locale} dictionary={dictionary} />
+                <AlbumsSection locale={locale} dictionary={dictionary} />
+
                 <ol className="list-inside list-decimal text-center font-[family-name:var(--font-geist-mono)] text-sm/6 sm:text-left">
                     <li className="mb-2 tracking-[-.01em]">
                         Get started by editing{' '}

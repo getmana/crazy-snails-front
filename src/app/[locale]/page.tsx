@@ -1,4 +1,4 @@
-import { About, AlbumsSection, GrandpaSection, Header, StoriesSection } from '@/components';
+import { About, AlbumsSection, GrandpaSection, Header, Icon, StoriesSection } from '@/components';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 

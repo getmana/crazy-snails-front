@@ -1,4 +1,6 @@
 'use client';
+
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Icon } from '@/components';
@@ -23,7 +25,9 @@ export const Footer = ({ items, locale }: FooterProps) => {
                     className={`${isCustom ? 'border-brown-light-15' : 'border-grey-footer-text-15'} flex items-center justify-between border-b`}
                 >
                     <MenuItems items={items} locale={locale} textClassName={textStyle} hasDivider={isCustom} isFooter={true} />
-                    <Icon icon="Logo" className={`${textStyle} h-32 w-md`} />
+                    <Link href={`/${locale}`}>
+                        <Icon icon="Logo" className={`${textStyle} h-32 w-md`} />
+                    </Link>
                 </div>
                 <p className={`${textStyle} py-6 text-center`}>Copyright CrazySnails 2025</p>
             </div>

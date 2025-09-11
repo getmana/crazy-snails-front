@@ -14,6 +14,13 @@
   --grey-nav: #2D2E2D;
   --brown-light: #DFCFBC;
   --brown-light-rgb: 106, 103, 101;
+  --toast-animation-duration: 300ms;
+
+  --warning: #E6A23C;
+  --warning-dark: #B8741A;
+
+  --error: #D64545;
+  --error-dark: #9E2B2B;
 }
 
 @theme inline {
@@ -35,6 +42,8 @@
   --color-grey-nav: var(--grey-nav);
   --color-brown-light: var(--brown-light);
   --color-brown-light-15: rgba(var(--brown-light-rgb), 0.15);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
 
   --font-raleway: var(--font-raleway);
   --font-pacifico: var(--font-pacifico);
@@ -69,6 +78,14 @@ button {
 
 p {
   @apply pb-4
+}
+
+input {
+  @apply border-1 border-foreground rounded-xs outline-none py-1 px-2;
+}
+
+.input-wrapper {
+  @apply flex flex-col pb-8;
 }
 
 .heading-1 {
@@ -110,4 +127,36 @@ p {
 .grandpa-section::before {
   content: "";
   @apply absolute inset-0 bg-black/40 z-0;
+}
+
+@keyframes toast-in {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+.animate-toast-in {
+  animation: toast-in var(--toast-animation-duration) ease-out forwards;
+}
+
+.animate-toast-out {
+  animation: toast-out var(--toast-animation-duration) ease-in forwards;
 }

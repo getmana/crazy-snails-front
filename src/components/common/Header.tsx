@@ -10,7 +10,6 @@ import { Locale } from '@/i18n-config';
 import { MenuItems } from './MenuItems';
 
 type HeaderProps = {
-    items: { [key: string]: string };
     locale: Locale;
     bgClassName?: string;
     hasBorder?: boolean;
@@ -19,7 +18,6 @@ type HeaderProps = {
 };
 
 export const Header = ({
-    items,
     hasBorder = false,
     locale,
     bgClassName = '',
@@ -33,7 +31,7 @@ export const Header = ({
                     <Link href={`/${locale}`}>
                         <Icon icon="Logo" className={`${textClassName} h-32 w-md`} />
                     </Link>
-                    <MenuItems items={items} locale={locale} textClassName={textClassName} hasDivider={hasDivider} />
+                    <MenuItems locale={locale} textClassName={textClassName} hasDivider={hasDivider} />
                 </div>
             </div>
         </header>

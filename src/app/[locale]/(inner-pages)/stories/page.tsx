@@ -8,8 +8,8 @@ export default async function Stories(props: { params: Promise<{ locale: Locale 
     const { title, subtitle } = await getDictionary(locale);
 
     return (
-        <main className="section">
+        <div className="section">
             <Heading heading={title.stories} className="heading-3" headingTag="h1" subheading={subtitle.stories} />
-        </main>
+        </div>
     );
 }

@@ -8,8 +8,8 @@ export default async function Albums(props: { params: Promise<{ locale: Locale }
     const { title, subtitle } = await getDictionary(locale);
 
     return (
-        <main className="section">
+        <div className="section">
             <Heading heading={title.albums} className="heading-3" headingTag="h1" subheading={subtitle.albums} />
-        </main>
+        </div>
     );
 }

@@ -3,19 +3,20 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 import { getMenuItems } from '@/utils';
 
 type MenuItemProps = {
-    items: { [key: string]: string };
     locale: Locale;
     textClassName: string;
     isFooter?: boolean;
     hasDivider?: boolean;
 };
 
-export const MenuItems = ({ items, locale, textClassName, isFooter = false, hasDivider = false }: MenuItemProps) => {
-    const menuItems = getMenuItems(items, locale);
+export const MenuItems = ({ locale, textClassName, isFooter = false, hasDivider = false }: MenuItemProps) => {
+    const { menu } = useDictionary();
+    const menuItems = getMenuItems(menu, locale);
     const pathname = usePathname();
     const allowActiveStyle = !['/uk', '/en'].includes(pathname) && !isFooter;
 

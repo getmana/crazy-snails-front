@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Caveat, Pacifico, Raleway } from 'next/font/google';
 
 import { Footer } from '@/components';
+import { ToastMessageWrapper } from '@/components/common/ToastMessageWrapper';
+import { DictionaryProvider, ToastMessageProvider } from '@/context';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
@@ -47,8 +49,14 @@ export default async function RootLayout(
     return (
         <html lang={locale}>
             <body className={`${pacifico.variable} ${raleway.variable} ${caveat.variable} flex min-h-dvh flex-col`}>
-                <div className="flex flex-1">{props.children}</div>
-                <Footer items={dictionary.menu} locale={locale} />
+                <DictionaryProvider dictionary={dictionary}>
+                    <ToastMessageProvider>
+                        <ToastMessageWrapper>
+                            <div className="flex flex-1">{props.children}</div>
+                            <Footer items={dictionary.menu} locale={locale} />
+                        </ToastMessageWrapper>
+                    </ToastMessageProvider>
+                </DictionaryProvider>
             </body>
         </html>
     );

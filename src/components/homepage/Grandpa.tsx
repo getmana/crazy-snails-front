@@ -6,6 +6,7 @@ import { DictionaryType } from '@/utils';
 
 export const GrandpaSection = ({ dictionary, locale }: { dictionary: DictionaryType; locale: Locale }) => {
     const { title, button } = dictionary;
+
     return (
         <section className="grandpa-section">
             <div className="relative z-10 flex flex-col items-center">

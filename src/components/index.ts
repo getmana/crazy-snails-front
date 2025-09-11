@@ -1,7 +1,9 @@
+export { ErrorText } from './common/ErrorText';
 export { Footer } from './common/Footer';
 export { Header } from './common/Header';
 export { Heading } from './common/Heading';
 export { Icon } from './common/Icon/Icon';
+export { SignUpForm } from './forms/SignUpForm/SignUpForm';
 export { About } from './homepage/About';
 export { AlbumsSection } from './homepage/Albums';
 export { GrandpaSection } from './homepage/Grandpa';

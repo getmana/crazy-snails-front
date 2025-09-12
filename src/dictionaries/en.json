@@ -10,14 +10,16 @@
         "grandpa": "My grandpa's album",
         "aboutSection": "What's this about?",
         "grandpaSection": "My grandpa's bicycle trip",
-        "signup": "SignUp"
+        "signup": "Sign Up",
+        "signin": "Sign In"
     },
     "subtitle": {
         "albums": "Our travelling photos",
         "stories": "Our travelling stories",
         "grandpa": "Great bicycle trip, notated by my grandpa",
         "albumsSection": "Crazy travel photos",
-        "signup": "Create an account"
+        "signup": "Create an account",
+        "signin": "Just a step away from your account"
     },
     "text": {
         "haveAccunt": "Already have an account?"
@@ -39,7 +41,8 @@
         "goToAlbum": "Go to Album",
         "allAlbums": "Show All Albums",
         "readStory": "Read Story",
-        "createAccount": "Create Account"
+        "createAccount": "Create Account",
+        "signin": "Sign In"
     },
     "authForms": {
         "username": "Username",

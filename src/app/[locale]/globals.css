@@ -116,6 +116,10 @@ input {
   @apply bg-common-green text-white text-sm font-bold uppercase rounded-3xl py-2 w-full sm:w-48 md:w-3xs text-center hover:shadow-md;
 }
 
+.btn-primary:disabled {
+  @apply bg-foreground;
+}
+
 .btn-secondary {
   @apply border-2 border-white text-white text-sm font-bold uppercase rounded-3xl py-2 w-full sm:w-48 md:w-3xs text-center hover:shadow-md;
 }

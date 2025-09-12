@@ -4,21 +4,16 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
         console.log('body', body);
+
         const query = `
-            mutation ($input: SignupInput!) {
-                signup(input: $input) {
-                    userId
+            mutation ($input: SigninInput!) {
+                signin(input: $input) {
+                    accessToken
+                    refreshToken
                 }
             }
         `;
-        // Right query below
-        // const query = `
-        //     mutation signup($input: SignupInput!) {
-        //         signup(input: $input) {
-        //             userId
-        //         }
-        //     }
-        // `;
+
         const variables = {
             input: body,
         };
@@ -34,26 +29,14 @@ export async function POST(request: Request) {
             }),
         });
         const result: ApiResponse = await fetchRes.json();
-        // console.log(
-        //     'result===',
-        //     result,
-        //     'result.errors[0].locations',
-        //     result.errors?.[0].locations,
-        //     'result.errors[0].path',
-        //     result.errors?.[0].path,
-        //     'response.status',
-        //     fetchRes.status,
-        //     'response.ok',
-        //     fetchRes.ok,
-        // );
         if (!fetchRes.ok) {
             const errorMessage = result.errors[0].extensions.details.map(({ message }) => message).join('. ');
             return new Response(JSON.stringify({ message: errorMessage }), {
                 status: fetchRes.status,
             });
         }
-
-        return new Response(JSON.stringify({ message: 'Account is created', data: result.data }), {
+        console.log('sign in data ==> ', result.data);
+        return new Response(JSON.stringify({ message: 'Successfully signed in', data: result.data }), {
             status: 200,
         });
     } catch (e) {

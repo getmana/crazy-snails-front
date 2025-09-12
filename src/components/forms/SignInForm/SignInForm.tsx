@@ -9,9 +9,9 @@ import { PasswordInput, TextInput } from '@/components';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { getErrorMessage, internalAPIRoutes } from '@/utils';
 
-import { SignUpSchema, SignUpSchemaType } from './SignUpSchema';
+import { SignInSchema, SignInSchemaType } from './SignInSchema';
 
-export const SignUpForm = () => {
+export const SignInForm = () => {
     const { authForms, button } = useDictionary();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -24,26 +24,25 @@ export const SignUpForm = () => {
         reset,
         handleSubmit,
         formState: { errors },
-    } = useForm<SignUpSchemaType>({
-        resolver: zodResolver(SignUpSchema),
+    } = useForm<SignInSchemaType>({
+        resolver: zodResolver(SignInSchema),
     });
 
     const disableForm = isLoading;
 
-    const onSubmit = async (data: SignUpSchemaType) => {
+    const onSubmit = async (data: SignInSchemaType) => {
         setIsLoading(true);
         reset();
         console.log('===================', JSON.stringify(data));
         try {
-            const res = await fetch(internalAPIRoutes.signup, { body: JSON.stringify(data), method: 'POST' });
+            const res = await fetch(internalAPIRoutes.signin, { body: JSON.stringify(data), method: 'POST' });
             const response = await res.json();
             const status = res.status;
             if (status !== 200) {
                 setToastMessage({ message: response.message, type: 'error' });
             } else {
-                setToastMessage({ message: 'Success! Please, sign in to your newly created account. Redirecting...', type: 'success' });
-                console.log('sign up response data ==>', response.data);
-                router.push('/signin');
+                setToastMessage({ message: 'Success! Redirecting to your admin panel...', type: 'success' });
+                // router.push(internalAPIRoutes.signin);
             }
         } catch (e) {
             setToastMessage({ message: getErrorMessage(e), type: 'error' });
@@ -55,7 +54,6 @@ export const SignUpForm = () => {
     return (
         <div className="flex flex-col items-center pb-8">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <TextInput label={authForms.username} disabled={disableForm} error={errors.username?.message} {...register('username')} />
                 <TextInput
                     type="email"
                     label={authForms.email}
@@ -69,10 +67,10 @@ export const SignUpForm = () => {
                     disabled={disableForm}
                     error={errors.password?.message}
                     {...register('password')}
-                    autoComplete="new-password"
+                    autoComplete="password"
                 />
                 <button className="btn-primary" type="submit" disabled={disableForm}>
-                    {button.createAccount}
+                    {button.signin}
                 </button>
             </form>
         </div>

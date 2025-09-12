@@ -1,8 +1,7 @@
 import { z } from 'zod';
 
-export const SignUpSchema = z.object({
-    username: z.string().min(3, 'Username is required'),
-    email: z.string().email('Invalid email address'),
+export const SignInSchema = z.object({
+    email: z.string().email('Invalid email format'),
     password: z
         .string()
         .min(8, 'Password must be at least 8 characters')
@@ -12,4 +11,4 @@ export const SignUpSchema = z.object({
         .regex(/[\W_]/, 'Must contain a special character'),
 });
 
-export type SignUpSchemaType = z.infer<typeof SignUpSchema>;
+export type SignInSchemaType = z.infer<typeof SignInSchema>;

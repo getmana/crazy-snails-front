@@ -1,8 +1,11 @@
 export { ErrorText } from './common/ErrorText';
 export { Footer } from './common/Footer';
+export { PasswordInput } from './common/FormElements/PasswordInput';
+export { TextInput } from './common/FormElements/TextInput';
 export { Header } from './common/Header';
 export { Heading } from './common/Heading';
 export { Icon } from './common/Icon/Icon';
+export { SignInForm } from './forms/SignInForm/SignInForm';
 export { SignUpForm } from './forms/SignUpForm/SignUpForm';
 export { About } from './homepage/About';
 export { AlbumsSection } from './homepage/Albums';

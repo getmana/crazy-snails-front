@@ -37,7 +37,7 @@ export const ToastMessageWrapper = ({ children }: { children: React.ReactNode })
     }, [toastMessage]);
 
     return (
-        <div>
+        <>
             {children}
             {toastMessage ? (
                 <div
@@ -55,6 +55,6 @@ export const ToastMessageWrapper = ({ children }: { children: React.ReactNode })
                     </div>
                 </div>
             ) : null}
-        </div>
+        </>
     );
 };

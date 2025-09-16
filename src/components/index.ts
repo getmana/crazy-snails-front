@@ -3,6 +3,7 @@ export { Footer } from './common/Footer';
 export { PasswordInput } from './common/FormElements/PasswordInput';
 export { TextInput } from './common/FormElements/TextInput';
 export { Header } from './common/Header';
+export { HeaderAdmin } from './common/HeaderAdmin';
 export { Heading } from './common/Heading';
 export { Icon } from './common/Icon/Icon';
 export { SignInForm } from './forms/SignInForm/SignInForm';

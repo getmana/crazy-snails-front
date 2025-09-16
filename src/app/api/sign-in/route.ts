@@ -1,18 +1,22 @@
-import { ApiResponse } from '@/types';
+import { getIronSession } from 'iron-session';
+import { cookies } from 'next/headers';
+
+import { SessionData, sessionOptions } from '@/lib';
+import { ApiResponse, SignInResponse } from '@/types';
+
+const query = `
+    mutation ($input: SigninInput!) {
+        signin(input: $input) {
+            accessToken
+            refreshToken
+        }
+    }
+`;
 
 export async function POST(request: Request) {
     try {
         const body = await request.json();
         console.log('body', body);
-
-        const query = `
-            mutation ($input: SigninInput!) {
-                signin(input: $input) {
-                    accessToken
-                    refreshToken
-                }
-            }
-        `;
 
         const variables = {
             input: body,
@@ -36,8 +40,20 @@ export async function POST(request: Request) {
             });
         }
         console.log('sign in data ==> ', result.data);
-        return new Response(JSON.stringify({ message: 'Successfully signed in', data: result.data }), {
+        const {
+            signin: { accessToken, refreshToken },
+        } = result.data as SignInResponse;
+
+        const cookieStore = await cookies();
+        const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
+        session.user = { accessToken };
+        await session.save();
+
+        const refreshTokenCookie = `refreshToken=${refreshToken}; HttpOnly; Secure=${process.env.NODE_ENV === 'production'}; Path=/; Max-Age=2592000; SameSite=Strict`;
+
+        return new Response(JSON.stringify({ message: 'Successfully signed in' }), {
             status: 200,
+            headers: { 'Set-Cookie': refreshTokenCookie },
         });
     } catch (e) {
         console.log('CATCHHHHH======', e);

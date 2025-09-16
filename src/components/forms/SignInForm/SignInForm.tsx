@@ -7,11 +7,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { PasswordInput, TextInput } from '@/components';
 import { useDictionary, useToastMessageContext } from '@/context';
+import { Locale } from '@/i18n-config';
 import { getErrorMessage, internalAPIRoutes } from '@/utils';
 
 import { SignInSchema, SignInSchemaType } from './SignInSchema';
 
-export const SignInForm = () => {
+export const SignInForm = ({ locale }: { locale: Locale }) => {
     const { authForms, button } = useDictionary();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -42,7 +43,7 @@ export const SignInForm = () => {
                 setToastMessage({ message: response.message, type: 'error' });
             } else {
                 setToastMessage({ message: 'Success! Redirecting to your admin panel...', type: 'success' });
-                // router.push(internalAPIRoutes.signin);
+                router.push(`/${locale}/dashboard`);
             }
         } catch (e) {
             setToastMessage({ message: getErrorMessage(e), type: 'error' });

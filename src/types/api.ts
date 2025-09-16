@@ -19,3 +19,10 @@ export type ApiResponse = {
     errors: ErrorItem[];
     data: unknown | null;
 };
+
+export type SignInResponse = {
+    signin: {
+        accessToken: string;
+        refreshToken: string;
+    };
+};

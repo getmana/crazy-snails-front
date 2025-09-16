@@ -11,7 +11,9 @@
         "aboutSection": "What's this about?",
         "grandpaSection": "My grandpa's bicycle trip",
         "signup": "Sign Up",
-        "signin": "Sign In"
+        "signin": "Sign In",
+        "dashboard": "Dashboard",
+        "createAlbum": "Create Album"
     },
     "subtitle": {
         "albums": "Our travelling photos",

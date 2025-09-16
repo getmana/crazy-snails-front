@@ -1,8 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 import { Icon } from '@/components';
 import { Locale } from '@/i18n-config';

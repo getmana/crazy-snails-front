@@ -7,11 +7,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { PasswordInput, TextInput } from '@/components';
 import { useDictionary, useToastMessageContext } from '@/context';
+import { Locale } from '@/i18n-config';
 import { getErrorMessage, internalAPIRoutes } from '@/utils';
 
 import { SignUpSchema, SignUpSchemaType } from './SignUpSchema';
 
-export const SignUpForm = () => {
+export const SignUpForm = ({ locale }: { locale: Locale }) => {
     const { authForms, button } = useDictionary();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -43,7 +44,7 @@ export const SignUpForm = () => {
             } else {
                 setToastMessage({ message: 'Success! Please, sign in to your newly created account. Redirecting...', type: 'success' });
                 console.log('sign up response data ==>', response.data);
-                router.push('/signin');
+                router.push(`/${locale}/signin`);
             }
         } catch (e) {
             setToastMessage({ message: getErrorMessage(e), type: 'error' });

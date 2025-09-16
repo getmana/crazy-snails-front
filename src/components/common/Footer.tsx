@@ -9,11 +9,10 @@ import { Locale } from '@/i18n-config';
 import { MenuItems } from './MenuItems';
 
 type FooterProps = {
-    items: { [key: string]: string };
     locale: Locale;
 };
 
-export const Footer = ({ items, locale }: FooterProps) => {
+export const Footer = ({ locale }: FooterProps) => {
     const pathname = usePathname();
     const isCustom = !!pathname.match(/^\/(en|uk)\/grandpa$/);
     const textStyle = isCustom ? 'text-foreground-custom font-caveat' : 'text-grey-footer-text';
@@ -22,11 +21,11 @@ export const Footer = ({ items, locale }: FooterProps) => {
         <footer className={`${isCustom ? 'bg-brown-light' : 'bg-background-footer'}`}>
             <div className="content">
                 <div
-                    className={`${isCustom ? 'border-brown-light-15' : 'border-grey-footer-text-15'} flex items-center justify-between border-b`}
+                    className={`${isCustom ? 'border-brown-light-15' : 'border-grey-footer-text-15'} flex flex-col-reverse items-center justify-between border-b md:flex-row`}
                 >
-                    <MenuItems items={items} locale={locale} textClassName={textStyle} hasDivider={isCustom} isFooter={true} />
+                    <MenuItems locale={locale} textClassName={textStyle} hasDivider={isCustom} isFooter={true} />
                     <Link href={`/${locale}`}>
-                        <Icon icon="Logo" className={`${textStyle} h-32 w-md`} />
+                        <Icon icon="Logo" className={`${textStyle} h-24 w-xs md:h-32 md:w-md`} />
                     </Link>
                 </div>
                 <p className={`${textStyle} py-6 text-center`}>Copyright CrazySnails 2025</p>

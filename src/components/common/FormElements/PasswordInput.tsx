@@ -16,16 +16,11 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         return (
             <div className="input-wrapper relative">
                 {label && <label>{label}</label>}
-                <input
-                    ref={ref}
-                    type={showPassword ? 'text' : 'password'}
-                    className={`w-full rounded-md border px-3 py-2 pr-10 ${className}`}
-                    {...props}
-                />
+                <input ref={ref} type={showPassword ? 'text' : 'password'} className={`w-full pr-10 ${className}`} {...props} />
                 <button
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute top-8 right-2 text-gray-500 hover:text-gray-700"
+                    className="absolute top-8 right-2 pt-1 text-gray-500 hover:text-gray-700"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                     <Icon icon={showPassword ? 'EyeOff' : 'Eye'} className="size-5" />

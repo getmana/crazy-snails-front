@@ -24,5 +24,6 @@ export type SignInResponse = {
     signin: {
         accessToken: string;
         refreshToken: string;
+        userId: string;
     };
 };

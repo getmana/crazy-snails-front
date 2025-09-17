@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^5.0.1",
+        "i18n-iso-countries": "^7.14.0",
         "iron-session": "^8.0.4",
         "next": "^15.5.3",
         "react": "^19.0.0",

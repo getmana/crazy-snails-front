@@ -50,5 +50,15 @@
         "username": "Username",
         "password": "Password",
         "email": "Email"
+    },
+    "createAlbumForm": {
+        "title": "Album Title",
+        "description": "Description",
+        "countriesLabel": "Countries",
+        "countryPlaceholder": "Select a country",
+        "addCountryBtn": "Add Country",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "submitBtn": "Create Album"
     }
 }

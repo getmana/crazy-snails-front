@@ -50,5 +50,15 @@
         "username": "Ім'я користувача",
         "password": "Пароль",
         "email": "Email"
+    },
+    "createAlbumForm": {
+        "title": "Назва альбому",
+        "description": "Опис Альбому",
+        "countriesLabel": "Країни, де пролягала подорож",
+        "countryPlaceholder": "Обери країну",
+        "addCountryBtn": "Додати Країну",
+        "startDate": "Дата старту подорожі",
+        "endDate": "Дата закінчення подорожі",
+        "submitBtn": "Створити альбом"
     }
 }

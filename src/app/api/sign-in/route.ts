@@ -9,6 +9,7 @@ const query = `
         signin(input: $input) {
             accessToken
             refreshToken
+            userId
         }
     }
 `;
@@ -41,12 +42,12 @@ export async function POST(request: Request) {
         }
         console.log('sign in data ==> ', result.data);
         const {
-            signin: { accessToken, refreshToken },
+            signin: { accessToken, refreshToken, userId },
         } = result.data as SignInResponse;
 
         const cookieStore = await cookies();
         const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
-        session.user = { accessToken };
+        session.user = { accessToken, id: userId };
         await session.save();
 
         const refreshTokenCookie = `refreshToken=${refreshToken}; HttpOnly; Secure=${process.env.NODE_ENV === 'production'}; Path=/; Max-Age=2592000; SameSite=Strict`;

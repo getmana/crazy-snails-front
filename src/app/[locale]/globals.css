@@ -80,8 +80,9 @@ p {
   @apply pb-4
 }
 
-input {
-  @apply border-1 border-foreground rounded-xs outline-none py-1 px-2;
+input,
+select {
+  @apply border-1 border-foreground rounded-md outline-none py-2 px-3;
 }
 
 .input-wrapper {

@@ -1,11 +1,13 @@
 export { ErrorText } from './common/ErrorText';
 export { Footer } from './common/Footer';
 export { PasswordInput } from './common/FormElements/PasswordInput';
+export { Select } from './common/FormElements/Select';
 export { TextInput } from './common/FormElements/TextInput';
 export { Header } from './common/Header';
 export { HeaderAdmin } from './common/HeaderAdmin';
 export { Heading } from './common/Heading';
 export { Icon } from './common/Icon/Icon';
+export { CreateAlbumForm } from './forms/CreateAlbum/CreateAlbumForm';
 export { SignInForm } from './forms/SignInForm/SignInForm';
 export { SignUpForm } from './forms/SignUpForm/SignUpForm';
 export { About } from './homepage/About';

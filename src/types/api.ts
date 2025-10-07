@@ -21,9 +21,12 @@ export type ApiResponse = {
 };
 
 export type SignInResponse = {
-    signin: {
-        accessToken: string;
-        refreshToken: string;
-        userId: string;
-    };
+    accessToken: string;
+    id: string;
+};
+
+export type ErrorResponse = {
+    message: string;
+    error: string;
+    statusCode: number;
 };

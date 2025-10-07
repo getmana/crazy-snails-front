@@ -1,59 +1,26 @@
-import { ApiResponse } from '@/types';
+import { ErrorResponse } from '@/types';
 
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        console.log('body', body);
-        const query = `
-            mutation ($input: SignupInput!) {
-                signup(input: $input) {
-                    userId
-                }
-            }
-        `;
-        // Right query below
-        // const query = `
-        //     mutation signup($input: SignupInput!) {
-        //         signup(input: $input) {
-        //             userId
-        //         }
-        //     }
-        // `;
-        const variables = {
-            input: body,
-        };
-
-        const fetchRes = await fetch(process.env.GRAPHQL_API as string, {
+        const response = await fetch(`${process.env.CS_API}/users` as string, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                query,
-                variables,
-            }),
+            body: JSON.stringify(body),
         });
-        const result: ApiResponse = await fetchRes.json();
-        // console.log(
-        //     'result===',
-        //     result,
-        //     'result.errors[0].locations',
-        //     result.errors?.[0].locations,
-        //     'result.errors[0].path',
-        //     result.errors?.[0].path,
-        //     'response.status',
-        //     fetchRes.status,
-        //     'response.ok',
-        //     fetchRes.ok,
-        // );
-        if (!fetchRes.ok) {
-            const errorMessage = result.errors[0].extensions.details.map(({ message }) => message).join('. ');
-            return new Response(JSON.stringify({ message: errorMessage }), {
-                status: fetchRes.status,
+        const responseData = await response.json();
+        console.log('sign-up response ==>', responseData);
+
+        if (!response.ok) {
+            const { message, error, statusCode }: ErrorResponse = responseData;
+            return new Response(JSON.stringify({ message: `${error}. ${message}` }), {
+                status: statusCode,
             });
         }
 
-        return new Response(JSON.stringify({ message: 'Account is created', data: result.data }), {
+        return new Response(JSON.stringify({ message: 'Account is created', data: responseData }), {
             status: 200,
         });
     } catch (e) {

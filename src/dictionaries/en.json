@@ -13,7 +13,8 @@
         "signup": "Sign Up",
         "signin": "Sign In",
         "dashboard": "Dashboard",
-        "createAlbum": "Create Album"
+        "createAlbum": "Create Album",
+        "editUser": "Edit User Data"
     },
     "subtitle": {
         "albums": "Our travelling photos",
@@ -44,7 +45,8 @@
         "allAlbums": "Show All Albums",
         "readStory": "Read Story",
         "createAccount": "Create Account",
-        "signin": "Sign In"
+        "signin": "Sign In",
+        "editUser": "Update Data"
     },
     "authForms": {
         "username": "Username",
@@ -60,5 +62,9 @@
         "startDate": "Start Date",
         "endDate": "End Date",
         "submitBtn": "Create Album"
+    },
+    "editUserForm": {
+        "username": "New Username",
+        "email": "New Email"
     }
 }

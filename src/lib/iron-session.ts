@@ -3,6 +3,7 @@ import { SessionOptions } from 'iron-session';
 export interface SessionData {
     user: {
         accessToken: string;
+        refreshToken: string;
         id: string;
     };
 }

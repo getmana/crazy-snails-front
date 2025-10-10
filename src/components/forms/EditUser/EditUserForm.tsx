@@ -1,0 +1,79 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { TextInput } from '@/components';
+import { useDictionary, useToastMessageContext } from '@/context';
+import { Locale } from '@/i18n-config';
+import { getErrorMessage, internalAPIRoutes } from '@/utils';
+
+import { EditUserSchema, EditUserSchemaType } from './EditUserSchema';
+
+export const EditUserForm = ({ locale }: { locale: Locale }) => {
+    const { editUserForm, button } = useDictionary();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    // const [isRedirecting, setIsRedirecting] = useState(false);
+    const { setToastMessage } = useToastMessageContext();
+    const router = useRouter();
+
+    const {
+        register,
+        reset,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<EditUserSchemaType>({
+        resolver: zodResolver(EditUserSchema),
+    });
+
+    const disableForm = isLoading;
+
+    const onSubmit = async (data: EditUserSchemaType) => {
+        setIsLoading(true);
+        reset();
+        console.log('===================', JSON.stringify(data));
+        try {
+            const res = await fetch(internalAPIRoutes.editUser, { body: JSON.stringify(data), method: 'PATCH' });
+            const response = await res.json();
+            const status = res.status;
+            if (status !== 200) {
+                setToastMessage({ message: response.message, type: 'error' });
+            } else {
+                setToastMessage({ message: 'Success! User data is updated', type: 'success' });
+                console.log('sign up response data ==>', response.data);
+                // router.push(`/${locale}/signin`);
+            }
+        } catch (e) {
+            setToastMessage({ message: getErrorMessage(e), type: 'error' });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className="flex flex-col items-center pb-8">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <TextInput
+                    label={editUserForm.username}
+                    disabled={disableForm}
+                    error={errors.username?.message}
+                    {...register('username')}
+                />
+                <TextInput
+                    type="email"
+                    label={editUserForm.email}
+                    disabled={disableForm}
+                    error={errors.email?.message}
+                    {...register('email')}
+                    autoComplete="email"
+                />
+                <button className="btn-primary" type="submit" disabled={disableForm}>
+                    {button.editUser}
+                </button>
+            </form>
+        </div>
+    );
+};

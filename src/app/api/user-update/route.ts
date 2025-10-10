@@ -1,22 +1,26 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
+import { fetchWithAuth } from '@/api/authFetch';
 import { SessionData, sessionOptions } from '@/lib';
-import { ErrorResponse, SignInResponse } from '@/types';
+import { ErrorResponse } from '@/types';
 
-export async function POST(request: Request) {
+export async function PATCH(request: Request) {
     try {
         const body = await request.json();
-        console.log('body', body);
 
-        const response = await fetch(`${process.env.CS_API}/auth/sign-in`, {
-            method: 'POST',
+        const cookieStore = await cookies();
+        const { user } = await getIronSession<SessionData>(cookieStore, sessionOptions);
+
+        const response = await fetchWithAuth(`/users/${user.id}` as string, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(body),
         });
         const responseData = await response.json();
+        console.log('update user response ==>', responseData);
 
         if (!response.ok) {
             const { message, error, statusCode }: ErrorResponse = responseData;
@@ -24,19 +28,14 @@ export async function POST(request: Request) {
                 status: statusCode,
             });
         }
-        console.log('sign in data ==> ', responseData);
 
-        const { accessToken, refreshToken, id } = responseData as SignInResponse;
-
-        const cookieStore = await cookies();
-        const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
-        session.user = { accessToken, refreshToken, id };
-        await session.save();
-
-        return new Response(JSON.stringify({ message: 'Successfully signed in' }), {
+        return new Response(JSON.stringify({ message: 'User data is successfully updated', data: responseData }), {
             status: 200,
         });
     } catch (e) {
         console.log('CATCHHHHH======', e);
+        return new Response(JSON.stringify({ message: `${e}.` }), {
+            status: 500,
+        });
     }
 }

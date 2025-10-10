@@ -13,7 +13,7 @@ type Country = {
 };
 
 export type CountryList = Country[];
-
+// TODO remove package and populate DB countries table
 export function getCountries(locale: Locale = i18n.defaultLocale): CountryList {
     const names = countries.getNames(locale, { select: 'official' });
 

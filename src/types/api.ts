@@ -22,6 +22,7 @@ export type ApiResponse = {
 
 export type SignInResponse = {
     accessToken: string;
+    refreshToken: string;
     id: string;
 };
 

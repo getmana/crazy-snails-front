@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { fetchWithAuth } from '@/api/authFetch';
 import { SessionData, sessionOptions } from '@/lib';
 import { ErrorResponse } from '@/types';
+import { getErrorMessage } from '@/utils';
 
 export async function PATCH(request: Request) {
     try {
@@ -11,6 +12,12 @@ export async function PATCH(request: Request) {
 
         const cookieStore = await cookies();
         const { user } = await getIronSession<SessionData>(cookieStore, sessionOptions);
+
+        if (!user) {
+            return new Response(JSON.stringify({ message: `Unauthorized. Please sign in. Redirecting...` }), {
+                status: 401,
+            });
+        }
 
         const response = await fetchWithAuth(`/users/${user.id}` as string, {
             method: 'PATCH',
@@ -24,6 +31,7 @@ export async function PATCH(request: Request) {
 
         if (!response.ok) {
             const { message, error, statusCode }: ErrorResponse = responseData;
+            console.log('error response status code ==>', statusCode);
             return new Response(JSON.stringify({ message: `${error}. ${message}` }), {
                 status: statusCode,
             });
@@ -33,8 +41,7 @@ export async function PATCH(request: Request) {
             status: 200,
         });
     } catch (e) {
-        console.log('CATCHHHHH======', e);
-        return new Response(JSON.stringify({ message: `${e}.` }), {
+        return new Response(JSON.stringify({ message: `${getErrorMessage(e)}.` }), {
             status: 500,
         });
     }

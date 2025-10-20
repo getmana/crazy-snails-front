@@ -66,5 +66,11 @@
     "editUserForm": {
         "username": "New Username",
         "email": "New Email"
+    },
+    "systemMessages": {
+        "emailUpdated": "Success! User data is updated. Please, sign in with your new email.",
+        "usernameUpdated": "Success! Username is updated. Redirecting to your dashboard...",
+        "signedIn": "Success! Redirecting to your admin panel...",
+        "signedUp": "Success! Please, sign in to your newly created account. Redirecting..."
     }
 }

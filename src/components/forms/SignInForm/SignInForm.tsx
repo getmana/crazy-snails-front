@@ -13,7 +13,11 @@ import { getErrorMessage, internalAPIRoutes } from '@/utils';
 import { SignInSchema, SignInSchemaType } from './SignInSchema';
 
 export const SignInForm = ({ locale }: { locale: Locale }) => {
-    const { authForms, button } = useDictionary();
+    const {
+        authForms,
+        button,
+        systemMessages: { signedIn },
+    } = useDictionary();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     // const [isRedirecting, setIsRedirecting] = useState(false);
@@ -42,7 +46,7 @@ export const SignInForm = ({ locale }: { locale: Locale }) => {
             if (status !== 200) {
                 setToastMessage({ message: response.message, type: 'error' });
             } else {
-                setToastMessage({ message: 'Success! Redirecting to your admin panel...', type: 'success' });
+                setToastMessage({ message: signedIn, type: 'success' });
                 router.push(`/${locale}/dashboard`);
             }
         } catch (e) {

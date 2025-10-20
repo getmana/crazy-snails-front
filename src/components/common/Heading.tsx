@@ -3,7 +3,7 @@ import React from 'react';
 type HeadingProps = {
     heading: string;
     headingTag: 'h1' | 'h2';
-    subheading: string;
+    subheading?: string;
     className: string;
     subheadingClassName?: string;
 };
@@ -17,7 +17,7 @@ export const Heading = ({ heading, headingTag, subheading, className, subheading
                 <Tag className={className}>{heading}</Tag>
                 <div className="border-grey-border my-auto flex-grow border-t" />
             </div>
-            <h3 className={subheadingClassName}>{subheading}</h3>
+            {subheading ? <h3 className={subheadingClassName}>{subheading}</h3> : null}
         </div>
     );
 };

@@ -13,10 +13,14 @@ import { getErrorMessage, internalAPIRoutes } from '@/utils';
 import { EditUserSchema, EditUserSchemaType } from './EditUserSchema';
 
 export const EditUserForm = ({ locale }: { locale: Locale }) => {
-    const { editUserForm, button } = useDictionary();
+    const {
+        editUserForm,
+        button,
+        systemMessages: { emailUpdated, usernameUpdated },
+    } = useDictionary();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    // const [isRedirecting, setIsRedirecting] = useState(false);
+
     const { setToastMessage } = useToastMessageContext();
     const router = useRouter();
 
@@ -24,7 +28,7 @@ export const EditUserForm = ({ locale }: { locale: Locale }) => {
         register,
         reset,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useForm<EditUserSchemaType>({
         resolver: zodResolver(EditUserSchema),
     });
@@ -34,17 +38,24 @@ export const EditUserForm = ({ locale }: { locale: Locale }) => {
     const onSubmit = async (data: EditUserSchemaType) => {
         setIsLoading(true);
         reset();
-        console.log('===================', JSON.stringify(data));
         try {
             const res = await fetch(internalAPIRoutes.editUser, { body: JSON.stringify(data), method: 'PATCH' });
             const response = await res.json();
             const status = res.status;
             if (status !== 200) {
                 setToastMessage({ message: response.message, type: 'error' });
+                if (status === 401) {
+                    router.push(`/${locale}/signin`);
+                }
             } else {
-                setToastMessage({ message: 'Success! User data is updated', type: 'success' });
+                const isEmailChanged = data.email;
+
+                const message = isEmailChanged ? emailUpdated : usernameUpdated;
+                setToastMessage({ message, type: 'success' });
                 console.log('sign up response data ==>', response.data);
-                // router.push(`/${locale}/signin`);
+
+                const path = isEmailChanged ? 'signin' : 'dashboard';
+                router.push(`/${locale}/${path}`);
             }
         } catch (e) {
             setToastMessage({ message: getErrorMessage(e), type: 'error' });
@@ -70,7 +81,7 @@ export const EditUserForm = ({ locale }: { locale: Locale }) => {
                     {...register('email')}
                     autoComplete="email"
                 />
-                <button className="btn-primary" type="submit" disabled={disableForm}>
+                <button className="btn-primary" type="submit" disabled={disableForm || !isValid}>
                     {button.editUser}
                 </button>
             </form>

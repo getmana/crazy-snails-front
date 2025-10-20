@@ -11,21 +11,29 @@ const refreshAccessToken = async (session: IronSession<SessionData>) => {
         });
 
         if (!response.ok) {
-            throw new Error('Refresh token failed');
+            console.error('Refresh token failed');
+            session.destroy();
+
+            return response;
         }
 
         const { accessToken, refreshToken, id } = await response.json();
         session.user = { accessToken, refreshToken, id };
         await session.save();
+
+        return response;
     } catch (error) {
         console.error('Refresh token error:', error);
         const errorSession = await getIronSession<SessionData>(await cookies(), sessionOptions);
         errorSession.destroy();
-        // window.location.href = '/login'; // TODO redirect with Next
+        return new Response(JSON.stringify({ message: 'Refresh token error', error: 'Unauthorized', statusCode: 401 }), {
+            status: 401,
+            statusText: 'failed',
+        });
     }
 };
 
-let refreshInProgress: Promise<void> | null = null;
+let refreshInProgress: Promise<Response> | null = null;
 
 export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
     const cookieStore = await cookies();
@@ -48,7 +56,11 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
             });
         }
 
-        await refreshInProgress;
+        const refreshResponse = await refreshInProgress;
+
+        if (!refreshResponse.ok) {
+            return refreshResponse;
+        }
 
         options.headers = {
             ...options.headers,
@@ -56,13 +68,6 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
         };
         response = await fetch(`${process.env.CS_API}${url}`, options);
     }
-
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // Revalidate the session path after successful response??
-    // revalidatePath('/');
 
     return response;
 };

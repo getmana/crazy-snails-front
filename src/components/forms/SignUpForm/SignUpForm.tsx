@@ -13,11 +13,15 @@ import { getErrorMessage, internalAPIRoutes } from '@/utils';
 import { SignUpSchema, SignUpSchemaType } from './SignUpSchema';
 
 export const SignUpForm = ({ locale }: { locale: Locale }) => {
-    const { authForms, button } = useDictionary();
+    const {
+        authForms,
+        button,
+        systemMessages: { signedUp },
+    } = useDictionary();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    // const [isRedirecting, setIsRedirecting] = useState(false);
     const { setToastMessage } = useToastMessageContext();
+
     const router = useRouter();
 
     const {
@@ -34,7 +38,6 @@ export const SignUpForm = ({ locale }: { locale: Locale }) => {
     const onSubmit = async (data: SignUpSchemaType) => {
         setIsLoading(true);
         reset();
-        console.log('===================', JSON.stringify(data));
         try {
             const res = await fetch(internalAPIRoutes.signup, { body: JSON.stringify(data), method: 'POST' });
             const response = await res.json();
@@ -42,7 +45,7 @@ export const SignUpForm = ({ locale }: { locale: Locale }) => {
             if (status !== 200) {
                 setToastMessage({ message: response.message, type: 'error' });
             } else {
-                setToastMessage({ message: 'Success! Please, sign in to your newly created account. Redirecting...', type: 'success' });
+                setToastMessage({ message: signedUp, type: 'success' });
                 console.log('sign up response data ==>', response.data);
                 router.push(`/${locale}/signin`);
             }

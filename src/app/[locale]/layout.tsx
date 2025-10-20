@@ -7,7 +7,7 @@ import { DictionaryProvider, ToastMessageProvider } from '@/context';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
-import './globals.css';
+import '@/styles/globals.css';
 
 const raleway = Raleway({
     variable: '--font-raleway',
@@ -30,6 +30,9 @@ const caveat = Caveat({
 export const metadata: Metadata = {
     title: 'Crazy Snails',
     description: 'Discover the world by traveling',
+    icons: {
+        icon: ['/favicon.ico'],
+    },
 };
 
 export async function generateStaticParams() {

@@ -1,4 +1,4 @@
-import { Header, Heading } from '@/components';
+import { Footer, Header, Heading } from '@/components';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
@@ -8,9 +8,9 @@ export default async function Grandpa(props: { params: Promise<{ locale: Locale 
     const { title, subtitle } = await getDictionary(locale);
 
     return (
-        <div className="bg-grandpa bg-center-top flex-grow bg-cover">
+        <div className="flex min-h-dvh flex-col">
             <Header locale={locale} bgClassName="bg-brown-light" textClassName="text-custom-blue font-caveat" hasDivider={true} />
-            <main className="">
+            <main className="bg-grandpa bg-center-top flex-1 flex-grow bg-cover">
                 <Heading
                     heading={title.grandpa}
                     className="font-caveat text-custom-blue text-heading-2-custom"
@@ -19,6 +19,7 @@ export default async function Grandpa(props: { params: Promise<{ locale: Locale 
                     subheadingClassName="font-caveat text-foreground-custom text-4xl"
                 />
             </main>
+            <Footer locale={locale} />
         </div>
     );
 }

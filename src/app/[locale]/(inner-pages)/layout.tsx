@@ -1,4 +1,4 @@
-import { Header } from '@/components';
+import { Footer, Header } from '@/components';
 import { type Locale } from '@/i18n-config';
 
 export default async function InnerPagesLayout(
@@ -10,9 +10,10 @@ export default async function InnerPagesLayout(
     const { locale } = await props.params;
 
     return (
-        <div className="bg-page bg-center-top flex-grow bg-cover">
+        <div className="flex min-h-dvh flex-col">
             <Header locale={locale} bgClassName="bg-white" />
-            <main>{props.children}</main>
+            <main className="bg-page bg-center-top flex-1 flex-grow bg-cover">{props.children}</main>
+            <Footer locale={locale} />
         </div>
     );
 }

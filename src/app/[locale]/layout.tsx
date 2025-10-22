@@ -55,8 +55,8 @@ export default async function RootLayout(
                 <DictionaryProvider dictionary={dictionary}>
                     <ToastMessageProvider>
                         <ToastMessageWrapper>
-                            <div className="flex flex-1">{props.children}</div>
-                            <Footer locale={locale} />
+                            <div>{props.children}</div>
+                            {/* <Footer locale={locale} /> */}
                         </ToastMessageWrapper>
                     </ToastMessageProvider>
                 </DictionaryProvider>

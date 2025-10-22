@@ -1,4 +1,4 @@
-import { About, AlbumsSection, GrandpaSection, Header, StoriesSection } from '@/components';
+import { About, AlbumsSection, Footer, GrandpaSection, Header, StoriesSection } from '@/components';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
@@ -32,6 +32,7 @@ export default async function Home(props: { params: Promise<{ locale: Locale }> 
                 <h1 className="font-pacifico">А якщо кирилиця...</h1>
                 <h2 className="font-pacifico text-common-green text-2xl">Історії</h2>
             </main>
+            <Footer locale={locale} />
         </div>
     );
 }

@@ -1,4 +1,6 @@
 import { HeaderAdmin } from '@/components';
+import { AdminSidebar } from '@/components/common/AdminSidebar/AdminSidebar';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { type Locale } from '@/i18n-config';
 
 export default async function AdminPagesLayout(
@@ -10,9 +12,12 @@ export default async function AdminPagesLayout(
     const { locale } = await props.params;
 
     return (
-        <div className="bg-page bg-center-top flex-grow bg-cover">
-            <HeaderAdmin locale={locale} />
-            <main>{props.children}</main>
-        </div>
+        <SidebarProvider>
+            <AdminSidebar locale={locale} />
+            <main>
+                <SidebarTrigger />
+                {props.children}
+            </main>
+        </SidebarProvider>
     );
 }

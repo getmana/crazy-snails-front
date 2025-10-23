@@ -1,4 +1,6 @@
-import { Aperture, BookText, BookType, Camera, Image, Settings, SquareUserRound, Tent } from 'lucide-react';
+'use client';
+
+import { Aperture, BookText, BookType, Camera, Image, LucideIcon, Settings, SquareUserRound, Tent } from 'lucide-react';
 import Link from 'next/link';
 
 import { Icon } from '@/components';
@@ -13,29 +15,55 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 
+import { CollapsibleMenuItem } from './CollapsibleMenuItem';
+
+export type MenuItem = {
+    title: string;
+    icon?: LucideIcon;
+    url?: string;
+};
+
+export type ColapsibleItem = MenuItem & {
+    subItems: MenuItem[];
+};
+
 export function AdminSidebar({ locale }: { locale: Locale }) {
-    const contentItems = [
+    const dictionary = useDictionary();
+    const contentItems: ColapsibleItem[] = [
         {
             title: 'Albums',
-            url: `/${locale}/dashboard/albums`,
             icon: Camera,
+            subItems: [
+                { title: 'List Albums', url: `/${locale}/dashboard/albums` },
+                { title: 'Create New Album', url: `/${locale}/dashboard/create-album` },
+            ],
         },
         {
             title: 'Stories',
-            url: `/${locale}/dashboard/stories`,
             icon: BookType,
+            subItems: [
+                { title: 'List Stories', url: `/${locale}/dashboard/stories` },
+                { title: 'Create New Story', url: `/${locale}/dashboard/create-story` },
+            ],
         },
         {
-            title: 'Grandpa',
-            url: `/${locale}/dashboard/custom`,
+            title: 'Custom Section',
             icon: Tent,
+            subItems: [
+                { title: 'Section Settings', url: `/${locale}/dashboard/custom` },
+                { title: 'Custom Album', url: `/${locale}/dashboard/custom-album` },
+            ],
         },
         {
             title: 'Photos',
-            url: `/${locale}/dashboard/photos`,
             icon: Image,
+            subItems: [
+                { title: 'List Photos', url: `/${locale}/dashboard/photos` },
+                { title: 'Upload Photo', url: `/${locale}/dashboard/upload-photo` },
+            ],
         },
     ];
 
@@ -83,14 +111,7 @@ export function AdminSidebar({ locale }: { locale: Locale }) {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {contentItems.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
-                                        <a href={item.url}>
-                                            <item.icon />
-                                            <span>{item.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
+                                <CollapsibleMenuItem item={item} key={item.title} />
                             ))}
                         </SidebarMenu>
                     </SidebarGroupContent>

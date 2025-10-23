@@ -72,5 +72,35 @@
         "usernameUpdated": "Success! Username is updated. Redirecting to your dashboard...",
         "signedIn": "Success! Redirecting to your admin panel...",
         "signedUp": "Success! Please, sign in to your newly created account. Redirecting..."
+    },
+    "adminSidebar": {
+        "sectionContentTitle": "My Content",
+        "sectionPagesTitle": "Site Pages",
+        "sectionAccountTitle": "My Account",
+        "contentAlbums": {
+            "title": "Albums",
+            "list": "List Albums",
+            "create": "Create New Album"
+        },
+        "contentStories": {
+            "title": "Stories",
+            "list": "List Stories",
+            "create": "Create New Story"
+        },
+        "contentCustom": {
+            "title": "Custom Section",
+            "settings": "Section Settings",
+            "custom": "Custom Album"
+        },
+        "contentPhotos": {
+            "title": "Photos",
+            "list": "List Photos",
+            "create": "Upload Photo"
+        },
+        "albumsTitle": "Albums",
+        "storiesTitle": "Stories",
+        "customTitle": "Custom",
+        "accountTitle": "Account Data",
+        "settingsTitle": "Settings"
     }
 }

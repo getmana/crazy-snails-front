@@ -72,5 +72,35 @@
         "usernameUpdated": "Вітаємо! Ім'я користувача успішно оновлено. Нумо до адмінки...",
         "signedIn": "Вітаємо! Ласкаво просимо до вашої адмінки...",
         "signedUp": "Вітаємо! Будь ласка, залогінтесь у ваш новий акаунт..."
+    },
+    "adminSidebar": {
+        "sectionContentTitle": "Мій контент",
+        "sectionPagesTitle": "Лінки на сайт",
+        "sectionAccountTitle": "Мій акаунт",
+        "contentAlbums": {
+            "title": "Альбоми",
+            "list": "Всі альбоми",
+            "create": "Створити альбом"
+        },
+        "contentStories": {
+            "title": "Історії",
+            "list": "Всі історії",
+            "create": "Створити історію"
+        },
+        "contentCustom": {
+            "title": "Кастомний розділ",
+            "settings": "Налаштування",
+            "custom": "Кастомний альбом"
+        },
+        "contentPhotos": {
+            "title": "Фото",
+            "list": "Всі фото",
+            "create": "Завантажити фото"
+        },
+        "albumsTitle": "Альбоми",
+        "storiesTitle": "Історії",
+        "customTitle": "Кастомний розділ",
+        "accountTitle": "Мій акаунт",
+        "settingsTitle": "Налаштування"
     }
 }

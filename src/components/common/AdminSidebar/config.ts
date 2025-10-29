@@ -3,14 +3,15 @@ import { Aperture, BookText, BookType, Camera, Image, Settings, SquareUserRound,
 import { Locale } from '@/i18n-config';
 import { DictionaryType } from '@/utils';
 
-import { type ColapsibleItem, type MenuItem } from './AdminSidebar';
+import { type CollapsibleItem, type MenuSection, type RegularMenuItem } from './types';
 
-const getContentItems = (locale: Locale, dictionary: DictionaryType): ColapsibleItem[] => {
+const getContentItems = (locale: Locale, dictionary: DictionaryType): CollapsibleItem[] => {
     const {
         adminSidebar: { contentAlbums, contentCustom, contentPhotos, contentStories },
     } = dictionary;
     return [
         {
+            type: 'collapsible',
             title: contentAlbums.title,
             icon: Camera,
             subItems: [
@@ -19,6 +20,7 @@ const getContentItems = (locale: Locale, dictionary: DictionaryType): Colapsible
             ],
         },
         {
+            type: 'collapsible',
             title: contentStories.title,
             icon: BookType,
             subItems: [
@@ -27,6 +29,7 @@ const getContentItems = (locale: Locale, dictionary: DictionaryType): Colapsible
             ],
         },
         {
+            type: 'collapsible',
             title: contentCustom.title,
             icon: Tent,
             subItems: [
@@ -35,6 +38,7 @@ const getContentItems = (locale: Locale, dictionary: DictionaryType): Colapsible
             ],
         },
         {
+            type: 'collapsible',
             title: contentPhotos.title,
             icon: Image,
             subItems: [
@@ -45,23 +49,26 @@ const getContentItems = (locale: Locale, dictionary: DictionaryType): Colapsible
     ];
 };
 
-const getPageItems = (locale: Locale, dictionary: DictionaryType): MenuItem[] => {
+const getPageItems = (locale: Locale, dictionary: DictionaryType): RegularMenuItem[] => {
     const {
         adminSidebar: { albumsTitle, storiesTitle, customTitle },
     } = dictionary;
 
     return [
         {
+            type: 'regular',
             title: albumsTitle,
             url: `/${locale}/albums`,
             icon: Aperture,
         },
         {
+            type: 'regular',
             title: storiesTitle,
             url: `/${locale}/stories`,
             icon: BookText,
         },
         {
+            type: 'regular',
             title: customTitle,
             url: `/${locale}/grandpa`,
             icon: Tent,
@@ -69,17 +76,19 @@ const getPageItems = (locale: Locale, dictionary: DictionaryType): MenuItem[] =>
     ];
 };
 
-const getAccountItems = (locale: Locale, dictionary: DictionaryType): MenuItem[] => {
+const getAccountItems = (locale: Locale, dictionary: DictionaryType): RegularMenuItem[] => {
     const {
         adminSidebar: { accountTitle, settingsTitle },
     } = dictionary;
     return [
         {
+            type: 'regular',
             title: accountTitle,
             url: `/${locale}/dashboard/account`,
             icon: SquareUserRound,
         },
         {
+            type: 'regular',
             title: settingsTitle,
             url: `/${locale}/dashboard/settings`,
             icon: Settings,
@@ -87,7 +96,7 @@ const getAccountItems = (locale: Locale, dictionary: DictionaryType): MenuItem[]
     ];
 };
 
-export const sidebarConfig = (locale: Locale, dictionary: DictionaryType) => {
+export const getSidebarConfig = (locale: Locale, dictionary: DictionaryType): MenuSection[] => {
     const {
         adminSidebar: { sectionContentTitle, sectionAccountTitle, sectionPagesTitle },
     } = dictionary;

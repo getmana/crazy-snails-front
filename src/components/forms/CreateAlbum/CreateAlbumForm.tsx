@@ -42,7 +42,7 @@ export const CreateAlbumForm = ({ countries }: { countries: CountryList }) => {
     };
 
     return (
-        <div className="flex flex-col items-center pb-8">
+        <div className="flex max-w-full flex-col pb-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <TextInput label={title} {...register('title')} error={errors.title?.message} />
                 <TextInput label={description} {...register('description')} error={errors.description?.message} />

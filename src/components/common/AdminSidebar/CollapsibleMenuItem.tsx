@@ -1,14 +1,17 @@
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubItem } from '@/components/ui/sidebar';
 
-import { type ColapsibleItem } from './AdminSidebar';
+import { CollapsibleItem } from './types';
 
-export const CollapsibleMenuItem = ({ item: { title, icon, subItems } }: { item: ColapsibleItem }) => {
+export const CollapsibleMenuItem = ({ item: { title, icon, subItems } }: { item: CollapsibleItem }) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const pathname = usePathname();
 
     const IconComponent = icon || null;
 
@@ -30,7 +33,9 @@ export const CollapsibleMenuItem = ({ item: { title, icon, subItems } }: { item:
                     <SidebarMenuSub>
                         {subItems.map(({ title, url = '' }) => (
                             <SidebarMenuSubItem key={title + url}>
-                                <Link href={url}>{title}</Link>
+                                <SidebarMenuButton asChild isActive={pathname === url}>
+                                    <Link href={url}>{title}</Link>
+                                </SidebarMenuButton>
                             </SidebarMenuSubItem>
                         ))}
                     </SidebarMenuSub>

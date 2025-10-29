@@ -14,10 +14,12 @@ export default async function AdminPagesLayout(
     return (
         <SidebarProvider>
             <AdminSidebar locale={locale} />
-            <main>
-                <SidebarTrigger />
-                {props.children}
-            </main>
+            <div className="w-full">
+                <header className="border-b-border border-b py-1">
+                    <SidebarTrigger />
+                </header>
+                <main>{props.children}</main>
+            </div>
         </SidebarProvider>
     );
 }

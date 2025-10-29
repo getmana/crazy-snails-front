@@ -1,7 +1,7 @@
 'use client';
 
-import { Aperture, BookText, BookType, Camera, Image, LucideIcon, Settings, SquareUserRound, Tent } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Icon } from '@/components';
 import {
@@ -19,84 +19,13 @@ import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 
 import { CollapsibleMenuItem } from './CollapsibleMenuItem';
-
-export type MenuItem = {
-    title: string;
-    icon?: LucideIcon;
-    url?: string;
-};
-
-export type ColapsibleItem = MenuItem & {
-    subItems: MenuItem[];
-};
+import { getSidebarConfig } from './config';
+import { isCollapsibleItem } from './types';
 
 export function AdminSidebar({ locale }: { locale: Locale }) {
     const dictionary = useDictionary();
-    const contentItems: ColapsibleItem[] = [
-        {
-            title: 'Albums',
-            icon: Camera,
-            subItems: [
-                { title: 'List Albums', url: `/${locale}/dashboard/albums` },
-                { title: 'Create New Album', url: `/${locale}/dashboard/create-album` },
-            ],
-        },
-        {
-            title: 'Stories',
-            icon: BookType,
-            subItems: [
-                { title: 'List Stories', url: `/${locale}/dashboard/stories` },
-                { title: 'Create New Story', url: `/${locale}/dashboard/create-story` },
-            ],
-        },
-        {
-            title: 'Custom Section',
-            icon: Tent,
-            subItems: [
-                { title: 'Section Settings', url: `/${locale}/dashboard/custom` },
-                { title: 'Custom Album', url: `/${locale}/dashboard/custom-album` },
-            ],
-        },
-        {
-            title: 'Photos',
-            icon: Image,
-            subItems: [
-                { title: 'List Photos', url: `/${locale}/dashboard/photos` },
-                { title: 'Upload Photo', url: `/${locale}/dashboard/upload-photo` },
-            ],
-        },
-    ];
-
-    const pageItems = [
-        {
-            title: 'Albums',
-            url: `/${locale}/albums`,
-            icon: Aperture,
-        },
-        {
-            title: 'Stories',
-            url: `/${locale}/stories`,
-            icon: BookText,
-        },
-        {
-            title: 'Grandpa',
-            url: `/${locale}/grandpa`,
-            icon: Tent,
-        },
-    ];
-
-    const accountItems = [
-        {
-            title: 'Account Data',
-            url: `/${locale}/dashboard/account`,
-            icon: SquareUserRound,
-        },
-        {
-            title: 'Settings',
-            url: `/${locale}/dashboard/settings`,
-            icon: Settings,
-        },
-    ];
+    const menuSections = getSidebarConfig(locale, dictionary);
+    const pathname = usePathname();
 
     return (
         <Sidebar>
@@ -106,50 +35,29 @@ export function AdminSidebar({ locale }: { locale: Locale }) {
                 </Link>
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
-                    <SidebarGroupLabel>My Content</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {contentItems.map((item) => (
-                                <CollapsibleMenuItem item={item} key={item.title} />
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-                <SidebarGroup>
-                    <SidebarGroupLabel>Site Pages</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {pageItems.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
-                                        <a href={item.url}>
-                                            <item.icon />
-                                            <span>{item.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-                <SidebarGroup>
-                    <SidebarGroupLabel>My Account</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {accountItems.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
-                                        <a href={item.url}>
-                                            <item.icon />
-                                            <span>{item.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+                {menuSections.map(({ title, items }) => (
+                    <SidebarGroup key={title}>
+                        <SidebarGroupLabel>{title}</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                            <SidebarMenu>
+                                {items.map((item) =>
+                                    isCollapsibleItem(item) ? (
+                                        <CollapsibleMenuItem item={item} key={item.title} />
+                                    ) : (
+                                        <SidebarMenuItem key={item.title}>
+                                            <SidebarMenuButton asChild isActive={pathname === item.url}>
+                                                <Link href={item.url || ''}>
+                                                    {item.icon ? <item.icon /> : null}
+                                                    <span>{item.title}</span>
+                                                </Link>
+                                            </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    ),
+                                )}
+                            </SidebarMenu>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+                ))}
             </SidebarContent>
         </Sidebar>
     );

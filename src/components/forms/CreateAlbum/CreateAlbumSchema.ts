@@ -17,6 +17,22 @@ export const CreateAlbumSchema = z
             }),
         startDate: z.date(),
         endDate: z.date(),
+        previewImage: z
+            .any() // accept FileList
+            .refine((fileList: FileList) => fileList?.[0] instanceof File, {
+                message: 'Please upload a preview image',
+            })
+            .refine((fileList: FileList) => fileList[0].size <= 5 * 1024 * 1024, {
+                message: 'Image must be less than 5 MB',
+            })
+            .refine((fileList: FileList) => fileList[0].type.startsWith('image/'), {
+                message: 'Only image files are allowed',
+            }),
+        // z
+        //         .instanceof(File, { message: 'Please upload a preview image' })
+        //         .refine((file) => file.size > 0, 'Preview image is required')
+        //         .refine((file) => file.size <= 5 * 1024 * 1024, 'Image must be less than 5 MB')
+        //         .refine((file) => file.type.startsWith('image/'), 'Only image files are allowed'),
     })
     .refine((data) => data.titleEn || data.titleUk, {
         message: 'At least one of titleEn or titleUk must be provided',

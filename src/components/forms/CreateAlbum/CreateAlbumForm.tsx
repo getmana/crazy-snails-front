@@ -4,12 +4,15 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { ErrorText, Icon, Select, TextInput } from '@/components';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary } from '@/context';
+import { i18n, Locale } from '@/i18n-config';
 import { CountryList } from '@/lib';
+import { getLocalizedDescription, getLocalizedTitle } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
-export const CreateAlbumForm = ({ countries }: { countries: CountryList }) => {
+export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList; locale: Locale }) => {
     const {
         createAlbumForm: { title, description, countriesLabel, countryPlaceholder, addCountryBtn, startDate, endDate, submitBtn },
     } = useDictionary();
@@ -22,8 +25,10 @@ export const CreateAlbumForm = ({ countries }: { countries: CountryList }) => {
     } = useForm<CreateAlbumSchemaType>({
         resolver: zodResolver(CreateAlbumSchema),
         defaultValues: {
-            title: '',
-            description: '',
+            titleEn: '',
+            titleUk: '',
+            descriptionEn: '',
+            descriptionUk: '',
             countries: [{ code: '' }],
             startDate: undefined,
             endDate: undefined,
@@ -41,11 +46,36 @@ export const CreateAlbumForm = ({ countries }: { countries: CountryList }) => {
         console.log('Form data:', data);
     };
 
+    const orderedLocales = [locale, ...i18n.locales.filter((l) => l !== locale)] as const;
+
     return (
         <div className="flex max-w-full flex-col pb-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <TextInput label={title} {...register('title')} error={errors.title?.message} />
-                <TextInput label={description} {...register('description')} error={errors.description?.message} />
+                <Tabs defaultValue={locale}>
+                    <TabsList>
+                        {orderedLocales.map((l) => (
+                            <TabsTrigger key={l} value={l}>
+                                {l.toUpperCase()}
+                            </TabsTrigger>
+                        ))}
+                    </TabsList>
+                    {orderedLocales.map((l) => (
+                        <TabsContent key={l} value={l}>
+                            <TextInput
+                                label={title}
+                                placeholder={`${l.toUpperCase()} ${title}`}
+                                {...register(getLocalizedTitle(l))}
+                                error={errors[getLocalizedTitle(l)]?.message}
+                            />
+                            <TextInput
+                                placeholder={`${l.toUpperCase()} ${description}`}
+                                label={description}
+                                {...register(getLocalizedDescription(l))}
+                                error={errors[getLocalizedDescription(l)]?.message}
+                            />
+                        </TabsContent>
+                    ))}
+                </Tabs>
                 <div>
                     <label className="mb-1 block">{countriesLabel}</label>
                     {fields.map((field, index) => (

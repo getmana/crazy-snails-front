@@ -1,3 +1,16 @@
+## License
+
+The source code in this repository is licensed under the MIT License.
+
+## Trademark & Brand
+
+The project name, logo, and all related branding (including icons, images, and design assets located in the /public or other directories) are not licensed under the MIT License.
+
+You may not use the project name, logo, or visual identity to promote, distribute, or host a modified version of this application without explicit permission from the author.
+
+If you fork this repository, you must remove all branding and replace it with your own.
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

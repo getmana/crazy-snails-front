@@ -1,21 +1,25 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { createAlbumWithRedirect } from '@/actions/createAlbum';
 import { ErrorText, Icon, Select, TextInput } from '@/components';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useDictionary } from '@/context';
+import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import { CountryList } from '@/lib';
-import { getLocalizedDescription, getLocalizedTitle } from '@/utils';
+import { getLocalizedDescription, getLocalizedTitle, transformObjectToFormData } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
 export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList; locale: Locale }) => {
     const [preview, setPreview] = useState<string | null>(null);
+    const [isPending, startTransition] = useTransition();
+
+    const { setToastMessage } = useToastMessageContext();
 
     const {
         createAlbumForm: { title, description, countriesLabel, countryPlaceholder, addCountryBtn, startDate, endDate, submitBtn },
@@ -66,8 +70,32 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
 
     console.log('fields', fields);
 
-    const onSubmit = (data: CreateAlbumSchemaType) => {
+    const onSubmit = async (data: CreateAlbumSchemaType) => {
         console.log('Form data:', data);
+
+        const { countries, endDate, startDate, ...rest } = data;
+
+        // TODO Add logic to add default items - they should be of users preffered locale. Otherwise - EN. Otherwise use any filled option.
+        // User model needs locale and theme properties to be added to show the same settings from any device when logged in
+        const title = data.titleEn || data.titleUk || '';
+        const description = data.descriptionEn || data.descriptionUk || '';
+
+        const apiFormData = transformObjectToFormData(rest);
+
+        if (data.previewImage?.[0]) {
+            apiFormData.append('previewImage', data.previewImage[0]);
+        }
+        apiFormData.append('title', title);
+        apiFormData.append('description', description);
+        apiFormData.append('countries', JSON.stringify(countries));
+        apiFormData.append('startDate', startDate.toISOString());
+        apiFormData.append('endDate', endDate.toISOString());
+        startTransition(async () => {
+            const result = await createAlbumWithRedirect(apiFormData);
+            if (result) {
+                setToastMessage({ message: result, type: 'error' });
+            }
+        });
     };
 
     const orderedLocales = [locale, ...i18n.locales.filter((l) => l !== locale)] as const;
@@ -168,7 +196,7 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
                         </div>
                     )}
                 </div>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary" disabled={isPending}>
                     {submitBtn}
                 </button>
             </form>

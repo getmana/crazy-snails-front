@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { localeMiddleware } from './localeMiddleware';
+import { pathnameMiddleware } from './pathnameMiddleware';
 import { refreshTokenMiddleware } from './refreshTokenMiddleware';
 import { sessionMiddleware } from './sessionMiddleware';
 
@@ -9,4 +10,4 @@ export type MiddlewareFunction = {
     match?: string | RegExp;
 };
 
-export const middlewares: MiddlewareFunction[] = [localeMiddleware, sessionMiddleware, refreshTokenMiddleware];
+export const middlewares: MiddlewareFunction[] = [localeMiddleware, sessionMiddleware, refreshTokenMiddleware, pathnameMiddleware];

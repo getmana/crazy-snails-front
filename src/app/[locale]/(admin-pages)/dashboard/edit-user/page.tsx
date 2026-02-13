@@ -1,4 +1,4 @@
-import { EditUserForm, Heading } from '@/components';
+import { EditUserForm } from '@/components';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
@@ -8,9 +8,9 @@ export default async function CreateAlbum(props: { params: Promise<{ locale: Loc
     const { title } = await getDictionary(locale);
 
     return (
-        <div className="section flex w-full flex-col items-center px-8">
-            <Heading heading={title.editUser} className="heading-3" headingTag="h1" />
-            <div className="w-full bg-white py-12 md:w-2xl">
+        <div className="flex w-full flex-col px-8">
+            <h1 className="heading-3 py-8">{title.editUser}</h1>
+            <div className="w-full py-12 md:w-2xl">
                 <EditUserForm locale={locale} />
             </div>
         </div>

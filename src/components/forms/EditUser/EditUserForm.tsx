@@ -65,7 +65,7 @@ export const EditUserForm = ({ locale }: { locale: Locale }) => {
     };
 
     return (
-        <div className="flex flex-col items-center pb-8">
+        <div className="flex max-w-full flex-col pb-8">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextInput
                     label={editUserForm.username}

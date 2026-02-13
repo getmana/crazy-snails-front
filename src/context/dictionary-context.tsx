@@ -4,7 +4,7 @@ import React from 'react';
 
 import { getDictionary } from '@/utils';
 
-type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
+export type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
 
 const DictionaryContext = React.createContext<Dictionary | null>(null);
 

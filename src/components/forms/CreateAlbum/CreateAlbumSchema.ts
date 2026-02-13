@@ -18,7 +18,7 @@ export const CreateAlbumSchema = z
         startDate: z.date(),
         endDate: z.date(),
         previewImage: z
-            .any() // accept FileList
+            .any()
             .refine((fileList: FileList) => fileList?.[0] instanceof File, {
                 message: 'Please upload a preview image',
             })

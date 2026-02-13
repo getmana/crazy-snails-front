@@ -12,7 +12,7 @@ export default async function CreateAlbum(props: { params: Promise<{ locale: Loc
 
     return (
         <div className="flex w-full flex-col px-8">
-            <h1 className="heading-3">{title.createAlbum}</h1>
+            <h1 className="heading-3 py-8">{title.createAlbum}</h1>
             <div className="w-full py-12 lg:w-2xl">
                 <CreateAlbumForm countries={countryList} locale={locale} />
             </div>

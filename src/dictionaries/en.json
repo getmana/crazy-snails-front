@@ -14,7 +14,8 @@
         "signin": "Sign In",
         "dashboard": "Dashboard",
         "createAlbum": "Create Album",
-        "editUser": "Edit User Data"
+        "editUser": "Edit User Data",
+        "myAlbums": "My Albums"
     },
     "subtitle": {
         "albums": "Our travelling photos",
@@ -102,5 +103,9 @@
         "customTitle": "Custom",
         "accountTitle": "Account Data",
         "settingsTitle": "Settings"
+    },
+    "toastMessages": {
+        "albumCreated": "Congrats! Album is successfully created!",
+        "albumUpdated": "Success! Album is successfully updated"
     }
 }

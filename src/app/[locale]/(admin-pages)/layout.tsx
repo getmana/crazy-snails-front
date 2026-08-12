@@ -6,10 +6,10 @@ import { type Locale } from '@/i18n-config';
 export default async function AdminPagesLayout(
     props: Readonly<{
         children: React.ReactNode;
-        params: Promise<{ locale: Locale }>;
+        params: Promise<{ locale: string }>;
     }>,
 ) {
-    const { locale } = await props.params;
+    const { locale } = (await props.params) as { locale: Locale };
 
     return (
         <SidebarProvider>

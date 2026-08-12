@@ -42,10 +42,10 @@ export async function generateStaticParams() {
 export default async function RootLayout(
     props: Readonly<{
         children: React.ReactNode;
-        params: Promise<{ locale: Locale }>;
+        params: Promise<{ locale: string }>;
     }>,
 ) {
-    const { locale } = await props.params;
+    const { locale } = (await props.params) as { locale: Locale };
 
     const dictionary = await getDictionary(locale);
 

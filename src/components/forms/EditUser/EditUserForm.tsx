@@ -29,7 +29,7 @@ export const EditUserForm = ({ locale }: { locale: Locale }) => {
         reset,
         handleSubmit,
         formState: { errors, isValid },
-    } = useForm<EditUserSchemaType>({
+    } = useForm({
         resolver: zodResolver(EditUserSchema),
     });
 

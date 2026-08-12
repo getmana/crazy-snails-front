@@ -1,5 +1,5 @@
 import { getIronSession, IronSession } from 'iron-session';
-import { decodeJwt } from 'jose';
+import { decodeJwt } from 'jose/jwt/decode';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 

@@ -4,13 +4,14 @@ import { useTransition } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { createAlbumWithRedirect } from '@/actions/createAlbum';
+import { type CreateAlbumPayload, createAlbumWithRedirect } from '@/actions/createAlbum';
 import { ErrorText, Icon, Select, TextInput } from '@/components';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useDictionary, useToastMessageContext } from '@/context';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { useActivityTypes, useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import { CountryList } from '@/lib';
-import { getLocalizedDescription, getLocalizedTitle, transformObjectToFormData } from '@/utils';
+import { getLocalizedActivityTypes, getLocalizedDescription, getLocalizedTitle } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
@@ -18,9 +19,20 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
     const [isPending, startTransition] = useTransition();
 
     const { setToastMessage } = useToastMessageContext();
+    const activities = useActivityTypes();
 
     const {
-        createAlbumForm: { title, description, countriesLabel, countryPlaceholder, addCountryBtn, startDate, endDate, submitBtn },
+        createAlbumForm: {
+            title,
+            description,
+            countriesLabel,
+            countryPlaceholder,
+            addCountryBtn,
+            startDate,
+            endDate,
+            submitBtn,
+            activityLabel,
+        },
     } = useDictionary();
 
     const {
@@ -38,6 +50,7 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
             countries: [{ code: '' }],
             startDate: undefined,
             endDate: undefined,
+            activityTypes: [],
         },
     });
 
@@ -46,27 +59,27 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
         name: 'countries',
     });
 
-    console.log('fields', fields);
-
     const onSubmit = async (data: CreateAlbumSchemaType) => {
-        console.log('Form data:', data);
-
-        const { countries, endDate, startDate, ...rest } = data;
-
         // TODO Add logic to add default items - they should be of users preffered locale. Otherwise - EN. Otherwise use any filled option.
         // User model needs locale and theme properties to be added to show the same settings from any device when logged in
         const title = data.titleEn || data.titleUk || '';
         const description = data.descriptionEn || data.descriptionUk || '';
 
-        const apiFormData = transformObjectToFormData(rest);
+        const payload: CreateAlbumPayload = {
+            title,
+            titleEn: data.titleEn,
+            titleUk: data.titleUk,
+            description,
+            descriptionEn: data.descriptionEn,
+            descriptionUk: data.descriptionUk,
+            countries: data.countries,
+            activityTypes: data.activityTypes,
+            startDate: data.startDate.toISOString(),
+            endDate: data.endDate.toISOString(),
+        };
 
-        apiFormData.append('title', title);
-        apiFormData.append('description', description);
-        apiFormData.append('countries', JSON.stringify(countries));
-        apiFormData.append('startDate', startDate.toISOString());
-        apiFormData.append('endDate', endDate.toISOString());
         startTransition(async () => {
-            const result = await createAlbumWithRedirect(apiFormData);
+            const result = await createAlbumWithRedirect(payload);
             if (result) {
                 setToastMessage({ message: result, type: 'error' });
             }
@@ -133,6 +146,23 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
                             {addCountryBtn}
                         </button>
                     )}
+                </div>
+                <div>
+                    <label className="mb-1 block">{activityLabel}</label>
+                    <Controller
+                        control={control}
+                        name="activityTypes"
+                        render={({ field: { value, onChange } }) => (
+                            <ToggleGroup type="multiple" variant="outline" value={value} onValueChange={onChange}>
+                                {activities.map((activity) => (
+                                    <ToggleGroupItem key={activity} value={activity}>
+                                        {getLocalizedActivityTypes({ activity, locale })}
+                                    </ToggleGroupItem>
+                                ))}
+                            </ToggleGroup>
+                        )}
+                    />
+                    {errors.activityTypes && <ErrorText text={errors.activityTypes.message || 'At least one activity type is required'} />}
                 </div>
                 <TextInput
                     label={startDate}

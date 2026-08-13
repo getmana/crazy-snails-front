@@ -62,7 +62,8 @@
         "addCountryBtn": "Add Country",
         "startDate": "Start Date",
         "endDate": "End Date",
-        "submitBtn": "Create Album"
+        "submitBtn": "Create Album",
+        "activityLabel": "Select activities your were involved during your trip"
     },
     "editUserForm": {
         "username": "New Username",

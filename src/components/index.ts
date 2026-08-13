@@ -1,5 +1,6 @@
 export { ErrorText } from './common/ErrorText';
 export { Footer } from './common/Footer';
+export { FileInput } from './common/FormElements/FileInput';
 export { PasswordInput } from './common/FormElements/PasswordInput';
 export { Select } from './common/FormElements/Select';
 export { TextInput } from './common/FormElements/TextInput';

@@ -1,8 +1,7 @@
 'use client';
 
-import Image from 'next/image';
-import { useEffect, useState, useTransition } from 'react';
-import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { useTransition } from 'react';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { createAlbumWithRedirect } from '@/actions/createAlbum';
@@ -16,7 +15,6 @@ import { getLocalizedDescription, getLocalizedTitle, transformObjectToFormData }
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
 export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList; locale: Locale }) => {
-    const [preview, setPreview] = useState<string | null>(null);
     const [isPending, startTransition] = useTransition();
 
     const { setToastMessage } = useToastMessageContext();
@@ -30,7 +28,6 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
         control,
         handleSubmit,
         formState: { errors },
-        watch,
     } = useForm<CreateAlbumSchemaType>({
         resolver: zodResolver(CreateAlbumSchema),
         defaultValues: {
@@ -49,25 +46,6 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
         name: 'countries',
     });
 
-    const previewImageFileList = useWatch<CreateAlbumSchemaType, 'previewImage'>({
-        control,
-        name: 'previewImage',
-    });
-
-    const previewImageFile = previewImageFileList?.[0];
-
-    useEffect(() => {
-        if (previewImageFile) {
-            const file = previewImageFile;
-            const url = URL.createObjectURL(file);
-            setPreview(url);
-
-            return () => URL.revokeObjectURL(url);
-        } else {
-            setPreview(null);
-        }
-    }, [previewImageFile]);
-
     console.log('fields', fields);
 
     const onSubmit = async (data: CreateAlbumSchemaType) => {
@@ -82,9 +60,6 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
 
         const apiFormData = transformObjectToFormData(rest);
 
-        if (data.previewImage?.[0]) {
-            apiFormData.append('previewImage', data.previewImage[0]);
-        }
         apiFormData.append('title', title);
         apiFormData.append('description', description);
         apiFormData.append('countries', JSON.stringify(countries));
@@ -175,27 +150,6 @@ export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList;
                     })}
                     error={errors.endDate?.message}
                 />
-                <div className="mb-8">
-                    <label className="mb-2 block text-sm font-medium">Preview Image</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        {...register('previewImage')}
-                        className="file:bg-primary file:text-primary-foreground block w-full text-sm file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-bold hover:file:cursor-pointer hover:file:shadow-md"
-                    />
-                    {errors.previewImage?.message && <p className="mt-1 text-sm text-red-600">{errors.previewImage.message as string}</p>}
-                    {preview && (
-                        <div className="bg-accent relative my-6 h-48 w-full max-w-sm overflow-hidden rounded-lg md:h-64 lg:h-72">
-                            <Image
-                                src={preview}
-                                alt="Preview"
-                                fill
-                                className="object-contain"
-                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 384px, 512px"
-                            />
-                        </div>
-                    )}
-                </div>
                 <button type="submit" className="btn-primary" disabled={isPending}>
                     {submitBtn}
                 </button>

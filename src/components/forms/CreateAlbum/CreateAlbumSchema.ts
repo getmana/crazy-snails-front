@@ -17,6 +17,7 @@ export const CreateAlbumSchema = z
             }),
         startDate: z.date(),
         endDate: z.date(),
+        activityTypes: z.array(z.string()).min(1, 'At least one activity type is required'),
     })
     .refine((data) => data.titleEn || data.titleUk, {
         message: 'At least one of titleEn or titleUk must be provided',

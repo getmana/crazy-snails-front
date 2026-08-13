@@ -3,7 +3,7 @@ import { Caveat, Pacifico, Raleway } from 'next/font/google';
 
 import { Footer } from '@/components';
 import { ToastMessageWrapper } from '@/components/common/ToastMessageWrapper';
-import { DictionaryProvider, ToastMessageProvider } from '@/context';
+import { ActivityTypesProvider, DictionaryProvider, ToastMessageProvider } from '@/context';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
@@ -49,16 +49,21 @@ export default async function RootLayout(
 
     const dictionary = await getDictionary(locale);
 
+    const activityTypesResponse = await fetch(`${process.env.CS_API}/albums/activity-types`);
+    const activityTypes = await activityTypesResponse.json();
+
     return (
         <html lang={locale}>
             <body className={`${pacifico.variable} ${raleway.variable} ${caveat.variable} flex min-h-dvh flex-col`}>
                 <DictionaryProvider dictionary={dictionary}>
-                    <ToastMessageProvider>
-                        <ToastMessageWrapper>
-                            <div>{props.children}</div>
-                            {/* <Footer locale={locale} /> */}
-                        </ToastMessageWrapper>
-                    </ToastMessageProvider>
+                    <ActivityTypesProvider activities={activityTypes}>
+                        <ToastMessageProvider>
+                            <ToastMessageWrapper>
+                                <div>{props.children}</div>
+                                {/* <Footer locale={locale} /> */}
+                            </ToastMessageWrapper>
+                        </ToastMessageProvider>
+                    </ActivityTypesProvider>
                 </DictionaryProvider>
             </body>
         </html>

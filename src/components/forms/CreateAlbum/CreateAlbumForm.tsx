@@ -6,16 +6,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type CreateAlbumPayload, createAlbumWithRedirect } from '@/actions/createAlbum';
 import { ErrorText, Icon, Select, TextInput } from '@/components';
+import { SelectOption } from '@/components/common/FormElements/Select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
-import { CountryList } from '@/lib';
 import { getLocalizedActivityTypes, getLocalizedDescription, getLocalizedTitle } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
-export const CreateAlbumForm = ({ countries, locale, activities }: { countries: CountryList; locale: Locale; activities: string[] }) => {
+export const CreateAlbumForm = ({ countries, locale, activities }: { countries: SelectOption[]; locale: Locale; activities: string[] }) => {
     const [isPending, startTransition] = useTransition();
 
     const { setToastMessage } = useToastMessageContext();
@@ -71,7 +71,7 @@ export const CreateAlbumForm = ({ countries, locale, activities }: { countries: 
             description,
             descriptionEn: data.descriptionEn,
             descriptionUk: data.descriptionUk,
-            countries: data.countries,
+            countries: data.countries.filter(({ code }) => code).map(({ code }) => Number(code)),
             activityTypes: data.activityTypes,
             startDate: data.startDate.toISOString(),
             endDate: data.endDate.toISOString(),

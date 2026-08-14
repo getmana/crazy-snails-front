@@ -4,11 +4,16 @@ import { forwardRef } from 'react';
 
 import { ErrorText } from '@/components';
 
+export type SelectOption = {
+    id: number;
+    name: string;
+};
+
 type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
     label?: string;
     error?: string;
     className?: string;
-    options: { code: string; name: string }[];
+    options: SelectOption[];
     placeholder: string;
     value?: string;
     onChange?: (value: string) => void;
@@ -27,8 +32,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                     {...props}
                 >
                     <option value="">{placeholder}</option>
-                    {options.map(({ code, name }) => (
-                        <option key={code} value={code}>
+                    {options.map(({ id, name }) => (
+                        <option key={id} value={id}>
                             {name}
                         </option>
                     ))}

@@ -50,14 +50,18 @@ export default async function RootLayout(
     const dictionary = await getDictionary(locale);
 
     let activityTypes: string[] = [];
-    try {
-        const activityTypesResponse = await fetch(`${process.env.CS_API}/albums/activity-types`);
-        if (!activityTypesResponse.ok) {
-            throw new Error(`Activity types request failed with status ${activityTypesResponse.status}`);
+    if (!process.env.CS_API) {
+        console.error('CS_API is not configured, skipping activity types fetch and falling back to an empty list.');
+    } else {
+        try {
+            const activityTypesResponse = await fetch(`${process.env.CS_API}/albums/activity-types`);
+            if (!activityTypesResponse.ok) {
+                throw new Error(`Activity types request failed with status ${activityTypesResponse.status}`);
+            }
+            activityTypes = await activityTypesResponse.json();
+        } catch (e) {
+            console.error('Failed to fetch activity types, falling back to an empty list:', e);
         }
-        activityTypes = await activityTypesResponse.json();
-    } catch (e) {
-        console.error('Failed to fetch activity types, falling back to an empty list:', e);
     }
 
     return (

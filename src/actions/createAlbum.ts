@@ -14,7 +14,7 @@ export type CreateAlbumPayload = {
     description: string;
     descriptionEn?: string;
     descriptionUk?: string;
-    countries: { code: string }[];
+    countries: number[];
     activityTypes: string[];
     startDate: string;
     endDate: string;

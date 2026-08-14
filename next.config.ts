@@ -30,7 +30,6 @@ const nextConfig: NextConfig = {
         serverActions: {
             bodySizeLimit: '5mb',
         },
-        cpus: 2,
     },
 };
 

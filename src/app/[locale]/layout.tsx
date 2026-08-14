@@ -3,7 +3,7 @@ import { Caveat, Pacifico, Raleway } from 'next/font/google';
 
 import { Footer } from '@/components';
 import { ToastMessageWrapper } from '@/components/common/ToastMessageWrapper';
-import { ActivityTypesProvider, DictionaryProvider, ToastMessageProvider } from '@/context';
+import { DictionaryProvider, ToastMessageProvider } from '@/context';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
 
@@ -49,33 +49,16 @@ export default async function RootLayout(
 
     const dictionary = await getDictionary(locale);
 
-    let activityTypes: string[] = [];
-    if (!process.env.CS_API) {
-        console.error('CS_API is not configured, skipping activity types fetch and falling back to an empty list.');
-    } else {
-        try {
-            const activityTypesResponse = await fetch(`${process.env.CS_API}/albums/activity-types`);
-            if (!activityTypesResponse.ok) {
-                throw new Error(`Activity types request failed with status ${activityTypesResponse.status}`);
-            }
-            activityTypes = await activityTypesResponse.json();
-        } catch (e) {
-            console.error('Failed to fetch activity types, falling back to an empty list:', e);
-        }
-    }
-
     return (
         <html lang={locale}>
             <body className={`${pacifico.variable} ${raleway.variable} ${caveat.variable} flex min-h-dvh flex-col`}>
                 <DictionaryProvider dictionary={dictionary}>
-                    <ActivityTypesProvider activities={activityTypes}>
-                        <ToastMessageProvider>
-                            <ToastMessageWrapper>
-                                <div>{props.children}</div>
-                                {/* <Footer locale={locale} /> */}
-                            </ToastMessageWrapper>
-                        </ToastMessageProvider>
-                    </ActivityTypesProvider>
+                    <ToastMessageProvider>
+                        <ToastMessageWrapper>
+                            <div>{props.children}</div>
+                            {/* <Footer locale={locale} /> */}
+                        </ToastMessageWrapper>
+                    </ToastMessageProvider>
                 </DictionaryProvider>
             </body>
         </html>

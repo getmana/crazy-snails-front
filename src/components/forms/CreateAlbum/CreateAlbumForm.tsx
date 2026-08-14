@@ -8,18 +8,17 @@ import { type CreateAlbumPayload, createAlbumWithRedirect } from '@/actions/crea
 import { ErrorText, Icon, Select, TextInput } from '@/components';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { useActivityTypes, useDictionary, useToastMessageContext } from '@/context';
+import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import { CountryList } from '@/lib';
 import { getLocalizedActivityTypes, getLocalizedDescription, getLocalizedTitle } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
-export const CreateAlbumForm = ({ countries, locale }: { countries: CountryList; locale: Locale }) => {
+export const CreateAlbumForm = ({ countries, locale, activities }: { countries: CountryList; locale: Locale; activities: string[] }) => {
     const [isPending, startTransition] = useTransition();
 
     const { setToastMessage } = useToastMessageContext();
-    const activities = useActivityTypes();
 
     const {
         createAlbumForm: {

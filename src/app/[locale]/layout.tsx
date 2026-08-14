@@ -49,8 +49,16 @@ export default async function RootLayout(
 
     const dictionary = await getDictionary(locale);
 
-    const activityTypesResponse = await fetch(`${process.env.CS_API}/albums/activity-types`);
-    const activityTypes = await activityTypesResponse.json();
+    let activityTypes: string[] = [];
+    try {
+        const activityTypesResponse = await fetch(`${process.env.CS_API}/albums/activity-types`);
+        if (!activityTypesResponse.ok) {
+            throw new Error(`Activity types request failed with status ${activityTypesResponse.status}`);
+        }
+        activityTypes = await activityTypesResponse.json();
+    } catch (e) {
+        console.error('Failed to fetch activity types, falling back to an empty list:', e);
+    }
 
     return (
         <html lang={locale}>

@@ -8,6 +8,7 @@ export { Header } from './common/Header';
 export { HeaderAdmin } from './common/HeaderAdmin';
 export { Heading } from './common/Heading';
 export { Icon } from './common/Icon/Icon';
+export { LocaleSwitcher } from './common/LocaleSwitcher';
 export { CreateAlbumForm } from './forms/CreateAlbum/CreateAlbumForm';
 export { EditUserForm } from './forms/EditUser/EditUserForm';
 export { SignInForm } from './forms/SignInForm/SignInForm';

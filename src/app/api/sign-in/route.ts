@@ -1,8 +1,10 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
+import { LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from '@/i18n-config';
 import { SessionData, sessionOptions } from '@/lib';
 import { ErrorResponse, SignInResponse } from '@/types';
+import { isValidLocale } from '@/utils';
 
 export async function POST(request: Request) {
     try {
@@ -26,12 +28,20 @@ export async function POST(request: Request) {
         }
         console.log('sign in data ==> ', responseData);
 
-        const { accessToken, refreshToken, id } = responseData as SignInResponse;
+        const { accessToken, refreshToken, id, locale } = responseData as SignInResponse;
 
         const cookieStore = await cookies();
         const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
         session.user = { accessToken, refreshToken, id };
         await session.save();
+
+        if (locale && isValidLocale(locale)) {
+            cookieStore.set(LOCALE_COOKIE_NAME, locale, {
+                path: '/',
+                maxAge: LOCALE_COOKIE_MAX_AGE,
+                sameSite: 'lax',
+            });
+        }
 
         return new Response(JSON.stringify({ message: 'Successfully signed in' }), {
             status: 200,

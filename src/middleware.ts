@@ -9,6 +9,10 @@ export const middleware = async (request: NextRequest) => {
     for (const middlewareFunction of middlewares) {
         if (!middlewareFunction.match || new RegExp(middlewareFunction.match).test(request.nextUrl.pathname)) {
             response = await middlewareFunction.run(request, response);
+
+            if (response.headers.has('location')) {
+                return response;
+            }
         }
     }
 

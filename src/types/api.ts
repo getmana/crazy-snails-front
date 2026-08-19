@@ -1,3 +1,5 @@
+import type { Locale } from '@/i18n-config';
+
 type ErrorDetail = {
     validation: string;
     code: string;
@@ -24,6 +26,7 @@ export type SignInResponse = {
     accessToken: string;
     refreshToken: string;
     id: string;
+    locale: Locale;
 };
 
 export type ErrorResponse = {

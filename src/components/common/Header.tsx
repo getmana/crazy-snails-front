@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { Icon } from '@/components';
+import { Icon, LocaleSwitcher } from '@/components';
 import { Locale } from '@/i18n-config';
 
 import { MenuItems } from './MenuItems';
@@ -29,7 +29,10 @@ export const Header = ({
                     <Link href={`/${locale}`}>
                         <Icon icon="Logo" className={`${textClassName} h-32 w-md`} />
                     </Link>
-                    <MenuItems locale={locale} textClassName={textClassName} hasDivider={hasDivider} />
+                    <div className="flex items-center gap-4">
+                        <MenuItems locale={locale} textClassName={textClassName} hasDivider={hasDivider} />
+                        <LocaleSwitcher locale={locale} />
+                    </div>
                 </div>
             </div>
         </header>

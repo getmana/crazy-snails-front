@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { PasswordInput, TextInput } from '@/components';
+import { ADMIN_THEME_STORAGE_KEY, type AdminTheme } from '@/components/common/AdminThemeProvider';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { Locale } from '@/i18n-config';
 import { getErrorMessage, internalAPIRoutes } from '@/utils';
@@ -47,6 +48,12 @@ export const SignInForm = ({ locale }: { locale: Locale }) => {
                 setToastMessage({ message: response.message, type: 'error' });
             } else {
                 setToastMessage({ message: signedIn, type: 'success' });
+
+                const adminTheme = response.adminTheme as AdminTheme | undefined;
+                if (adminTheme) {
+                    localStorage.setItem(ADMIN_THEME_STORAGE_KEY, adminTheme);
+                }
+
                 router.push(`/${locale}/dashboard`);
             }
         } catch (e) {

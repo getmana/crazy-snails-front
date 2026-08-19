@@ -1,3 +1,4 @@
+import type { AdminTheme } from '@/components/common/AdminThemeProvider';
 import type { Locale } from '@/i18n-config';
 
 type ErrorDetail = {
@@ -27,6 +28,7 @@ export type SignInResponse = {
     refreshToken: string;
     id: string;
     locale: Locale;
+    adminTheme: AdminTheme;
 };
 
 export type ErrorResponse = {

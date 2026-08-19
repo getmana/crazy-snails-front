@@ -23,8 +23,10 @@ export const Footer = ({ locale }: FooterProps) => {
                 <div
                     className={`${isCustom ? 'border-brown-light-15' : 'border-grey-footer-text-15'} flex flex-col-reverse items-center justify-between border-b md:flex-row`}
                 >
-                    <MenuItems locale={locale} textClassName={textStyle} hasDivider={isCustom} isFooter={true} />
-                    <LocaleSwitcher locale={locale} className={textStyle} />
+                    <div className="flex items-baseline gap-4">
+                        <MenuItems locale={locale} textClassName={textStyle} hasDivider={isCustom} isFooter={true} />
+                        <LocaleSwitcher locale={locale} className={textStyle} />
+                    </div>
                     <Link href={`/${locale}`}>
                         <Icon icon="Logo" className={`${textStyle} h-24 w-xs md:h-32 md:w-md`} />
                     </Link>

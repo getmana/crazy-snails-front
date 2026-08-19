@@ -1,6 +1,7 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
+import { isValidAdminTheme } from '@/components/common/AdminThemeProvider';
 import { LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from '@/i18n-config';
 import { SessionData, sessionOptions } from '@/lib';
 import { ErrorResponse, SignInResponse } from '@/types';
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
         }
         console.log('sign in data ==> ', responseData);
 
-        const { accessToken, refreshToken, id, locale } = responseData as SignInResponse;
+        const { accessToken, refreshToken, id, locale, adminTheme } = responseData as SignInResponse;
 
         const cookieStore = await cookies();
         const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
@@ -43,9 +44,13 @@ export async function POST(request: Request) {
             });
         }
 
-        return new Response(JSON.stringify({ message: 'Successfully signed in' }), {
-            status: 200,
-        });
+        return new Response(
+            JSON.stringify({
+                message: 'Successfully signed in',
+                adminTheme: isValidAdminTheme(adminTheme) ? adminTheme : undefined,
+            }),
+            { status: 200 },
+        );
     } catch (e) {
         console.log('CATCHHHHH======', e);
     }

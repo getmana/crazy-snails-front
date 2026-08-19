@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { internalAPIRoutes } from '@/utils';
 
 export const AdminThemeToggle = () => {
     const { resolvedTheme, setTheme } = useTheme();
@@ -20,8 +21,18 @@ export const AdminThemeToggle = () => {
 
     const isDark = resolvedTheme === 'dark';
 
+    const handleClick = () => {
+        const nextTheme = isDark ? 'light' : 'dark';
+        setTheme(nextTheme);
+
+        fetch(internalAPIRoutes.editUser, {
+            method: 'PATCH',
+            body: JSON.stringify({ adminTheme: nextTheme }),
+        }).catch(() => {});
+    };
+
     return (
-        <Button variant="ghost" size="icon" aria-label="Toggle theme" onClick={() => setTheme(isDark ? 'light' : 'dark')}>
+        <Button variant="ghost" size="icon" aria-label="Toggle theme" onClick={handleClick}>
             {isDark ? <Sun /> : <Moon />}
         </Button>
     );

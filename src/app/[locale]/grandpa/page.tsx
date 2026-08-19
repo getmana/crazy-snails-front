@@ -9,7 +9,13 @@ export default async function Grandpa(props: { params: Promise<{ locale: Locale 
 
     return (
         <div className="flex min-h-dvh flex-col">
-            <Header locale={locale} bgClassName="bg-brown-light" textClassName="text-custom-blue font-caveat" hasDivider={true} />
+            <Header
+                hideLocaleSwitcher={true}
+                locale={locale}
+                bgClassName="bg-brown-light"
+                textClassName="text-custom-blue font-caveat"
+                hasDivider={true}
+            />
             <main className="bg-grandpa bg-center-top flex-1 flex-grow bg-cover">
                 <Heading
                     heading={title.grandpa}

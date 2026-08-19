@@ -13,6 +13,7 @@ type HeaderProps = {
     hasBorder?: boolean;
     textClassName?: string;
     hasDivider?: boolean;
+    hideLocaleSwitcher?: boolean;
 };
 
 export const Header = ({
@@ -21,6 +22,7 @@ export const Header = ({
     bgClassName = '',
     textClassName = 'text-grey-nav',
     hasDivider = false,
+    hideLocaleSwitcher = false,
 }: HeaderProps) => {
     return (
         <header className={bgClassName}>
@@ -29,9 +31,9 @@ export const Header = ({
                     <Link href={`/${locale}`}>
                         <Icon icon="Logo" className={`${textClassName} h-32 w-md`} />
                     </Link>
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col items-end gap-4">
                         <MenuItems locale={locale} textClassName={textClassName} hasDivider={hasDivider} />
-                        <LocaleSwitcher locale={locale} />
+                        {hideLocaleSwitcher ? null : <LocaleSwitcher locale={locale} />}
                     </div>
                 </div>
             </div>

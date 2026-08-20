@@ -8,4 +8,5 @@ export { getLocalizedDescription, getLocalizedTitle } from './getLocalizedField'
 export { getMenuItems, type MenuItem } from './getMenuItems';
 export { getPathWithLocale } from './getPathWithLocale';
 export { internalAPIRoutes } from './internalAPIRouts';
+export { isValidAdminTheme } from './isValidAdminTheme';
 export { transformObjectToFormData } from './transformObjectToFormData';

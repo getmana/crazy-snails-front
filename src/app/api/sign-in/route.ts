@@ -1,11 +1,10 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
-import { isValidAdminTheme } from '@/components/common/AdminThemeProvider';
 import { LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from '@/i18n-config';
 import { SessionData, sessionOptions } from '@/lib';
 import { ErrorResponse, SignInResponse } from '@/types';
-import { isValidLocale } from '@/utils';
+import { isValidAdminTheme, isValidLocale } from '@/utils';
 
 export async function POST(request: Request) {
     try {

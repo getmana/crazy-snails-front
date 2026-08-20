@@ -7,8 +7,6 @@ export type AdminTheme = 'dark' | 'light';
 
 export const ADMIN_THEME_STORAGE_KEY = 'admin-theme';
 
-export const isValidAdminTheme = (value: unknown): value is AdminTheme => value === 'dark' || value === 'light';
-
 export const AdminThemeProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         return () => {

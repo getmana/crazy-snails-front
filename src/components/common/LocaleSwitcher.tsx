@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { i18n, Locale, LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from '@/i18n-config';
-import { getPathWithLocale, internalAPIRoutes } from '@/utils';
+import { getLocaleFromCookie, getPathWithLocale, internalAPIRoutes } from '@/utils';
 
 type LocaleSwitcherProps = {
     locale: Locale;
@@ -16,7 +16,7 @@ export const LocaleSwitcher = ({ locale, className = '' }: LocaleSwitcherProps) 
     const router = useRouter();
 
     const handleChange = (nextLocale: string) => {
-        if (!nextLocale || nextLocale === locale) return;
+        if (!nextLocale || nextLocale === getLocaleFromCookie()) return;
         const typedLocale = nextLocale as Locale;
 
         document.cookie = `${LOCALE_COOKIE_NAME}=${typedLocale}; path=/; max-age=${LOCALE_COOKIE_MAX_AGE}; samesite=lax`;

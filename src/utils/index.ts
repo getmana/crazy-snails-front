@@ -3,6 +3,7 @@ export { getCountriesByLocale } from './getCountriesByLocale';
 export { type DictionaryType, getDictionary } from './getDictionary';
 export { getErrorMessage } from './getErrorMessage';
 export { getLocaleFromAcceptLanguage, getLocaleFromPathname, isValidLocale } from './getLocale';
+export { getLocaleFromCookie } from './getLocaleFromCookie';
 export { getLocalizedActivityTypes } from './getLocalizedActivityTypes';
 export { getLocalizedDescription, getLocalizedTitle } from './getLocalizedField';
 export { getMenuItems, type MenuItem } from './getMenuItems';

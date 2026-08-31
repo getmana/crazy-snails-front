@@ -7,15 +7,18 @@ import { MiddlewareFunction } from './index';
 
 export const localeMiddleware: MiddlewareFunction = {
     run: (request) => {
+        console.log('LOCALE MIDDLEWARE WORKS');
         const pathname = request.nextUrl.pathname;
 
         const pathnameIsMissingLocale = i18n.locales.every((locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`);
 
         if (!pathnameIsMissingLocale) {
+            console.log('locale is not missing', pathname);
             return NextResponse.next();
         }
 
         const cookieLocale = request.cookies.get(LOCALE_COOKIE_NAME)?.value;
+        console.log('middleware cookie locale', cookieLocale);
         const hasValidCookie = !!cookieLocale && isValidLocale(cookieLocale);
         const detectedLocale = hasValidCookie ? cookieLocale : getLocaleFromAcceptLanguage(request.headers.get('accept-language'));
 

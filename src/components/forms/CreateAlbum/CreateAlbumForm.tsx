@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
-import { getLocalizedActivityTypes, getLocalizedDescription, getLocalizedTitle } from '@/utils';
+import { getLocaleFromCookie, getLocalizedActivityTypes, getLocalizedDescription, getLocalizedTitle } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
@@ -59,10 +59,10 @@ export const CreateAlbumForm = ({ countries, locale, activities }: { countries: 
     });
 
     const onSubmit = async (data: CreateAlbumSchemaType) => {
-        // TODO Add logic to add default items - they should be of users preffered locale. Otherwise - EN. Otherwise use any filled option.
-        // User model needs locale and theme properties to be added to show the same settings from any device when logged in
-        const title = data.titleEn || data.titleUk || '';
-        const description = data.descriptionEn || data.descriptionUk || '';
+        const preferredLocale = getLocaleFromCookie();
+        const title = (preferredLocale === 'en' ? data.titleEn || data.titleUk : data.titleUk || data.titleEn) || '';
+        const description =
+            (preferredLocale === 'en' ? data.descriptionEn || data.descriptionUk : data.descriptionUk || data.descriptionEn) || '';
 
         const payload: CreateAlbumPayload = {
             title,

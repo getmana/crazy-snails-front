@@ -1,15 +1,16 @@
-import { headers } from 'next/headers';
-
 import { ToastMessage } from '@/components/common/ToastMessage';
 import { Locale } from '@/i18n-config';
 
-export default async function AlbumAdminPage(props: { params: Promise<{ id: string; locale: Locale }> }) {
-    const { id, locale } = await props.params;
+export type SearchParams = {
+    toast?: string;
+};
 
-    const headersList = await headers();
-    const searchString = headersList.get('x-search');
-    const toast = searchString ? new URLSearchParams(searchString).get('toast') : null;
-    console.log('toast==>', toast);
+export default async function AlbumAdminPage(props: {
+    params: Promise<{ id: string; locale: Locale }>;
+    searchParams: Promise<SearchParams>;
+}) {
+    const { id, locale } = await props.params;
+    const { toast = null } = await props.searchParams;
 
     return (
         <div className="flex w-full flex-col px-8">

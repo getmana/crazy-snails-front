@@ -9,13 +9,17 @@ type ToastKey = keyof Dictionary['toastMessages'];
 type ToastMessageMapType = Record<string, { type: ToastType; key: ToastKey }>;
 
 export const ToastMessageMap: ToastMessageMapType = {
-    created: {
+    'album-created': {
         type: 'success',
         key: 'albumCreated',
     },
-    updated: {
+    'album-updated': {
         type: 'success',
         key: 'albumUpdated',
+    },
+    'story-created': {
+        type: 'success',
+        key: 'storyCreated',
     },
 };
 

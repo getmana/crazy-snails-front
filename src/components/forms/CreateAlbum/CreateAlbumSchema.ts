@@ -2,10 +2,8 @@ import { z } from 'zod';
 
 export const CreateAlbumSchema = z
     .object({
-        // title: z.string().min(1, 'Title must be at least 1 character'),
         titleEn: z.string().optional(),
         titleUk: z.string().optional(),
-        // description: z.string(),
         descriptionEn: z.string().optional(),
         descriptionUk: z.string().optional(),
         countries: z

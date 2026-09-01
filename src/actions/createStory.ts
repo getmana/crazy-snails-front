@@ -7,22 +7,15 @@ import { fetchWithAuth } from '@/api/authFetch';
 import { ErrorResponse } from '@/types';
 import { getErrorMessage } from '@/utils';
 
-export type CreateAlbumPayload = {
+export type CreateStoryPayload = {
     title: string;
     titleEn?: string;
     titleUk?: string;
-    description: string;
-    descriptionEn?: string;
-    descriptionUk?: string;
-    countries: number[];
-    activityTypes: string[];
-    startDate: string;
-    endDate: string;
 };
 
-export const createAlbum = async (payload: CreateAlbumPayload) => {
+export const createStory = async (payload: CreateStoryPayload) => {
     try {
-        const response = await fetchWithAuth('/albums', {
+        const response = await fetchWithAuth('/stories', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
@@ -40,8 +33,8 @@ export const createAlbum = async (payload: CreateAlbumPayload) => {
     }
 };
 
-export const createAlbumWithRedirect = async (payload: CreateAlbumPayload) => {
-    const { data, message } = await createAlbum(payload);
+export const createStoryWithRedirect = async (payload: CreateStoryPayload) => {
+    const { data, message } = await createStory(payload);
     if (message) {
         return message;
     }
@@ -51,5 +44,5 @@ export const createAlbumWithRedirect = async (payload: CreateAlbumPayload) => {
     const headersList = await headers();
     const locale = headersList.get('x-locale');
 
-    redirect(`/${locale}/dashboard/albums/${id}?toast=album-created`);
+    redirect(`/${locale}/dashboard/stories/${id}?toast=story-created`);
 };

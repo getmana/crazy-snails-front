@@ -15,7 +15,8 @@
         "dashboard": "Dashboard",
         "createAlbum": "Create Album",
         "editUser": "Edit User Data",
-        "myAlbums": "My Albums"
+        "myAlbums": "My Albums",
+        "createStory": "Create Story"
     },
     "subtitle": {
         "albums": "Our travelling photos",
@@ -65,6 +66,10 @@
         "submitBtn": "Create Album",
         "activityLabel": "Select activities your were involved during your trip"
     },
+    "createStoryForm": {
+        "title": "Story Title",
+        "submitBtn": "Create Story"
+    },
     "editUserForm": {
         "username": "New Username",
         "email": "New Email"
@@ -107,6 +112,7 @@
     },
     "toastMessages": {
         "albumCreated": "Congrats! Album is successfully created!",
-        "albumUpdated": "Success! Album is successfully updated"
+        "albumUpdated": "Success! Album is successfully updated",
+        "storyCreated": "Congrats! Story is successfully created!"
     }
 }

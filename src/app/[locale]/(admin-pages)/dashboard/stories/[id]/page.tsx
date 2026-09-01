@@ -2,7 +2,7 @@ import { ToastMessage } from '@/components/common/ToastMessage';
 import { Locale } from '@/i18n-config';
 import { SearchParams } from '@/types';
 
-export default async function AlbumAdminPage(props: {
+export default async function StoryAdminPage(props: {
     params: Promise<{ id: string; locale: Locale }>;
     searchParams: Promise<SearchParams>;
 }) {
@@ -11,7 +11,7 @@ export default async function AlbumAdminPage(props: {
 
     return (
         <div className="flex w-full flex-col px-8">
-            <h1 className="heading-3 py-8">{`album id = ${id}`}</h1>
+            <h1 className="heading-3 py-8">{`story id = ${id}`}</h1>
             {toast ? <ToastMessage toast={toast} /> : null}
         </div>
     );

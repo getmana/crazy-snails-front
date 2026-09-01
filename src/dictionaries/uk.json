@@ -15,7 +15,8 @@
         "dashboard": "Твій простір",
         "createAlbum": "Створити альбом",
         "editUser": "Редагувати дані користувача",
-        "myAlbums": "Мої альбоми"
+        "myAlbums": "Мої альбоми",
+        "createStory": "Створити історію"
     },
     "subtitle": {
         "albums": "Яскраві фото з наших подорожей",
@@ -65,6 +66,10 @@
         "submitBtn": "Створити альбом",
         "activityLabel": "Обери, чим займався у подорожі"
     },
+    "createStoryForm": {
+        "title": "Назва історії",
+        "submitBtn": "Створити історію"
+    },
     "editUserForm": {
         "username": "Нове ім'я користувача",
         "email": "Новий Email"
@@ -107,6 +112,7 @@
     },
     "toastMessages": {
         "albumCreated": "Вітання! Альбом створено!",
-        "albumUpdated": "Ура! Альбом успішно оновлено"
+        "albumUpdated": "Ура! Альбом успішно оновлено",
+        "storyCreated": "Вітання! Історію створено!"
     }
 }

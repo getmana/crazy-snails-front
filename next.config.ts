@@ -1,6 +1,15 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '4000',
+            },
+        ],
+    },
     async redirects() {
         return [
             {
@@ -28,7 +37,7 @@ const nextConfig: NextConfig = {
     },
     experimental: {
         serverActions: {
-            bodySizeLimit: '5mb',
+            bodySizeLimit: '10mb',
         },
     },
 };

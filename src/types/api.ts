@@ -36,3 +36,13 @@ export type ErrorResponse = {
     error: string;
     statusCode: number;
 };
+
+export type PhotoStatus = 'pending' | 'ready' | 'failed';
+
+export type UploadedPhoto = {
+    photoId: number;
+    originalUrl: string;
+    status: PhotoStatus;
+    thumbnailSmUrl: string | null;
+    thumbnailMdUrl: string | null;
+};

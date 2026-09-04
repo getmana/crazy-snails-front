@@ -230,7 +230,7 @@ select {
 }
 
 .btn-primary:disabled {
-  @apply bg-foreground;
+  @apply bg-foreground opacity-50 cursor-not-allowed pointer-events-none;
 }
 
 .btn-secondary {

@@ -70,6 +70,21 @@
         "title": "Story Title",
         "submitBtn": "Create Story"
     },
+    "editStoryForm": {
+        "title": "Story Title",
+        "description": "Description",
+        "heroFirstLabel": "Show hero image first",
+        "heroLabel": "Hero Image",
+        "pairLabel": "Featured Pair",
+        "pairTip": "Upload 2 photos to display this block in the published story.",
+        "galleryLabel": "Gallery / 3 photos",
+        "galleryTip": "Upload 3 photos to display this block in the published story.",
+        "carouselLabel": "Carousel / 2-15 photos",
+        "saveBtn": "Save",
+        "publishBtn": "Publish",
+        "editBtn": "Edit",
+        "cancelBtn": "Cancel"
+    },
     "editUserForm": {
         "username": "New Username",
         "email": "New Email"
@@ -113,6 +128,7 @@
     "toastMessages": {
         "albumCreated": "Congrats! Album is successfully created!",
         "albumUpdated": "Success! Album is successfully updated",
-        "storyCreated": "Congrats! Story is successfully created!"
+        "storyCreated": "Congrats! Story is successfully created!",
+        "storyUpdated": "Success! Story is successfully updated"
     }
 }

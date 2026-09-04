@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type CreateStoryPayload, createStoryWithRedirect } from '@/actions/createStory';
 import { TextInput } from '@/components';
-import { SelectOption } from '@/components/common/FormElements/Select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
@@ -14,7 +13,7 @@ import { getLocaleFromCookie, getLocalizedTitle } from '@/utils';
 
 import { CreateStorySchema, CreateStorySchemaType } from './CreateStorySchema';
 
-export const CreateStoryForm = ({ locale }: { countries: SelectOption[]; locale: Locale; activities: string[] }) => {
+export const CreateStoryForm = ({ locale }: { locale: Locale }) => {
     const [isPending, startTransition] = useTransition();
 
     const { setToastMessage } = useToastMessageContext();

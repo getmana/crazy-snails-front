@@ -1,5 +1,6 @@
 import Bicycle from '@/public/icons/bicycle.svg';
 import Camping from '@/public/icons/camping-icon.svg';
+import CheckCircle from '@/public/icons/check-circle-icon.svg';
 import CircleExclamation from '@/public/icons/circle-exclamation.svg';
 import CloseCircle from '@/public/icons/close-circle.svg';
 import Eye from '@/public/icons/eye.svg';
@@ -11,6 +12,7 @@ export const IconMap = {
     Bicycle,
     Camping,
     CircleExclamation,
+    CheckCircle,
     CloseCircle,
     Eye,
     EyeOff,
@@ -22,6 +24,7 @@ export const IconAriaLabelMap: Record<keyof typeof IconMap, string> = {
     Bicycle: 'Bicycle Icon',
     Camping: 'Camping Icon',
     CircleExclamation: 'Circle Exclamation Icon',
+    CheckCircle: 'Check Circle Icon',
     CloseCircle: 'Close Circle Icon',
     Eye: 'Eye Icon',
     EyeOff: 'Eye Off Icon',

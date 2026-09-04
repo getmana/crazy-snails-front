@@ -21,6 +21,10 @@ export const ToastMessageMap: ToastMessageMapType = {
         type: 'success',
         key: 'storyCreated',
     },
+    'story-updated': {
+        type: 'success',
+        key: 'storyUpdated',
+    },
 };
 
 export const ToastMessage = ({ toast }: { toast: keyof typeof ToastMessageMap }) => {

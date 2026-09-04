@@ -8,6 +8,8 @@ export { getLocalizedActivityTypes } from './getLocalizedActivityTypes';
 export { getLocalizedDescription, getLocalizedTitle } from './getLocalizedField';
 export { getMenuItems, type MenuItem } from './getMenuItems';
 export { getPathWithLocale } from './getPathWithLocale';
+export { getPhotoUrl } from './getPhotoUrl';
 export { internalAPIRoutes } from './internalAPIRouts';
 export { isValidAdminTheme } from './isValidAdminTheme';
+export { runWithConcurrencyLimit } from './runWithConcurrencyLimit';
 export { transformObjectToFormData } from './transformObjectToFormData';

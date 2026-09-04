@@ -7,7 +7,7 @@ export const EditStorySchema = z
         descriptionEn: z.string().optional(),
         descriptionUk: z.string().optional(),
         heroFirst: z.boolean(),
-        heroPhotoIds: z.array(z.number()),
+        heroPhotoIds: z.number().optional(),
         pairPhotoIds: z.array(z.number()),
         galleryPhotoIds: z.array(z.number()),
         carouselPhotoIds: z.array(z.number()),

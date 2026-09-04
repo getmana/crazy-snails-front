@@ -49,7 +49,7 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
             descriptionEn: story.description_en || '',
             descriptionUk: story.description_uk || '',
             heroFirst: story.hero_first,
-            heroPhotoIds: story.photo ? [story.photo.id] : [],
+            heroPhotoIds: story.photo ? story.photo.id : undefined,
             pairPhotoIds: story.pair_image_stories.map((item) => item.photo_id),
             galleryPhotoIds: story.gallery_image_stories.map((item) => item.photo_id),
             carouselPhotoIds: story.carousel_stories.map((item) => item.photo_id),
@@ -73,7 +73,7 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
             descriptionEn: data.descriptionEn,
             descriptionUk: data.descriptionUk,
             heroFirst: data.heroFirst,
-            heroImageId: data.heroPhotoIds[0] ?? null,
+            heroImageId: data.heroPhotoIds ?? null,
             pairPhotoIds: data.pairPhotoIds,
             galleryPhotoIds: data.galleryPhotoIds,
             carouselPhotoIds: data.carouselPhotoIds,
@@ -150,7 +150,11 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
                     control={control}
                     name="heroPhotoIds"
                     render={({ field: { onChange } }) => (
-                        <HeroPhotoUpload label={heroLabel} initialPhotos={heroInitialPhotos} onChange={onChange} />
+                        <HeroPhotoUpload
+                            label={heroLabel}
+                            initialPhotos={heroInitialPhotos}
+                            onChange={(photoIds) => onChange(photoIds[0])}
+                        />
                     )}
                 />
 
@@ -185,7 +189,7 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
 
                 <div className="flex gap-4">
                     {onCancel && (
-                        <button type="button" className="text-sm underline" disabled={isPending} onClick={onCancel}>
+                        <button type="button" className="btn-outline" disabled={isPending} onClick={onCancel}>
                             {cancelBtn}
                         </button>
                     )}

@@ -1,9 +1,11 @@
 import { useCallback, useState } from 'react';
 
 import { uploadPhoto } from '@/api/uploadPhoto';
+import { useDictionary } from '@/context';
 import { runWithConcurrencyLimit } from '@/utils';
 
 const UPLOAD_CONCURRENCY_LIMIT = 4;
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 
 export type PhotoUploadItem = {
     tempId: string;
@@ -12,6 +14,7 @@ export type PhotoUploadItem = {
     status: 'uploading' | 'done' | 'error';
     photoId?: number;
     errorMessage?: string;
+    retryable?: boolean;
 };
 
 export type ExistingPhoto = {
@@ -29,20 +32,39 @@ export const usePhotoUpload = (max: number, initialPhotos: ExistingPhoto[] = [])
         })),
     );
 
-    const upload = useCallback(async (item: PhotoUploadItem) => {
-        if (!item.file) return;
-        const result = await uploadPhoto(item.file);
+    const {
+        editStoryForm: { fileTooLargeError },
+    } = useDictionary();
 
-        setItems((current) =>
-            current.map((existing) =>
-                existing.tempId === item.tempId
-                    ? 'error' in result
-                        ? { ...existing, status: 'error', errorMessage: result.error }
-                        : { ...existing, status: 'done', photoId: result.photoId }
-                    : existing,
-            ),
-        );
-    }, []);
+    const upload = useCallback(
+        async (item: PhotoUploadItem) => {
+            if (!item.file) return;
+
+            if (item.file.size > MAX_FILE_SIZE_BYTES) {
+                setItems((current) =>
+                    current.map((existing) =>
+                        existing.tempId === item.tempId
+                            ? { ...existing, status: 'error', errorMessage: fileTooLargeError, retryable: false }
+                            : existing,
+                    ),
+                );
+                return;
+            }
+
+            const result = await uploadPhoto(item.file);
+
+            setItems((current) =>
+                current.map((existing) =>
+                    existing.tempId === item.tempId
+                        ? 'error' in result
+                            ? { ...existing, status: 'error', errorMessage: result.error }
+                            : { ...existing, status: 'done', photoId: result.photoId }
+                        : existing,
+                ),
+            );
+        },
+        [fileTooLargeError],
+    );
 
     const addFiles = useCallback(
         (files: File[]) => {

@@ -80,6 +80,7 @@
         "galleryLabel": "Gallery / 3 photos",
         "galleryTip": "Upload 3 photos to display this block in the published story.",
         "carouselLabel": "Carousel / 2-15 photos",
+        "fileTooLargeError": "File is too large (max 10MB). Choose a smaller photo.",
         "saveBtn": "Save",
         "publishBtn": "Publish",
         "editBtn": "Edit",

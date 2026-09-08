@@ -40,6 +40,7 @@ export const PhotoUploadField = ({ max, label, tip, initialPhotos, onChange }: P
                         previewUrl={item.previewUrl}
                         status={item.status}
                         errorMessage={item.errorMessage}
+                        retryable={item.retryable}
                         onRetry={() => retry(item.tempId)}
                         onRemove={() => remove(item.tempId)}
                     />

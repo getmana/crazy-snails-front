@@ -8,11 +8,12 @@ type PhotoTileProps = {
     previewUrl: string;
     status: 'uploading' | 'done' | 'error';
     errorMessage?: string;
+    retryable?: boolean;
     onRetry: () => void;
     onRemove: () => void;
 };
 
-export const PhotoTile = ({ previewUrl, status, errorMessage, onRetry, onRemove }: PhotoTileProps) => {
+export const PhotoTile = ({ previewUrl, status, errorMessage, retryable = true, onRetry, onRemove }: PhotoTileProps) => {
     return (
         <div className="w-40">
             <div className="bg-accent relative h-32 w-40 overflow-hidden rounded-lg">
@@ -38,10 +39,12 @@ export const PhotoTile = ({ previewUrl, status, errorMessage, onRetry, onRemove 
             </div>
             {status === 'error' && (
                 <div className="mt-1">
-                    <ErrorText text={errorMessage || 'Upload failed'} />
-                    <button type="button" onClick={onRetry} className="text-sm underline">
-                        Retry
-                    </button>
+                    <ErrorText text={errorMessage || 'Upload failed'} className="text-xs" />
+                    {retryable && (
+                        <button type="button" onClick={onRetry} className="text-sm underline">
+                            Retry
+                        </button>
+                    )}
                 </div>
             )}
         </div>

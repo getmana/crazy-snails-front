@@ -44,15 +44,15 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
     } = useForm<EditStorySchemaType>({
         resolver: zodResolver(EditStorySchema),
         defaultValues: {
-            titleEn: story.title_en || '',
-            titleUk: story.title_uk || '',
-            descriptionEn: story.description_en || '',
-            descriptionUk: story.description_uk || '',
-            heroFirst: story.hero_first,
+            titleEn: story.titleEn || '',
+            titleUk: story.titleUk || '',
+            descriptionEn: story.descriptionEn || '',
+            descriptionUk: story.descriptionUk || '',
+            heroFirst: story.heroFirst,
             heroPhotoIds: story.photo ? story.photo.id : undefined,
-            pairPhotoIds: story.pair_image_stories.map((item) => item.photo_id),
-            galleryPhotoIds: story.gallery_image_stories.map((item) => item.photo_id),
-            carouselPhotoIds: story.carousel_stories.map((item) => item.photo_id),
+            pairPhotoIds: story.pairImageStories.map((item) => item.photoId),
+            galleryPhotoIds: story.galleryImageStories.map((item) => item.photoId),
+            carouselPhotoIds: story.carouselStories.map((item) => item.photoId),
         },
     });
 
@@ -94,19 +94,19 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
     const orderedLocales = [locale, ...i18n.locales.filter((l) => l !== locale)] as const;
 
     const heroInitialPhotos = story.photo
-        ? [{ photoId: story.photo.id, url: getPhotoUrl(story.photo.thumbnail_sm_key || story.photo.original_key) }]
+        ? [{ photoId: story.photo.id, url: getPhotoUrl(story.photo.thumbnailSmKey || story.photo.originalKey) }]
         : [];
-    const pairInitialPhotos = story.pair_image_stories.map((item) => ({
-        photoId: item.photo_id,
-        url: getPhotoUrl(item.photo.thumbnail_sm_key || item.photo.original_key),
+    const pairInitialPhotos = story.pairImageStories.map((item) => ({
+        photoId: item.photoId,
+        url: getPhotoUrl(item.photo.thumbnailSmKey || item.photo.originalKey),
     }));
-    const galleryInitialPhotos = story.gallery_image_stories.map((item) => ({
-        photoId: item.photo_id,
-        url: getPhotoUrl(item.photo.thumbnail_sm_key || item.photo.original_key),
+    const galleryInitialPhotos = story.galleryImageStories.map((item) => ({
+        photoId: item.photoId,
+        url: getPhotoUrl(item.photo.thumbnailSmKey || item.photo.originalKey),
     }));
-    const carouselInitialPhotos = story.carousel_stories.map((item) => ({
-        photoId: item.photo_id,
-        url: getPhotoUrl(item.photo.thumbnail_sm_key || item.photo.original_key),
+    const carouselInitialPhotos = story.carouselStories.map((item) => ({
+        photoId: item.photoId,
+        url: getPhotoUrl(item.photo.thumbnailSmKey || item.photo.originalKey),
     }));
 
     return (

@@ -18,7 +18,7 @@ export default async function StoryAdminPage(props: {
     return (
         <div className="flex w-full flex-col px-8">
             {toast ? <ToastMessage toast={toast} /> : null}
-            {story.is_published ? (
+            {story.isPublished ? (
                 <PublishedStoryView story={story} locale={locale} />
             ) : (
                 <div className="w-full py-12 lg:w-2xl">

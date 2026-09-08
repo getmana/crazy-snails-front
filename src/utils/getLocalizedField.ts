@@ -15,7 +15,7 @@ const localeSuffixMap = Object.fromEntries(
     i18n.locales.map((locale) => [locale, capitalizeFirstLetter(locale)] as const),
 ) as LocaleSuffixMap;
 
-type FieldToLocalize = 'title' | 'description';
+type FieldToLocalize = 'title' | 'description' | 'name';
 
 const getLocalizedField = <Base extends FieldToLocalize>(base: Base) => {
     return <L extends Locale>(locale: L): `${Base}${LocaleSuffixMap[L]}` => `${base}${localeSuffixMap[locale]}` as const;
@@ -23,3 +23,4 @@ const getLocalizedField = <Base extends FieldToLocalize>(base: Base) => {
 
 export const getLocalizedTitle = getLocalizedField('title');
 export const getLocalizedDescription = getLocalizedField('description');
+export const getLocalizedName = getLocalizedField('name');

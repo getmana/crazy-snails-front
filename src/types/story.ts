@@ -2,32 +2,32 @@ import type { PhotoStatus } from './api';
 
 export type StoryPhoto = {
     id: number;
-    original_key: string;
-    thumbnail_sm_key: string | null;
-    thumbnail_md_key: string | null;
+    originalKey: string;
+    thumbnailSmKey: string | null;
+    thumbnailMdKey: string | null;
     status: PhotoStatus;
 };
 
 export type StoryPhotoJoin = {
-    photo_id: number;
+    photoId: number;
     position: number;
     photo: StoryPhoto;
 };
 
 export type Story = {
     id: number;
-    user_id: number;
-    hero_image_id: number | null;
+    userId: number;
+    heroImageId: number | null;
     title: string;
-    title_en: string | null;
-    title_uk: string | null;
+    titleEn: string | null;
+    titleUk: string | null;
     description: string | null;
-    description_en: string | null;
-    description_uk: string | null;
-    hero_first: boolean;
-    is_published: boolean;
+    descriptionEn: string | null;
+    descriptionUk: string | null;
+    heroFirst: boolean;
+    isPublished: boolean;
     photo: StoryPhoto | null;
-    pair_image_stories: StoryPhotoJoin[];
-    gallery_image_stories: StoryPhotoJoin[];
-    carousel_stories: StoryPhotoJoin[];
+    pairImageStories: StoryPhotoJoin[];
+    galleryImageStories: StoryPhotoJoin[];
+    carouselStories: StoryPhotoJoin[];
 };

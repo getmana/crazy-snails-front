@@ -1,7 +1,7 @@
 export type Country = {
     id: number;
-    name_en: string;
-    name_uk: string;
+    nameEn: string;
+    nameUk: string;
 };
 
 export const getCountries = async (): Promise<Country[]> => {

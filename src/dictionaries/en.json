@@ -137,5 +137,11 @@
         "message": "Something went wrong on our end. Give it another try, or head back home while we sort it out.",
         "retryBtn": "Try again",
         "homeBtn": "Back home"
+    },
+    "notFoundPage": {
+        "heading": "This snail took a wrong turn",
+        "message": "We couldn't find the page you're looking for. It might have moved, or never existed at all.",
+        "homeBtn": "Back home",
+        "dashboardBtn": "Back to dashboard"
     }
 }

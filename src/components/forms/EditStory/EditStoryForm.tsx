@@ -5,12 +5,22 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type UpdateStoryPayload, updateStoryWithRedirect } from '@/actions/updateStory';
-import { CarouselPhotoUpload, Checkbox, GalleryPhotoUpload, HeroPhotoUpload, PairPhotoUpload, TextInput } from '@/components';
+import {
+    CarouselPhotoUpload,
+    Checkbox,
+    GalleryPhotoUpload,
+    HeroPhotoUpload,
+    PairPhotoUpload,
+    RichTextEditor,
+    TextInput,
+} from '@/components';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import { Story } from '@/types';
+import type { TiptapDocument } from '@/types/tiptap';
 import { getLocaleFromCookie, getLocalizedDescription, getLocalizedTitle, getPhotoUrl } from '@/utils';
+import { isTiptapDocEmpty } from '@/utils/richText';
 
 import { EditStorySchema, EditStorySchemaType } from './EditStorySchema';
 
@@ -46,8 +56,8 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
         defaultValues: {
             titleEn: story.titleEn || '',
             titleUk: story.titleUk || '',
-            descriptionEn: story.descriptionEn || '',
-            descriptionUk: story.descriptionUk || '',
+            descriptionEn: story.descriptionEn ?? null,
+            descriptionUk: story.descriptionUk ?? null,
             heroFirst: story.heroFirst,
             heroPhotoIds: story.photo ? story.photo.id : undefined,
             pairPhotoIds: story.pairImageStories.map((item) => item.photoId),
@@ -57,21 +67,23 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
     });
 
     const [titleEn, titleUk, descriptionEn, descriptionUk] = watch(['titleEn', 'titleUk', 'descriptionEn', 'descriptionUk']);
-    const canPublish = !!(titleEn || titleUk) && !!(descriptionEn || descriptionUk);
+    const canPublish = !!(titleEn || titleUk) && (!isTiptapDocEmpty(descriptionEn) || !isTiptapDocEmpty(descriptionUk));
 
     const buildPayload = (data: EditStorySchemaType, publish: boolean): UpdateStoryPayload => {
         const preferredLocale = getLocaleFromCookie();
         const resolvedTitle = (preferredLocale === 'en' ? data.titleEn || data.titleUk : data.titleUk || data.titleEn) || '';
-        const resolvedDescription =
-            (preferredLocale === 'en' ? data.descriptionEn || data.descriptionUk : data.descriptionUk || data.descriptionEn) || undefined;
+        const enDesc = !isTiptapDocEmpty(data.descriptionEn) ? data.descriptionEn : null;
+        const ukDesc = !isTiptapDocEmpty(data.descriptionUk) ? data.descriptionUk : null;
+        const resolvedDescription = ((preferredLocale === 'en' ? enDesc || ukDesc : ukDesc || enDesc) ?? undefined) as
+            TiptapDocument | undefined;
         console.log('data to submit===>', data);
         return {
             title: resolvedTitle,
             titleEn: data.titleEn,
             titleUk: data.titleUk,
             description: resolvedDescription,
-            descriptionEn: data.descriptionEn,
-            descriptionUk: data.descriptionUk,
+            descriptionEn: data.descriptionEn ?? undefined,
+            descriptionUk: data.descriptionUk ?? undefined,
             heroFirst: data.heroFirst,
             heroImageId: data.heroPhotoIds ?? null,
             pairPhotoIds: data.pairPhotoIds,
@@ -128,11 +140,17 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
                                 {...register(getLocalizedTitle(l))}
                                 error={errors[getLocalizedTitle(l)]?.message}
                             />
-                            <TextInput
-                                label={description}
-                                placeholder={`${l.toUpperCase()} ${description}`}
-                                {...register(getLocalizedDescription(l))}
-                                error={errors[getLocalizedDescription(l)]?.message}
+                            <Controller
+                                control={control}
+                                name={getLocalizedDescription(l)}
+                                render={({ field }) => (
+                                    <RichTextEditor
+                                        label={description}
+                                        value={field.value as TiptapDocument | null}
+                                        onChange={field.onChange}
+                                        error={errors[getLocalizedDescription(l)]?.message}
+                                    />
+                                )}
                             />
                         </TabsContent>
                     ))}

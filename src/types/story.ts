@@ -1,4 +1,5 @@
 import type { PhotoStatus } from './api';
+import type { TiptapDocument } from './tiptap';
 
 export type StoryPhoto = {
     id: number;
@@ -21,9 +22,9 @@ export type Story = {
     title: string;
     titleEn: string | null;
     titleUk: string | null;
-    description: string | null;
-    descriptionEn: string | null;
-    descriptionUk: string | null;
+    description: TiptapDocument | null;
+    descriptionEn: TiptapDocument | null;
+    descriptionUk: TiptapDocument | null;
     heroFirst: boolean;
     isPublished: boolean;
     photo: StoryPhoto | null;

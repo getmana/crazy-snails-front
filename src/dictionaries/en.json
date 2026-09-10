@@ -131,5 +131,11 @@
         "albumUpdated": "Success! Album is successfully updated",
         "storyCreated": "Congrats! Story is successfully created!",
         "storyUpdated": "Success! Story is successfully updated"
+    },
+    "errorPage": {
+        "heading": "Even the snails got stuck",
+        "message": "Something went wrong on our end. Give it another try, or head back home while we sort it out.",
+        "retryBtn": "Try again",
+        "homeBtn": "Back home"
     }
 }

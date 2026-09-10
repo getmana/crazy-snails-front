@@ -5,15 +5,16 @@ import { redirect } from 'next/navigation';
 
 import { fetchWithAuth } from '@/api/authFetch';
 import { ErrorResponse } from '@/types';
+import type { TiptapDocument } from '@/types/tiptap';
 import { getErrorMessage } from '@/utils';
 
 export type UpdateStoryPayload = {
     title?: string;
     titleEn?: string;
     titleUk?: string;
-    description?: string;
-    descriptionEn?: string;
-    descriptionUk?: string;
+    description?: TiptapDocument;
+    descriptionEn?: TiptapDocument;
+    descriptionUk?: TiptapDocument;
     heroFirst?: boolean;
     heroImageId?: number | null;
     pairPhotoIds?: number[];

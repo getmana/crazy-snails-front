@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+import { RichTextRenderer } from '@/components';
 import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
 import { getPhotoUrl } from '@/utils';
@@ -57,7 +58,7 @@ export const StoryContent = ({ story, locale }: { story: Story; locale: Locale }
                     {heroBlock}
                 </>
             )}
-            {description && <p className="py-6">{description}</p>}
+            <RichTextRenderer content={description} className="py-6" />
             {galleryBlock}
         </div>
     );

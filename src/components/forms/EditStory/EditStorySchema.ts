@@ -1,11 +1,17 @@
 import { z } from 'zod';
+import type { JSONContent } from '@tiptap/core';
+
+const TiptapDocumentSchema = z
+    .object({ type: z.literal('doc'), content: z.array(z.custom<JSONContent>()) })
+    .optional()
+    .nullable();
 
 export const EditStorySchema = z
     .object({
         titleEn: z.string().optional(),
         titleUk: z.string().optional(),
-        descriptionEn: z.string().optional(),
-        descriptionUk: z.string().optional(),
+        descriptionEn: TiptapDocumentSchema,
+        descriptionUk: TiptapDocumentSchema,
         heroFirst: z.boolean(),
         heroPhotoIds: z.number().optional(),
         pairPhotoIds: z.array(z.number()),

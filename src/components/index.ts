@@ -7,6 +7,8 @@ export { GalleryPhotoUpload } from './common/FormElements/GalleryPhotoUpload';
 export { HeroPhotoUpload } from './common/FormElements/HeroPhotoUpload';
 export { PairPhotoUpload } from './common/FormElements/PairPhotoUpload';
 export { PasswordInput } from './common/FormElements/PasswordInput';
+export { RichTextEditor } from './common/FormElements/RichTextEditor';
+export { RichTextRenderer } from './common/FormElements/RichTextRenderer';
 export { Select } from './common/FormElements/Select';
 export { TextInput } from './common/FormElements/TextInput';
 export { Header } from './common/Header';

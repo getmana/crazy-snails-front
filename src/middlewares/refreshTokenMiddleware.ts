@@ -16,8 +16,10 @@ export const refreshTokenMiddleware: MiddlewareFunction = {
         const cookieStore = await cookies();
         const session: IronSession<SessionData> = await getIronSession(cookieStore, sessionOptions);
 
-        if (session.user?.accessToken) {
-            const payload = decodeJwt(session.user.accessToken);
+        const { user } = session;
+
+        if (user?.accessToken) {
+            const payload = decodeJwt(user.accessToken);
             const { exp } = payload;
             const currentTime = Math.floor(Date.now() / 1000);
             const remainingTime = exp ? exp - currentTime : 0;
@@ -29,7 +31,7 @@ export const refreshTokenMiddleware: MiddlewareFunction = {
                 try {
                     const response = await fetch(`${process.env.CS_API}/auth/refresh`, {
                         method: 'POST',
-                        headers: { Authorization: `Bearer ${session.user.refreshToken}` },
+                        headers: { Authorization: `Bearer ${user.refreshToken}` },
                     });
                     console.log('refreshing in middleware=============================');
 

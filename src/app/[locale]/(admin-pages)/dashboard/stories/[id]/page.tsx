@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import { fetchWithAuth } from '@/api/authFetch';
 import { EditStoryForm, PublishedStoryView } from '@/components';
 import { ToastMessage } from '@/components/common/ToastMessage';
@@ -12,6 +14,9 @@ export default async function StoryAdminPage(props: {
     const { toast = null } = await props.searchParams;
 
     const response = await fetchWithAuth(`/stories/${id}`);
+    if (response.status === 404) {
+        notFound();
+    }
     const story: Story = await response.json();
     console.log('story===>', story);
 

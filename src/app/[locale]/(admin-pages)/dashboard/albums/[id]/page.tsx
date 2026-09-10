@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import { fetchWithAuth } from '@/api/authFetch';
 import { ToastMessage } from '@/components/common/ToastMessage';
 import { Locale } from '@/i18n-config';
@@ -11,6 +13,9 @@ export default async function AlbumAdminPage(props: {
     const { toast = null } = await props.searchParams;
 
     const response = await fetchWithAuth(`/albums/${id}`);
+    if (response.status === 404) {
+        notFound();
+    }
     const albumData = await response.json();
     console.log('albumdata===>', albumData);
 

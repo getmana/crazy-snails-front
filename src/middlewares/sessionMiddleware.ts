@@ -11,7 +11,7 @@ import { MiddlewareFunction } from './index';
 export const sessionMiddleware: MiddlewareFunction = {
     run: async (request) => {
         const cookieStore = await cookies();
-        const session: SessionData = await getIronSession(cookieStore, sessionOptions);
+        const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
 
         const { pathname } = request.nextUrl;
 

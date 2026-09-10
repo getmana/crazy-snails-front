@@ -1,7 +1,7 @@
 import { SessionOptions } from 'iron-session';
 
 export interface SessionData {
-    user: {
+    user?: {
         accessToken: string;
         refreshToken: string;
         id: string;

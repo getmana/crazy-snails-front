@@ -1,18 +1,11 @@
 import type { PhotoStatus } from './api';
+import { Photo } from './photo';
 import type { TiptapDocument } from './tiptap';
-
-export type StoryPhoto = {
-    id: number;
-    originalKey: string;
-    thumbnailSmKey: string | null;
-    thumbnailMdKey: string | null;
-    status: PhotoStatus;
-};
 
 export type StoryPhotoJoin = {
     photoId: number;
     position: number;
-    photo: StoryPhoto;
+    photo: Photo;
 };
 
 export type Story = {
@@ -27,8 +20,13 @@ export type Story = {
     descriptionUk: TiptapDocument | null;
     heroFirst: boolean;
     isPublished: boolean;
-    photo: StoryPhoto | null;
+    photo: Photo | null;
     pairImageStories: StoryPhotoJoin[];
     galleryImageStories: StoryPhotoJoin[];
     carouselStories: StoryPhotoJoin[];
+};
+
+export type OwnStoriesResponse = {
+    items: Omit<Story, 'pairImageStories' | 'galleryImageStories' | 'carouselStories'>[];
+    nextCursor: number | null;
 };

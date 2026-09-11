@@ -16,7 +16,8 @@
         "createAlbum": "Create Album",
         "editUser": "Edit User Data",
         "myAlbums": "My Albums",
-        "createStory": "Create Story"
+        "createStory": "Create Story",
+        "myStories": "My stories"
     },
     "subtitle": {
         "albums": "Our travelling photos",

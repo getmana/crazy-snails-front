@@ -122,7 +122,7 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
     }));
 
     return (
-        <div className="flex max-w-full flex-col pb-8">
+        <div className="flex max-w-full flex-col px-8 pb-8">
             <form className="space-y-4">
                 <Tabs defaultValue={locale}>
                     <TabsList>

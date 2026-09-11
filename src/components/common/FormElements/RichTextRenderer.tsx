@@ -3,6 +3,7 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 
 import { tiptapExtensions } from '@/lib/tiptap';
+import { cn } from '@/lib/utils';
 import type { TiptapDocument } from '@/types/tiptap';
 
 type RichTextRendererProps = {
@@ -10,7 +11,7 @@ type RichTextRendererProps = {
     className?: string;
 };
 
-export const RichTextRenderer = ({ content, className = '' }: RichTextRendererProps) => {
+export const RichTextRenderer = ({ content, className }: RichTextRendererProps) => {
     const editor = useEditor({
         extensions: tiptapExtensions,
         content: content ?? undefined,
@@ -20,5 +21,5 @@ export const RichTextRenderer = ({ content, className = '' }: RichTextRendererPr
 
     if (!content) return null;
 
-    return <EditorContent editor={editor} className={`prose prose-sm max-w-none [&_.ProseMirror]:outline-none ${className}`} />;
+    return <EditorContent editor={editor} className={cn('prose prose-sm max-w-none [&_.ProseMirror]:outline-none', className)} />;
 };

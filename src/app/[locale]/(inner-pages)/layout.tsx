@@ -12,7 +12,11 @@ export default async function InnerPagesLayout(
     return (
         <div className="flex min-h-dvh flex-col">
             <Header locale={locale} bgClassName="bg-white" />
-            <main className="bg-page bg-center-top flex-1 flex-grow bg-cover">{props.children}</main>
+            <main className="relative flex-1 flex-grow overflow-hidden">
+                {/* blur-lg */}
+                <div className="bg-page bg-center-top absolute -inset-8 -z-10 bg-cover bg-fixed" />
+                {props.children}
+            </main>
             <Footer locale={locale} />
         </div>
     );

@@ -21,7 +21,7 @@ export default async function StoryAdminPage(props: {
     console.log('story===>', story);
 
     return (
-        <div className="flex w-full flex-col px-8">
+        <div className="flex w-full flex-col">
             {toast ? <ToastMessage toast={toast} /> : null}
             {story.isPublished ? (
                 <PublishedStoryView story={story} locale={locale} />

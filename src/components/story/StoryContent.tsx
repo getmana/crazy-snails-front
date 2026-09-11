@@ -1,65 +1,42 @@
-import Image from 'next/image';
-
 import { RichTextRenderer } from '@/components';
 import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
-import { getPhotoUrl } from '@/utils';
+import { splitTiptapDocument } from '@/utils';
+
+import { StoryCarousel } from './StoryCarousel';
+import { StoryGallery } from './StoryGallery';
+import { StoryHero } from './StoryHero';
+import { StoryPair } from './StoryPair';
 
 export const StoryContent = ({ story, locale }: { story: Story; locale: Locale }) => {
-    const title = (locale === 'en' ? story.titleEn || story.titleUk : story.titleUk || story.titleEn) || story.title;
     const description = locale === 'en' ? story.descriptionEn || story.descriptionUk : story.descriptionUk || story.descriptionEn;
 
-    const heroBlock = story.photo ? (
-        <div className="relative aspect-[2/1] w-full">
-            <Image src={getPhotoUrl(story.photo.originalKey)} alt="" fill className="object-cover" sizes="100vw" />
-        </div>
-    ) : null;
+    const heroBlock = story.photo ? <StoryHero photo={story.photo} /> : null;
+    const pairBlock = story.pairImageStories.length === 2 ? <StoryPair items={story.pairImageStories} /> : null;
+    const hasGallery = story.galleryImageStories.length === 3;
+    const hasCarousel = story.carouselStories.length >= 2;
 
-    const pairSorted = story.pairImageStories.slice().sort((a, b) => a.position - b.position);
-    const pairBlock =
-        pairSorted.length === 2 ? (
-            <div className="flex w-full">
-                {pairSorted.map((item) => (
-                    <div key={item.photoId} className="relative aspect-square w-1/2">
-                        <Image src={getPhotoUrl(item.photo.originalKey)} alt="" fill className="object-cover" sizes="50vw" />
-                    </div>
-                ))}
-            </div>
-        ) : null;
-
-    const gallerySorted = story.galleryImageStories.slice().sort((a, b) => a.position - b.position);
-    const galleryBlock =
-        gallerySorted.length === 3 ? (
-            <div className="flex w-full gap-2">
-                <div className="relative aspect-square w-1/2">
-                    <Image src={getPhotoUrl(gallerySorted[0].photo.originalKey)} alt="" fill className="object-cover" sizes="50vw" />
-                </div>
-                <div className="flex w-1/2 flex-col gap-2">
-                    {gallerySorted.slice(1).map((item) => (
-                        <div key={item.photoId} className="relative aspect-[2/1] w-full">
-                            <Image src={getPhotoUrl(item.photo.originalKey)} alt="" fill className="object-cover" sizes="50vw" />
-                        </div>
-                    ))}
-                </div>
-            </div>
-        ) : null;
+    const [descriptionPart1, descriptionPart2] = hasGallery ? splitTiptapDocument(description) : [description, null];
 
     return (
-        <div className="flex w-full flex-col px-8">
-            <h1 className="heading-3 py-8">{title}</h1>
-            {story.heroFirst ? (
-                <>
-                    {heroBlock}
-                    {pairBlock}
-                </>
-            ) : (
-                <>
-                    {pairBlock}
-                    {heroBlock}
-                </>
-            )}
-            <RichTextRenderer content={description} className="py-6" />
-            {galleryBlock}
+        <div className="content flex w-full flex-col">
+            <div className="flex flex-col gap-2">
+                {story.heroFirst ? (
+                    <>
+                        {heroBlock}
+                        {pairBlock}
+                    </>
+                ) : (
+                    <>
+                        {pairBlock}
+                        {heroBlock}
+                    </>
+                )}
+            </div>
+            <RichTextRenderer content={descriptionPart1} className="text-grey-nav mx-auto max-w-3xl py-6" />
+            {hasGallery && <StoryGallery items={story.galleryImageStories} />}
+            {hasGallery && <RichTextRenderer content={descriptionPart2} className="text-grey-nav mx-auto max-w-3xl py-6" />}
+            {hasCarousel && <StoryCarousel items={story.carouselStories} />}
         </div>
     );
 };

@@ -81,7 +81,7 @@
 
 @theme inline {
   --background-image-home: url('/images/about-bg.jpeg');
-  --background-image-page: url('/images/page-bg.jpeg');
+  --background-image-page: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url('/images/page-bg.jpeg');
   --background-image-grandpa: url('/images/grandpa-bg.png');
   --background-image-grandpa-section: url('/images/grandpa-section-bg.jpg');
 

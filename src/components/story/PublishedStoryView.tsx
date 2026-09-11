@@ -19,6 +19,8 @@ export const PublishedStoryView = ({ story, locale }: { story: Story; locale: Lo
         return <EditStoryForm story={story} locale={locale} onCancel={() => setIsEditing(false)} />;
     }
 
+    const title = (locale === 'en' ? story.titleEn || story.titleUk : story.titleUk || story.titleEn) || story.title;
+
     return (
         <div>
             <div className="flex justify-end px-8 pt-4">
@@ -26,6 +28,7 @@ export const PublishedStoryView = ({ story, locale }: { story: Story; locale: Lo
                     {editBtn}
                 </button>
             </div>
+            <h1 className="heading-3 py-8">{title}</h1>
             <StoryContent story={story} locale={locale} />
         </div>
     );

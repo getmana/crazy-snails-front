@@ -1,3 +1,4 @@
+import { getPublicStories } from '@/api/getPublicStories';
 import { Heading, PreviewCard } from '@/components';
 import { Locale } from '@/i18n-config';
 import { PublicStoriesResponse } from '@/types';
@@ -8,8 +9,7 @@ export default async function Stories(props: { params: Promise<{ locale: Locale 
 
     const { title, subtitle, button } = await getDictionary(locale);
 
-    const response = await fetch(`${process.env.CS_API}/users/${process.env.SITE_OWNER_ID}/stories`);
-    const { items }: PublicStoriesResponse = await response.json();
+    const { items } = await getPublicStories();
 
     return (
         <div className="section">

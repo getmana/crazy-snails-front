@@ -19,3 +19,8 @@ export type OwnAlbumsResponse = {
     items: Album[];
     nextCursor: number | null;
 };
+
+export type PublicAlbumsResponse = {
+    items: Album[];
+    nextCursor: number | null;
+};

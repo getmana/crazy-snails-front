@@ -30,3 +30,8 @@ export type OwnStoriesResponse = {
     items: Omit<Story, 'pairImageStories' | 'galleryImageStories' | 'carouselStories'>[];
     nextCursor: number | null;
 };
+
+export type PublicStoriesResponse = {
+    items: Omit<Story, 'pairImageStories' | 'galleryImageStories' | 'carouselStories'>[];
+    nextCursor: number | null;
+};

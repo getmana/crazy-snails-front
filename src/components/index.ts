@@ -16,6 +16,7 @@ export { HeaderAdmin } from './common/HeaderAdmin';
 export { Heading } from './common/Heading';
 export { Icon } from './common/Icon/Icon';
 export { LocaleSwitcher } from './common/LocaleSwitcher';
+export { PreviewCard } from './common/PreviewCard';
 export { CreateAlbumForm } from './forms/CreateAlbum/CreateAlbumForm';
 export { CreateStoryForm } from './forms/CreateStory/CreateStoryForm';
 export { EditStoryForm } from './forms/EditStory/EditStoryForm';

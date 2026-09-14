@@ -11,6 +11,6 @@ export { getPathWithLocale } from './getPathWithLocale';
 export { getPhotoUrl } from './getPhotoUrl';
 export { internalAPIRoutes } from './internalAPIRouts';
 export { isValidAdminTheme } from './isValidAdminTheme';
-export { isTiptapDocEmpty, splitTiptapDocument } from './richText';
+export { getTiptapTextPreview, isTiptapDocEmpty, splitTiptapDocument } from './richText';
 export { runWithConcurrencyLimit } from './runWithConcurrencyLimit';
 export { transformObjectToFormData } from './transformObjectToFormData';

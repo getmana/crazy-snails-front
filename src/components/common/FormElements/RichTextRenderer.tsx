@@ -21,5 +21,5 @@ export const RichTextRenderer = ({ content, className }: RichTextRendererProps) 
 
     if (!content) return null;
 
-    return <EditorContent editor={editor} className={cn('prose prose-sm max-w-none [&_.ProseMirror]:outline-none', className)} />;
+    return <EditorContent editor={editor} className={cn('prose prose-lg max-w-none [&_.ProseMirror]:outline-none', className)} />;
 };

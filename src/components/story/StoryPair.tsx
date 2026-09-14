@@ -9,7 +9,7 @@ export const StoryPair = ({ items }: { items: StoryPhotoJoin[] }) => {
     return (
         <div className="flex w-full gap-2">
             {sorted.map((item) => (
-                <div key={item.photoId} className="relative aspect-[5/4] w-1/2">
+                <div key={item.photoId} className="relative aspect-[5/4] w-1/2 overflow-hidden rounded-lg">
                     <Image
                         src={getPhotoUrl(item.photo.thumbnailMdKey ?? item.photo.originalKey)}
                         alt=""

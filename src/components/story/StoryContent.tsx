@@ -36,7 +36,7 @@ export const StoryContent = ({ story, locale }: { story: Story; locale: Locale }
             <RichTextRenderer content={descriptionPart1} className="text-grey-nav mx-auto max-w-3xl py-6" />
             {hasGallery && <StoryGallery items={story.galleryImageStories} />}
             {hasGallery && <RichTextRenderer content={descriptionPart2} className="text-grey-nav mx-auto max-w-3xl py-6" />}
-            {hasCarousel && <StoryCarousel items={story.carouselStories} />}
+            {hasCarousel && <StoryCarousel items={story.carouselStories} locale={locale} />}
         </div>
     );
 };

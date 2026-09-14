@@ -8,7 +8,7 @@ export const StoryGallery = ({ items }: { items: StoryPhotoJoin[] }) => {
 
     return (
         <div className="flex w-full gap-2">
-            <div className="relative aspect-[3/4] w-1/2">
+            <div className="relative aspect-[3/4] w-1/2 overflow-hidden rounded-lg">
                 <Image
                     src={getPhotoUrl(big.photo.thumbnailMdKey ?? big.photo.originalKey)}
                     fill
@@ -19,7 +19,7 @@ export const StoryGallery = ({ items }: { items: StoryPhotoJoin[] }) => {
             </div>
             <div className="flex w-1/2 flex-col gap-2">
                 {rest.map((item) => (
-                    <div key={item.photoId} className="relative aspect-[3/2] w-full">
+                    <div key={item.photoId} className="relative aspect-[3/2] w-full overflow-hidden rounded-lg">
                         <Image
                             src={getPhotoUrl(item.photo.thumbnailMdKey ?? item.photo.originalKey)}
                             fill

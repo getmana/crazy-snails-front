@@ -8,6 +8,12 @@ export type StoryPhotoJoin = {
     photo: Photo;
 };
 
+export type CarouselPhotoJoin = StoryPhotoJoin & {
+    caption?: string;
+    captionEn?: string;
+    captionUk?: string;
+};
+
 export type Story = {
     id: number;
     userId: number;
@@ -23,7 +29,7 @@ export type Story = {
     photo: Photo | null;
     pairImageStories: StoryPhotoJoin[];
     galleryImageStories: StoryPhotoJoin[];
-    carouselStories: StoryPhotoJoin[];
+    carouselStories: CarouselPhotoJoin[];
 };
 
 export type OwnStoriesResponse = {

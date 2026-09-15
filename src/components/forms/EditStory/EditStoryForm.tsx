@@ -19,7 +19,7 @@ import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import { Story } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
-import { getLocaleFromCookie, getLocalizedDescription, getLocalizedTitle, getPhotoUrl } from '@/utils';
+import { getLocaleFromCookie, getLocalizedDescription, getLocalizedSubtitle, getLocalizedTitle, getPhotoUrl } from '@/utils';
 import { isTiptapDocEmpty } from '@/utils/richText';
 
 import { EditStorySchema, EditStorySchemaType } from './EditStorySchema';
@@ -31,6 +31,7 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
     const {
         editStoryForm: {
             title,
+            subtitleLabel,
             description,
             heroFirstLabel,
             heroLabel,
@@ -56,6 +57,8 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
         defaultValues: {
             titleEn: story.titleEn || '',
             titleUk: story.titleUk || '',
+            subtitleEn: story.subtitleEn || '',
+            subtitleUk: story.subtitleUk || '',
             descriptionEn: story.descriptionEn ?? null,
             descriptionUk: story.descriptionUk ?? null,
             heroFirst: story.heroFirst,
@@ -71,7 +74,10 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
 
     const buildPayload = (data: EditStorySchemaType, publish: boolean): UpdateStoryPayload => {
         const preferredLocale = getLocaleFromCookie();
-        const resolvedTitle = (preferredLocale === 'en' ? data.titleEn || data.titleUk : data.titleUk || data.titleEn) || '';
+        const resolvedTitle = data[getLocalizedTitle(preferredLocale)] || [data.titleEn, data.titleUk].filter(Boolean)?.[0] || '';
+        const resolvedSubtitle =
+            data[getLocalizedSubtitle(preferredLocale)] || [data.subtitleEn, data.subtitleUk].filter(Boolean)?.[0] || '';
+
         const enDesc = !isTiptapDocEmpty(data.descriptionEn) ? data.descriptionEn : null;
         const ukDesc = !isTiptapDocEmpty(data.descriptionUk) ? data.descriptionUk : null;
         const resolvedDescription = ((preferredLocale === 'en' ? enDesc || ukDesc : ukDesc || enDesc) ?? undefined) as
@@ -81,6 +87,9 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
             title: resolvedTitle,
             titleEn: data.titleEn,
             titleUk: data.titleUk,
+            subtitle: resolvedSubtitle,
+            subtitleEn: data.subtitleEn,
+            subtitleUk: data.subtitleUk,
             description: resolvedDescription,
             descriptionEn: data.descriptionEn ?? undefined,
             descriptionUk: data.descriptionUk ?? undefined,
@@ -139,6 +148,12 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
                                 placeholder={`${l.toUpperCase()} ${title}`}
                                 {...register(getLocalizedTitle(l))}
                                 error={errors[getLocalizedTitle(l)]?.message}
+                            />
+                            <TextInput
+                                label={subtitleLabel}
+                                placeholder={`${l.toUpperCase()} ${subtitleLabel}`}
+                                {...register(getLocalizedSubtitle(l))}
+                                error={errors[getLocalizedSubtitle(l)]?.message}
                             />
                             <Controller
                                 control={control}

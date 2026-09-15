@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 
-import { EditStoryForm } from '@/components';
+import { EditStoryForm, Heading } from '@/components';
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
+import { resolveLocalizedValue } from '@/utils';
 
 import { StoryContent } from './StoryContent';
 
@@ -19,7 +20,9 @@ export const PublishedStoryView = ({ story, locale }: { story: Story; locale: Lo
         return <EditStoryForm story={story} locale={locale} onCancel={() => setIsEditing(false)} />;
     }
 
-    const title = (locale === 'en' ? story.titleEn || story.titleUk : story.titleUk || story.titleEn) || story.title;
+    const { titleEn, titleUk, title, subtitleEn, subtitleUk, subtitle } = story;
+    const localizedTitle = resolveLocalizedValue(titleEn, titleUk, title, locale) ?? '';
+    const localizedSubtitle = resolveLocalizedValue(subtitleEn, subtitleUk, subtitle, locale) ?? undefined;
 
     return (
         <div>
@@ -28,7 +31,7 @@ export const PublishedStoryView = ({ story, locale }: { story: Story; locale: Lo
                     {editBtn}
                 </button>
             </div>
-            <h1 className="heading-3 py-8">{title}</h1>
+            <Heading heading={localizedTitle} headingTag="h1" subheading={localizedSubtitle} className="heading-3" />
             <StoryContent story={story} locale={locale} />
         </div>
     );

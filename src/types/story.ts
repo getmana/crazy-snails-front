@@ -21,6 +21,9 @@ export type Story = {
     title: string;
     titleEn: string | null;
     titleUk: string | null;
+    subtitle?: string;
+    subtitleEn?: string;
+    subtitleUk?: string;
     description: TiptapDocument | null;
     descriptionEn: TiptapDocument | null;
     descriptionUk: TiptapDocument | null;

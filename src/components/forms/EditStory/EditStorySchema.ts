@@ -10,6 +10,8 @@ export const EditStorySchema = z
     .object({
         titleEn: z.string().optional(),
         titleUk: z.string().optional(),
+        subtitleEn: z.string().optional(),
+        subtitleUk: z.string().optional(),
         descriptionEn: TiptapDocumentSchema,
         descriptionUk: TiptapDocumentSchema,
         heroFirst: z.boolean(),

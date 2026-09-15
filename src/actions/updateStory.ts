@@ -12,6 +12,9 @@ export type UpdateStoryPayload = {
     title?: string;
     titleEn?: string;
     titleUk?: string;
+    subtitle?: string;
+    subtitleEn?: string;
+    subtitleUk?: string;
     description?: TiptapDocument;
     descriptionEn?: TiptapDocument;
     descriptionUk?: TiptapDocument;

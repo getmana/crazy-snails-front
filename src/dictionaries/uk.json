@@ -73,6 +73,7 @@
     },
     "editStoryForm": {
         "title": "Назва історії",
+        "subtitleLabel": "Підзаголовок історії",
         "description": "Опис",
         "heroFirstLabel": "Показувати головне фото першим",
         "heroLabel": "Головне фото",

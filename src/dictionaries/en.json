@@ -73,6 +73,7 @@
     },
     "editStoryForm": {
         "title": "Story Title",
+        "subtitleLabel": "Story Subtitle",
         "description": "Description",
         "heroFirstLabel": "Show hero image first",
         "heroLabel": "Hero Image",

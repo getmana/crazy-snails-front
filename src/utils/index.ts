@@ -5,7 +5,13 @@ export { getErrorMessage } from './getErrorMessage';
 export { getLocaleFromAcceptLanguage, getLocaleFromPathname, isValidLocale } from './getLocale';
 export { getLocaleFromCookie } from './getLocaleFromCookie';
 export { getLocalizedActivityTypes } from './getLocalizedActivityTypes';
-export { getLocalizedDescription, getLocalizedTitle } from './getLocalizedField';
+export {
+    getLocalizedCaption,
+    getLocalizedDescription,
+    getLocalizedSubtitle,
+    getLocalizedTitle,
+    resolveLocalizedValue,
+} from './getLocalizedField';
 export { getMenuItems, type MenuItem } from './getMenuItems';
 export { getPathWithLocale } from './getPathWithLocale';
 export { getPhotoUrl } from './getPhotoUrl';

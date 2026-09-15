@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Locale } from '@/i18n-config';
 import { CarouselPhotoJoin } from '@/types';
-import { getPhotoUrl } from '@/utils';
+import { getPhotoUrl, resolveLocalizedValue } from '@/utils';
 
 import { CarouselCaption } from './CarouselCaption';
 
@@ -18,22 +18,26 @@ export const StoryCarousel = ({ items, locale }: { items: CarouselPhotoJoin[]; l
         <Carousel opts={{ loop: true }} className="w-full">
             <CarouselContent className="ml-0">
                 {sorted.map((item) => {
-                    const caption =
-                        (locale === 'en' ? item.captionEn || item.captionUk : item.captionUk || item.captionEn) ||
-                        item.caption ||
-                        PLACEHOLDER_CAPTION;
+                    const {
+                        captionEn,
+                        captionUk,
+                        caption,
+                        photoId,
+                        photo: { thumbnailMdKey, originalKey },
+                    } = item;
+                    const localizedCaption = resolveLocalizedValue(captionEn, captionUk, caption, locale) ?? PLACEHOLDER_CAPTION;
 
                     return (
-                        <CarouselItem key={item.photoId} className="pl-0">
+                        <CarouselItem key={photoId} className="pl-0">
                             <div className="relative aspect-[3/2] max-h-[90vh] w-full overflow-hidden rounded-lg bg-white/50">
                                 <Image
-                                    src={getPhotoUrl(item.photo.thumbnailMdKey ?? item.photo.originalKey)}
+                                    src={getPhotoUrl(thumbnailMdKey ?? originalKey)}
                                     alt=""
                                     fill
                                     className="object-contain"
                                     sizes="100vw"
                                 />
-                                <CarouselCaption caption={caption} />
+                                <CarouselCaption caption={localizedCaption} />
                             </div>
                         </CarouselItem>
                     );

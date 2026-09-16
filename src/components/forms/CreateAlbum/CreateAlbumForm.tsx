@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { type CreateAlbumPayload, createAlbumWithRedirect } from '@/actions/createAlbum';
 import { ErrorText, Icon, Select, TextInput } from '@/components';
 import { SelectOption } from '@/components/common/FormElements/Select';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useDictionary, useToastMessageContext } from '@/context';
@@ -133,17 +134,17 @@ export const CreateAlbumForm = ({ countries, locale, activities }: { countries: 
                                 )}
                             />
                             {fields.length > 1 && (
-                                <button type="button" onClick={() => remove(index)} className="pt-1 pl-2">
-                                    <Icon icon="TrashBin" className="fill-foreground size-8" />
-                                </button>
+                                <Button type="button" variant="ghost" size="icon" onClick={() => remove(index)} aria-label="Remove country">
+                                    <Icon icon="TrashBin" className="fill-foreground size-4" />
+                                </Button>
                             )}
                         </div>
                     ))}
                     {errors.countries?.root && <ErrorText text={errors.countries.root.message || 'Error when selecting country'} />}
                     {fields.length < 5 && (
-                        <button type="button" onClick={() => append({ code: '' })} className="btn-primary">
+                        <Button type="button" onClick={() => append({ code: '' })}>
                             {addCountryBtn}
-                        </button>
+                        </Button>
                     )}
                 </div>
                 <div>
@@ -179,9 +180,9 @@ export const CreateAlbumForm = ({ countries, locale, activities }: { countries: 
                     })}
                     error={errors.endDate?.message}
                 />
-                <button type="submit" className="btn-primary" disabled={isPending}>
+                <Button type="submit" disabled={isPending}>
                     {submitBtn}
-                </button>
+                </Button>
             </form>
         </div>
     );

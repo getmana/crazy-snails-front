@@ -27,5 +27,7 @@ export { About } from './homepage/About';
 export { AlbumsSection } from './homepage/Albums';
 export { GrandpaSection } from './homepage/Grandpa';
 export { StoriesSection } from './homepage/Stories';
+export { DeleteStoryDialog } from './story/DeleteStoryDialog';
 export { PublishedStoryView } from './story/PublishedStoryView';
 export { StoryContent } from './story/StoryContent';
+export { StoryRow } from './story/StoryRow';

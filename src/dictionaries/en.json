@@ -86,12 +86,14 @@
         "saveBtn": "Save",
         "publishBtn": "Publish",
         "editBtn": "Edit",
+        "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
         "captionDialogTitle": "Edit Caption",
         "captionEnLabel": "Caption (English)",
         "captionUkLabel": "Caption (Ukrainian)",
         "captionSaveBtn": "Save",
-        "captionCancelBtn": "Cancel"
+        "captionCancelBtn": "Cancel",
+        "confirmDelete": "Are you sure you want to delete the story? This action can not be undone."
     },
     "editUserForm": {
         "username": "New Username",
@@ -102,6 +104,11 @@
         "usernameUpdated": "Success! Username is updated. Redirecting to your dashboard...",
         "signedIn": "Success! Redirecting to your admin panel...",
         "signedUp": "Success! Please, sign in to your newly created account. Redirecting..."
+    },
+    "adminStoriesList": {
+        "publishedLabel": "Published",
+        "draftLabel": "Draft",
+        "emptyMessage": "No stories yet."
     },
     "adminSidebar": {
         "sectionContentTitle": "My Content",
@@ -137,7 +144,8 @@
         "albumCreated": "Congrats! Album is successfully created!",
         "albumUpdated": "Success! Album is successfully updated",
         "storyCreated": "Congrats! Story is successfully created!",
-        "storyUpdated": "Success! Story is successfully updated"
+        "storyUpdated": "Success! Story is successfully updated",
+        "storyDeleted": "Success! Story is successfully deleted"
     },
     "errorPage": {
         "heading": "Even the snails got stuck",

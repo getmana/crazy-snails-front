@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { EditStoryForm, Heading } from '@/components';
+import { Button } from '@/components/ui/button';
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
@@ -27,9 +28,9 @@ export const PublishedStoryView = ({ story, locale }: { story: Story; locale: Lo
     return (
         <div>
             <div className="flex justify-end px-8 pt-4">
-                <button type="button" className="btn-primary" onClick={() => setIsEditing(true)}>
+                <Button type="button" onClick={() => setIsEditing(true)}>
                     {editBtn}
-                </button>
+                </Button>
             </div>
             <Heading heading={localizedTitle} headingTag="h1" subheading={localizedSubtitle} className="heading-3" />
             <StoryContent story={story} locale={locale} />

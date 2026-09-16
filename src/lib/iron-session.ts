@@ -8,8 +8,6 @@ export interface SessionData {
     };
 }
 
-console.log('process.env.SESSION_SECRET', process.env.SESSION_SECRET);
-
 export const sessionOptions: SessionOptions = {
     password: process.env.SESSION_SECRET as string,
     cookieName: 'session',

@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type CreateStoryPayload, createStoryWithRedirect } from '@/actions/createStory';
 import { TextInput } from '@/components';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
@@ -76,9 +77,9 @@ export const CreateStoryForm = ({ locale }: { locale: Locale }) => {
                         </TabsContent>
                     ))}
                 </Tabs>
-                <button type="submit" className="btn-primary" disabled={isPending}>
+                <Button type="submit" disabled={isPending}>
                     {submitBtn}
-                </button>
+                </Button>
             </form>
         </div>
     );

@@ -8,12 +8,14 @@ import { type UpdateStoryPayload, updateStoryWithRedirect } from '@/actions/upda
 import {
     CarouselPhotoUpload,
     Checkbox,
+    DeleteStoryDialog,
     GalleryPhotoUpload,
     HeroPhotoUpload,
     PairPhotoUpload,
     RichTextEditor,
     TextInput,
 } from '@/components';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
@@ -43,6 +45,7 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
             saveBtn,
             publishBtn,
             cancelBtn,
+            deleteBtn,
         },
     } = useDictionary();
 
@@ -238,16 +241,24 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
 
                 <div className="flex gap-4">
                     {onCancel && (
-                        <button type="button" className="btn-outline" disabled={isPending} onClick={onCancel}>
+                        <Button type="button" variant="outline" disabled={isPending} onClick={onCancel}>
                             {cancelBtn}
-                        </button>
+                        </Button>
                     )}
-                    <button type="button" className="btn-primary" disabled={isPending || !isDirty} onClick={submit(false)}>
+                    <Button type="button" disabled={isPending || !isDirty} onClick={submit(false)}>
                         {saveBtn}
-                    </button>
-                    <button type="button" className="btn-primary" disabled={isPending || !canPublish || !isDirty} onClick={submit(true)}>
+                    </Button>
+                    <Button type="button" disabled={isPending || !canPublish || !isDirty} onClick={submit(true)}>
                         {publishBtn}
-                    </button>
+                    </Button>
+                    <DeleteStoryDialog
+                        storyId={story.id}
+                        trigger={
+                            <Button type="button" variant="destructive" disabled={isPending}>
+                                {deleteBtn}
+                            </Button>
+                        }
+                    />
                 </div>
             </form>
         </div>

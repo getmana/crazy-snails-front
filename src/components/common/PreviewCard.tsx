@@ -2,8 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card';
-
-const PLACEHOLDER_IMAGE_URL = '/images/IMG_4490.JPG';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/images';
 
 type PreviewCardProps = {
     href: string;

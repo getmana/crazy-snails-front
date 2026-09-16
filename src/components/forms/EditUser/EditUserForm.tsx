@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { TextInput } from '@/components';
+import { Button } from '@/components/ui/button';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { Locale } from '@/i18n-config';
 import { getErrorMessage, internalAPIRoutes } from '@/utils';
@@ -81,9 +82,9 @@ export const EditUserForm = ({ locale }: { locale: Locale }) => {
                     {...register('email')}
                     autoComplete="email"
                 />
-                <button className="btn-primary" type="submit" disabled={disableForm || !isValid}>
+                <Button type="submit" disabled={disableForm || !isValid}>
                     {button.editUser}
-                </button>
+                </Button>
             </form>
         </div>
     );

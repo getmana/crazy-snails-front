@@ -86,12 +86,15 @@
         "saveBtn": "Зберегти",
         "publishBtn": "Опублікувати",
         "editBtn": "Редагувати",
+        "deleteBtn": "Видалити",
         "cancelBtn": "Скасувати",
         "captionDialogTitle": "Редагувати підпис",
         "captionEnLabel": "Підпис (англійською)",
         "captionUkLabel": "Підпис (українською)",
         "captionSaveBtn": "Зберегти",
-        "captionCancelBtn": "Скасувати"
+        "captionCancelBtn": "Скасувати",
+        "confirmDelete": "Точно видалити історію? Цю дію неможливо відмінити."
+
     },
     "editUserForm": {
         "username": "Нове ім'я користувача",
@@ -102,6 +105,11 @@
         "usernameUpdated": "Вітаємо! Ім'я користувача успішно оновлено. Нумо до адмінки...",
         "signedIn": "Вітаємо! Ласкаво просимо до вашої адмінки...",
         "signedUp": "Вітаємо! Будь ласка, залогінтесь у ваш новий акаунт..."
+    },
+    "adminStoriesList": {
+        "publishedLabel": "Опубліковано",
+        "draftLabel": "Чернетка",
+        "emptyMessage": "Історій ще немає."
     },
     "adminSidebar": {
         "sectionContentTitle": "Мій контент",
@@ -137,7 +145,8 @@
         "albumCreated": "Вітання! Альбом створено!",
         "albumUpdated": "Ура! Альбом успішно оновлено",
         "storyCreated": "Вітання! Історію створено!",
-        "storyUpdated": "Ура! Історію успішно оновлено"
+        "storyUpdated": "Ура! Історію успішно оновлено",
+        "storyDeleted": "Історію успішно видалено"
     },
     "errorPage": {
         "heading": "Навіть равлики іноді гальмують",

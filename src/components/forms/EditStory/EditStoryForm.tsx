@@ -65,7 +65,12 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
             heroPhotoIds: story.photo ? story.photo.id : undefined,
             pairPhotoIds: story.pairImageStories.map((item) => item.photoId),
             galleryPhotoIds: story.galleryImageStories.map((item) => item.photoId),
-            carouselPhotoIds: story.carouselStories.map((item) => item.photoId),
+            carouselPhotos: story.carouselStories.map((item) => ({
+                photoId: item.photoId,
+                caption: item.caption ?? undefined,
+                captionEn: item.captionEn ?? undefined,
+                captionUk: item.captionUk ?? undefined,
+            })),
         },
     });
 
@@ -97,7 +102,7 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
             heroImageId: data.heroPhotoIds ?? null,
             pairPhotoIds: data.pairPhotoIds,
             galleryPhotoIds: data.galleryPhotoIds,
-            carouselPhotoIds: data.carouselPhotoIds,
+            carouselPhotos: data.carouselPhotos,
             ...(publish ? { isPublished: true } : {}),
         };
     };
@@ -128,6 +133,12 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
     const carouselInitialPhotos = story.carouselStories.map((item) => ({
         photoId: item.photoId,
         url: getPhotoUrl(item.photo.thumbnailSmKey || item.photo.originalKey),
+    }));
+    const carouselInitialCaptions = story.carouselStories.map((item) => ({
+        photoId: item.photoId,
+        caption: item.caption ?? undefined,
+        captionEn: item.captionEn ?? undefined,
+        captionUk: item.captionUk ?? undefined,
     }));
 
     return (
@@ -214,9 +225,14 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
 
                 <Controller
                     control={control}
-                    name="carouselPhotoIds"
+                    name="carouselPhotos"
                     render={({ field: { onChange } }) => (
-                        <CarouselPhotoUpload label={carouselLabel} initialPhotos={carouselInitialPhotos} onChange={onChange} />
+                        <CarouselPhotoUpload
+                            label={carouselLabel}
+                            initialPhotos={carouselInitialPhotos}
+                            initialCaptions={carouselInitialCaptions}
+                            onChange={onChange}
+                        />
                     )}
                 />
 

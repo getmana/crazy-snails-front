@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { ErrorResponse } from '@/types';
+import { CarouselPhotoInput, ErrorResponse } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
 import { getErrorMessage } from '@/utils';
 
@@ -22,7 +22,7 @@ export type UpdateStoryPayload = {
     heroImageId?: number | null;
     pairPhotoIds?: number[];
     galleryPhotoIds?: number[];
-    carouselPhotoIds?: number[];
+    carouselPhotos?: CarouselPhotoInput[];
     isPublished?: boolean;
 };
 

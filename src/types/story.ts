@@ -14,6 +14,13 @@ export type CarouselPhotoJoin = StoryPhotoJoin & {
     captionUk?: string;
 };
 
+export type CarouselPhotoInput = {
+    photoId: number;
+    caption?: string;
+    captionEn?: string;
+    captionUk?: string;
+};
+
 export type Story = {
     id: number;
     userId: number;

@@ -18,7 +18,14 @@ export const EditStorySchema = z
         heroPhotoIds: z.number().optional(),
         pairPhotoIds: z.array(z.number()),
         galleryPhotoIds: z.array(z.number()),
-        carouselPhotoIds: z.array(z.number()),
+        carouselPhotos: z.array(
+            z.object({
+                photoId: z.number(),
+                caption: z.string().optional(),
+                captionEn: z.string().optional(),
+                captionUk: z.string().optional(),
+            }),
+        ),
     })
     .refine((data) => data.titleEn || data.titleUk, {
         message: 'At least one of titleEn or titleUk must be provided',

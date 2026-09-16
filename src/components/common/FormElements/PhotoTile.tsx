@@ -1,5 +1,6 @@
 'use client';
 
+import { Pencil } from 'lucide-react';
 import Image from 'next/image';
 
 import { ErrorText, Icon } from '@/components';
@@ -11,9 +12,10 @@ type PhotoTileProps = {
     retryable?: boolean;
     onRetry: () => void;
     onRemove: () => void;
+    onEditCaption?: () => void;
 };
 
-export const PhotoTile = ({ previewUrl, status, errorMessage, retryable = true, onRetry, onRemove }: PhotoTileProps) => {
+export const PhotoTile = ({ previewUrl, status, errorMessage, retryable = true, onRetry, onRemove, onEditCaption }: PhotoTileProps) => {
     return (
         <div className="w-40">
             <div className="bg-accent relative h-32 w-40 overflow-hidden rounded-lg">
@@ -36,6 +38,16 @@ export const PhotoTile = ({ previewUrl, status, errorMessage, retryable = true, 
                 >
                     <Icon icon="CloseCircle" className="size-5" />
                 </button>
+                {status === 'done' && onEditCaption && (
+                    <button
+                        type="button"
+                        onClick={onEditCaption}
+                        aria-label="Edit caption"
+                        className="text-muted-foreground hover:text-accent-foreground absolute right-1 bottom-1 flex size-5 items-center justify-center rounded-full bg-white transition-colors"
+                    >
+                        <Pencil className="size-3" />
+                    </button>
+                )}
             </div>
             {status === 'error' && (
                 <div className="mt-1">

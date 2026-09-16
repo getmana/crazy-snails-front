@@ -86,7 +86,12 @@
         "saveBtn": "Save",
         "publishBtn": "Publish",
         "editBtn": "Edit",
-        "cancelBtn": "Cancel"
+        "cancelBtn": "Cancel",
+        "captionDialogTitle": "Edit Caption",
+        "captionEnLabel": "Caption (English)",
+        "captionUkLabel": "Caption (Ukrainian)",
+        "captionSaveBtn": "Save",
+        "captionCancelBtn": "Cancel"
     },
     "editUserForm": {
         "username": "New Username",

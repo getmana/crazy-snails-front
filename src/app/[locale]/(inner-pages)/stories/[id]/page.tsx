@@ -22,7 +22,7 @@ export default async function StoryPublicPage(props: {
 
     const { titleEn, titleUk, title, subtitleEn, subtitleUk, subtitle } = story;
     const localizedTitle = resolveLocalizedValue(titleEn, titleUk, title, locale) ?? '';
-    const localizedSubtitle = resolveLocalizedValue(subtitleEn, subtitleUk, subtitle, locale) ?? defaultSubtitle;
+    const localizedSubtitle = resolveLocalizedValue(subtitleEn, subtitleUk, subtitle, locale) || defaultSubtitle;
 
     return (
         <div className="section">

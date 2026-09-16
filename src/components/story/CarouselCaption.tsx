@@ -3,7 +3,7 @@
 import { Info, X } from 'lucide-react';
 import { useState } from 'react';
 
-export const CarouselCaption = ({ caption }: { caption?: string }) => {
+export const CarouselCaption = ({ caption }: { caption?: string | null }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     if (!caption) return null;

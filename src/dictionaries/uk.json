@@ -86,7 +86,12 @@
         "saveBtn": "Зберегти",
         "publishBtn": "Опублікувати",
         "editBtn": "Редагувати",
-        "cancelBtn": "Скасувати"
+        "cancelBtn": "Скасувати",
+        "captionDialogTitle": "Редагувати підпис",
+        "captionEnLabel": "Підпис (англійською)",
+        "captionUkLabel": "Підпис (українською)",
+        "captionSaveBtn": "Зберегти",
+        "captionCancelBtn": "Скасувати"
     },
     "editUserForm": {
         "username": "Нове ім'я користувача",

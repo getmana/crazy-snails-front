@@ -9,8 +9,6 @@ import { getPhotoUrl, resolveLocalizedValue } from '@/utils';
 
 import { CarouselCaption } from './CarouselCaption';
 
-const PLACEHOLDER_CAPTION = 'This is a photo description';
-
 export const StoryCarousel = ({ items, locale }: { items: CarouselPhotoJoin[]; locale: Locale }) => {
     const sorted = items.slice().sort((a, b) => a.position - b.position);
 
@@ -25,7 +23,7 @@ export const StoryCarousel = ({ items, locale }: { items: CarouselPhotoJoin[]; l
                         photoId,
                         photo: { thumbnailMdKey, originalKey },
                     } = item;
-                    const localizedCaption = resolveLocalizedValue(captionEn, captionUk, caption, locale) ?? PLACEHOLDER_CAPTION;
+                    const localizedCaption = resolveLocalizedValue(captionEn, captionUk, caption, locale);
 
                     return (
                         <CarouselItem key={photoId} className="pl-0">

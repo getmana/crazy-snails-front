@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { move } from '@dnd-kit/helpers';
+import { DragDropProvider } from '@dnd-kit/react';
 
 import { type ExistingPhoto, usePhotoUpload } from '@/hooks/usePhotoUpload';
 
 import { FileInput } from './FileInput';
-import { PhotoTile } from './PhotoTile';
+import { SortablePhotoTile } from './SortablePhotoTile';
 
 type PhotoUploadFieldProps = {
     max: number;
@@ -17,7 +19,7 @@ type PhotoUploadFieldProps = {
 };
 
 export const PhotoUploadField = ({ max, label, tip, initialPhotos, onChange, onEditCaption }: PhotoUploadFieldProps) => {
-    const { items, addFiles, retry, remove, photoIds } = usePhotoUpload(max, initialPhotos);
+    const { items, addFiles, retry, remove, reorder, photoIds } = usePhotoUpload(max, initialPhotos);
 
     const onChangeRef = useRef(onChange);
     onChangeRef.current = onChange;
@@ -34,20 +36,35 @@ export const PhotoUploadField = ({ max, label, tip, initialPhotos, onChange, onE
             <label className="mb-2 block text-sm font-medium">{label}</label>
             {items.length < max && <FileInput multiple preview={null} onFilesSelected={addFiles} />}
             {showTip && <p className="text-foreground mb-2 text-sm">{tip}</p>}
-            <div className="flex flex-wrap gap-3">
-                {items.map((item) => (
-                    <PhotoTile
-                        key={item.tempId}
-                        previewUrl={item.previewUrl}
-                        status={item.status}
-                        errorMessage={item.errorMessage}
-                        retryable={item.retryable}
-                        onRetry={() => retry(item.tempId)}
-                        onRemove={() => remove(item.tempId)}
-                        onEditCaption={onEditCaption && item.photoId !== undefined ? () => onEditCaption(item.photoId!) : undefined}
-                    />
-                ))}
-            </div>
+            <DragDropProvider
+                onDragEnd={(event) => {
+                    if (event.canceled) return;
+                    reorder(
+                        move(
+                            items.map((item) => item.tempId),
+                            event,
+                        ),
+                    );
+                }}
+            >
+                <div className="flex flex-wrap gap-3">
+                    {items.map((item, index) => (
+                        <SortablePhotoTile
+                            key={item.tempId}
+                            tempId={item.tempId}
+                            index={index}
+                            disabled={item.status !== 'done' || items.length <= 1}
+                            previewUrl={item.previewUrl}
+                            status={item.status}
+                            errorMessage={item.errorMessage}
+                            retryable={item.retryable}
+                            onRetry={() => retry(item.tempId)}
+                            onRemove={() => remove(item.tempId)}
+                            onEditCaption={onEditCaption && item.photoId !== undefined ? () => onEditCaption(item.photoId!) : undefined}
+                        />
+                    ))}
+                </div>
+            </DragDropProvider>
         </div>
     );
 };

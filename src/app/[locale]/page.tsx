@@ -1,3 +1,4 @@
+import { getPublicStories } from '@/api/getPublicStories';
 import { About, AlbumsSection, Footer, GrandpaSection, Header, StoriesSection } from '@/components';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';
@@ -6,6 +7,9 @@ export default async function Home(props: { params: Promise<{ locale: Locale }> 
     const { locale } = await props.params;
     const dictionary = await getDictionary(locale);
 
+    const { items } = await getPublicStories();
+    const previewItems = items.slice(0, 3);
+
     return (
         <div className="w-full">
             <div className="bg-home aspect-[4/3] w-full bg-cover bg-top bg-no-repeat pb-36">
@@ -13,7 +17,7 @@ export default async function Home(props: { params: Promise<{ locale: Locale }> 
                 <About />
             </div>
             <main className="">
-                <StoriesSection locale={locale} dictionary={dictionary} />
+                <StoriesSection locale={locale} dictionary={dictionary} previewItems={previewItems} />
                 <GrandpaSection locale={locale} dictionary={dictionary} />
                 <AlbumsSection locale={locale} dictionary={dictionary} />
 

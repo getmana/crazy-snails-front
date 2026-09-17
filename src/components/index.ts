@@ -30,4 +30,5 @@ export { StoriesSection } from './homepage/Stories';
 export { DeleteStoryDialog } from './story/DeleteStoryDialog';
 export { PublishedStoryView } from './story/PublishedStoryView';
 export { StoryContent } from './story/StoryContent';
+export { StoryPreviewCard } from './story/StoryPreviewCard';
 export { StoryRow } from './story/StoryRow';

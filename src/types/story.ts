@@ -42,12 +42,14 @@ export type Story = {
     carouselStories: CarouselPhotoJoin[];
 };
 
+export type StoryPreview = Omit<Story, 'pairImageStories' | 'galleryImageStories' | 'carouselStories'>;
+
 export type OwnStoriesResponse = {
-    items: Omit<Story, 'pairImageStories' | 'galleryImageStories' | 'carouselStories'>[];
+    items: StoryPreview[];
     nextCursor: number | null;
 };
 
 export type PublicStoriesResponse = {
-    items: Omit<Story, 'pairImageStories' | 'galleryImageStories' | 'carouselStories'>[];
+    items: StoryPreview[];
     nextCursor: number | null;
 };

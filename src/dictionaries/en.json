@@ -2,7 +2,8 @@
     "menu": {
         "home": "Home",
         "stories": "Stories",
-        "albums": "Albums"
+        "albums": "Albums",
+        "grandpa": "Grandpa"
     },
     "title": {
         "stories": "Stories",

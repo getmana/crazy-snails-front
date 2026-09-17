@@ -22,9 +22,6 @@ export const MenuItems = ({ locale, textClassName, isFooter = false, hasDivider 
 
     return (
         <ul className="flex gap-4 pt-6">
-            <Link href={`/${locale}/grandpa`}>
-                <li>Grandpa</li>
-            </Link>
             {menuItems.map(({ link, text }, i, arr) => (
                 <Link key={text} href={link} className="flex">
                     <li

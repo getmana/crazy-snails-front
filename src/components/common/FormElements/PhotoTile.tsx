@@ -1,6 +1,6 @@
 'use client';
 
-import { Pencil } from 'lucide-react';
+import { GripVertical, Pencil } from 'lucide-react';
 import Image from 'next/image';
 
 import { ErrorText, Icon } from '@/components';
@@ -13,9 +13,19 @@ type PhotoTileProps = {
     onRetry: () => void;
     onRemove: () => void;
     onEditCaption?: () => void;
+    dragHandleRef?: (element: Element | null) => void;
 };
 
-export const PhotoTile = ({ previewUrl, status, errorMessage, retryable = true, onRetry, onRemove, onEditCaption }: PhotoTileProps) => {
+export const PhotoTile = ({
+    previewUrl,
+    status,
+    errorMessage,
+    retryable = true,
+    onRetry,
+    onRemove,
+    onEditCaption,
+    dragHandleRef,
+}: PhotoTileProps) => {
     return (
         <div className="w-40">
             <div className="bg-accent relative h-32 w-40 overflow-hidden rounded-lg">
@@ -46,6 +56,16 @@ export const PhotoTile = ({ previewUrl, status, errorMessage, retryable = true, 
                         className="text-muted-foreground hover:text-accent-foreground absolute right-1 bottom-1 flex size-5 items-center justify-center rounded-full bg-white transition-colors"
                     >
                         <Pencil className="size-3" />
+                    </button>
+                )}
+                {status === 'done' && dragHandleRef && (
+                    <button
+                        type="button"
+                        ref={dragHandleRef}
+                        aria-label="Drag to reorder"
+                        className="text-muted-foreground hover:text-accent-foreground absolute bottom-1 left-1 flex size-5 cursor-grab items-center justify-center rounded-full bg-white transition-colors active:cursor-grabbing"
+                    >
+                        <GripVertical className="size-3" />
                     </button>
                 )}
             </div>

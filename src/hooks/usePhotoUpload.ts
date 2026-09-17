@@ -105,7 +105,17 @@ export const usePhotoUpload = (max: number, initialPhotos: ExistingPhoto[] = [])
         });
     }, []);
 
+    const reorder = useCallback((orderedTempIds: string[]) => {
+        setItems((current) => {
+            const byTempId = new Map(current.map((item) => [item.tempId, item]));
+            const reordered = orderedTempIds
+                .map((tempId) => byTempId.get(tempId))
+                .filter((item): item is PhotoUploadItem => item !== undefined);
+            return reordered.length === current.length ? reordered : current;
+        });
+    }, []);
+
     const photoIds = items.filter((item) => item.status === 'done').map((item) => item.photoId!);
 
-    return { items, addFiles, retry, remove, photoIds, max };
+    return { items, addFiles, retry, remove, reorder, photoIds, max };
 };

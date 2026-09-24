@@ -1,3 +1,4 @@
+export { PublishedAlbumView } from './album/PublishedAlbumView';
 export { ErrorText } from './common/ErrorText';
 export { Footer } from './common/Footer';
 export { CarouselPhotoUpload } from './common/FormElements/CarouselPhotoUpload';

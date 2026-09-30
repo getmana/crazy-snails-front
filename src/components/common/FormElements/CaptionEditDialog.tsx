@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { useDictionary } from '@/context/dictionary-context';
+import { useDictionary } from '@/context/dictionaryContext';
 
 import { TextInput } from './TextInput';
 

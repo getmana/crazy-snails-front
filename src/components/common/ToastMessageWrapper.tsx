@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Icon } from '@/components';
-import { ToastType, useToastMessageContext } from '@/context/toast-message-context';
+import { ToastType, useToastMessageContext } from '@/context/toastMessageContext';
 
 const TOAST_DURATION = 3000;
 

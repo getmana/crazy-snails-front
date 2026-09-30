@@ -1,1 +1,1 @@
-export { type SessionData, sessionOptions } from './iron-session';
+export { type SessionData, sessionOptions } from './ironSession';

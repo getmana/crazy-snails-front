@@ -1,6 +1,6 @@
 'use client';
 
-import { GripVertical, Pencil } from 'lucide-react';
+import { GripVertical, Pencil, Star } from 'lucide-react';
 import Image from 'next/image';
 
 import { ErrorText, Icon } from '@/components';
@@ -14,6 +14,7 @@ type PhotoTileProps = {
     onRemove: () => void;
     onEditCaption?: () => void;
     dragHandleRef?: (element: Element | null) => void;
+    isCover?: boolean;
 };
 
 export const PhotoTile = ({
@@ -25,6 +26,7 @@ export const PhotoTile = ({
     onRemove,
     onEditCaption,
     dragHandleRef,
+    isCover,
 }: PhotoTileProps) => {
     return (
         <div className="w-40">
@@ -36,8 +38,8 @@ export const PhotoTile = ({
                     </div>
                 )}
                 {status === 'done' && (
-                    <div className="text-common-green absolute top-1 right-1 flex rounded-full bg-white">
-                        <Icon icon="CheckCircle" className="size-5" />
+                    <div className="text-common-green absolute top-1 right-1 flex size-5 items-center justify-center rounded-full bg-white">
+                        {isCover ? <Star className="size-4" fill="currentColor" /> : <Icon icon="CheckCircle" className="size-5" />}
                     </div>
                 )}
                 <button

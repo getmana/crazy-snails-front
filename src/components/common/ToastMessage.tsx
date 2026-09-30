@@ -29,6 +29,10 @@ export const ToastMessageMap: ToastMessageMapType = {
         type: 'success',
         key: 'storyDeleted',
     },
+    'album-deleted': {
+        type: 'success',
+        key: 'albumDeleted',
+    },
 };
 
 export const ToastMessage = ({ toast }: { toast: keyof typeof ToastMessageMap }) => {

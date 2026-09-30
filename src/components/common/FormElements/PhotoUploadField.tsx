@@ -16,9 +16,10 @@ type PhotoUploadFieldProps = {
     initialPhotos?: ExistingPhoto[];
     onChange: (photoIds: number[]) => void;
     onEditCaption?: (photoId: number) => void;
+    coverPhotoId?: number;
 };
 
-export const PhotoUploadField = ({ max, label, tip, initialPhotos, onChange, onEditCaption }: PhotoUploadFieldProps) => {
+export const PhotoUploadField = ({ max, label, tip, initialPhotos, onChange, onEditCaption, coverPhotoId }: PhotoUploadFieldProps) => {
     const { items, addFiles, retry, remove, reorder, photoIds } = usePhotoUpload(max, initialPhotos);
 
     const onChangeRef = useRef(onChange);
@@ -61,6 +62,7 @@ export const PhotoUploadField = ({ max, label, tip, initialPhotos, onChange, onE
                             onRetry={() => retry(item.tempId)}
                             onRemove={() => remove(item.tempId)}
                             onEditCaption={onEditCaption && item.photoId !== undefined ? () => onEditCaption(item.photoId!) : undefined}
+                            isCover={coverPhotoId !== undefined && item.photoId === coverPhotoId}
                         />
                     ))}
                 </div>

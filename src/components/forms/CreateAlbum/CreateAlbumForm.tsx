@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
-import { getLocaleFromCookie, getLocalizedActivityTypes, getLocalizedDescription, getLocalizedTitle } from '@/utils';
+import { getLocaleFromCookie, getLocalizedActivityTypes, getLocalizedTitle } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
@@ -22,17 +22,7 @@ export const CreateAlbumForm = ({ countries, locale, activities }: { countries: 
     const { setToastMessage } = useToastMessageContext();
 
     const {
-        createAlbumForm: {
-            title,
-            description,
-            countriesLabel,
-            countryPlaceholder,
-            addCountryBtn,
-            startDate,
-            endDate,
-            submitBtn,
-            activityLabel,
-        },
+        createAlbumForm: { title, countriesLabel, countryPlaceholder, addCountryBtn, startDate, endDate, submitBtn, activityLabel },
     } = useDictionary();
 
     const {
@@ -45,8 +35,6 @@ export const CreateAlbumForm = ({ countries, locale, activities }: { countries: 
         defaultValues: {
             titleEn: '',
             titleUk: '',
-            descriptionEn: '',
-            descriptionUk: '',
             countries: [{ code: '' }],
             startDate: undefined,
             endDate: undefined,
@@ -62,16 +50,11 @@ export const CreateAlbumForm = ({ countries, locale, activities }: { countries: 
     const onSubmit = async (data: CreateAlbumSchemaType) => {
         const preferredLocale = getLocaleFromCookie();
         const title = (preferredLocale === 'en' ? data.titleEn || data.titleUk : data.titleUk || data.titleEn) || '';
-        const description =
-            (preferredLocale === 'en' ? data.descriptionEn || data.descriptionUk : data.descriptionUk || data.descriptionEn) || '';
 
         const payload: CreateAlbumPayload = {
             title,
             titleEn: data.titleEn,
             titleUk: data.titleUk,
-            description,
-            descriptionEn: data.descriptionEn,
-            descriptionUk: data.descriptionUk,
             countries: data.countries.filter(({ code }) => code).map(({ code }) => Number(code)),
             activityTypes: data.activityTypes,
             startDate: data.startDate.toISOString(),
@@ -106,12 +89,6 @@ export const CreateAlbumForm = ({ countries, locale, activities }: { countries: 
                                 placeholder={`${l.toUpperCase()} ${title}`}
                                 {...register(getLocalizedTitle(l))}
                                 error={errors[getLocalizedTitle(l)]?.message}
-                            />
-                            <TextInput
-                                placeholder={`${l.toUpperCase()} ${description}`}
-                                label={description}
-                                {...register(getLocalizedDescription(l))}
-                                error={errors[getLocalizedDescription(l)]?.message}
                             />
                         </TabsContent>
                     ))}

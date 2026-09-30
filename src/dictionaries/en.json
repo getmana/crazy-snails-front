@@ -59,7 +59,6 @@
     },
     "createAlbumForm": {
         "title": "Album Title",
-        "description": "Description",
         "countriesLabel": "Countries",
         "countryPlaceholder": "Select a country",
         "addCountryBtn": "Add Country",
@@ -95,6 +94,35 @@
         "captionSaveBtn": "Save",
         "captionCancelBtn": "Cancel",
         "confirmDelete": "Are you sure you want to delete the story? This action can not be undone."
+    },
+    "editAlbumForm": {
+        "title": "Album Title",
+        "subtitleLabel": "Album Subtitle",
+        "description": "Description",
+        "countriesLabel": "Countries",
+        "countryPlaceholder": "Select a country",
+        "addCountryBtn": "Add Country",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "activityLabel": "Select activities your were involved during your trip",
+        "photosLabel": "Photos",
+        "fileTooLargeError": "File is too large (max 10MB). Choose a smaller photo.",
+        "saveBtn": "Save",
+        "publishBtn": "Publish",
+        "editBtn": "Edit",
+        "deleteBtn": "Delete",
+        "cancelBtn": "Cancel",
+        "confirmDelete": "Are you sure you want to delete the album? This action can not be undone."
+    },
+    "editNoteForm": {
+        "noteDialogTitle": "Edit Photo Note",
+        "noteTitleLabel": "Title",
+        "noteDescriptionLabel": "Description",
+        "noteCountryLabel": "Country",
+        "noteDateLabel": "Date",
+        "coverCheckboxLabel": "Make this photo the album cover",
+        "noteSaveBtn": "Save",
+        "noteCancelBtn": "Cancel"
     },
     "editUserForm": {
         "username": "New Username",
@@ -146,7 +174,8 @@
         "albumUpdated": "Success! Album is successfully updated",
         "storyCreated": "Congrats! Story is successfully created!",
         "storyUpdated": "Success! Story is successfully updated",
-        "storyDeleted": "Success! Story is successfully deleted"
+        "storyDeleted": "Success! Story is successfully deleted",
+        "albumDeleted": "Success! Album is successfully deleted"
     },
     "errorPage": {
         "heading": "Even the snails got stuck",

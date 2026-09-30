@@ -8,9 +8,9 @@ import { fetchWithAuth } from '@/api/authFetch';
 import { ErrorResponse } from '@/types';
 import { getErrorMessage } from '@/utils';
 
-export const deleteStory = async (id: number) => {
+export const deleteAlbum = async (id: number) => {
     try {
-        const response = await fetchWithAuth(`/stories/${id}`, { method: 'DELETE' });
+        const response = await fetchWithAuth(`/albums/${id}`, { method: 'DELETE' });
 
         if (!response.ok) {
             const responseData = await response.json().catch(() => null);
@@ -18,7 +18,7 @@ export const deleteStory = async (id: number) => {
             return { message: `Unexpected Error Occured: ${message}` };
         }
 
-        revalidatePath('/[locale]/dashboard/stories', 'page');
+        revalidatePath('/[locale]/dashboard/albums', 'page');
 
         return { message: null };
     } catch (e: unknown) {
@@ -26,8 +26,8 @@ export const deleteStory = async (id: number) => {
     }
 };
 
-export const deleteStoryWithRedirect = async (id: number) => {
-    const { message } = await deleteStory(id);
+export const deleteAlbumWithRedirect = async (id: number) => {
+    const { message } = await deleteAlbum(id);
     if (message) {
         return message;
     }
@@ -35,5 +35,5 @@ export const deleteStoryWithRedirect = async (id: number) => {
     const headersList = await headers();
     const locale = headersList.get('x-locale');
 
-    redirect(`/${locale}/dashboard/stories?toast=story-deleted`);
+    redirect(`/${locale}/dashboard/albums?toast=album-deleted`);
 };

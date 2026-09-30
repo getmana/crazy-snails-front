@@ -5,11 +5,11 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { CarouselPhotoInput, ErrorResponse } from '@/types';
+import { ErrorResponse } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
 import { getErrorMessage } from '@/utils';
 
-export type UpdateStoryPayload = {
+export type UpdateAlbumPayload = {
     title?: string;
     titleEn?: string;
     titleUk?: string;
@@ -19,17 +19,18 @@ export type UpdateStoryPayload = {
     description?: TiptapDocument;
     descriptionEn?: TiptapDocument;
     descriptionUk?: TiptapDocument;
-    heroFirst?: boolean;
-    heroImageId?: number | null;
-    pairPhotoIds?: number[];
-    galleryPhotoIds?: number[];
-    carouselPhotos?: CarouselPhotoInput[];
     isPublished?: boolean;
+    countries?: number[];
+    startDate?: string;
+    endDate?: string;
+    activityTypes?: string[];
+    previewImageId?: number;
+    albumPhotoIds?: number[];
 };
 
-export const updateStory = async (id: number, payload: UpdateStoryPayload) => {
+export const updateAlbum = async (id: number, payload: UpdateAlbumPayload) => {
     try {
-        const response = await fetchWithAuth(`/stories/${id}`, {
+        const response = await fetchWithAuth(`/albums/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
@@ -41,8 +42,8 @@ export const updateStory = async (id: number, payload: UpdateStoryPayload) => {
             return { message: `Unexpected Error Occured: ${message}`, data: null };
         }
 
-        revalidatePath('/[locale]/dashboard/stories/[id]', 'page');
-        revalidatePath('/[locale]/dashboard/stories', 'page');
+        revalidatePath('/[locale]/dashboard/albums/[id]', 'page');
+        revalidatePath('/[locale]/dashboard/albums', 'page');
 
         return { data: responseData, message: null };
     } catch (e: unknown) {
@@ -50,8 +51,8 @@ export const updateStory = async (id: number, payload: UpdateStoryPayload) => {
     }
 };
 
-export const updateStoryWithRedirect = async (id: number, payload: UpdateStoryPayload) => {
-    const { message } = await updateStory(id, payload);
+export const updateAlbumWithRedirect = async (id: number, payload: UpdateAlbumPayload) => {
+    const { message } = await updateAlbum(id, payload);
     if (message) {
         return message;
     }
@@ -59,5 +60,5 @@ export const updateStoryWithRedirect = async (id: number, payload: UpdateStoryPa
     const headersList = await headers();
     const locale = headersList.get('x-locale');
 
-    redirect(`/${locale}/dashboard/stories/${id}?toast=story-updated`);
+    redirect(`/${locale}/dashboard/albums/${id}?toast=album-updated`);
 };

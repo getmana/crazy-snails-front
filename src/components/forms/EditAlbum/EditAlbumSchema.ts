@@ -1,9 +1,15 @@
 import { z } from 'zod';
 
-export const CreateAlbumSchema = z
+import { TiptapDocumentSchema } from '../shared/tiptapDocumentSchema';
+
+export const EditAlbumSchema = z
     .object({
         titleEn: z.string().optional(),
         titleUk: z.string().optional(),
+        subtitleEn: z.string().optional(),
+        subtitleUk: z.string().optional(),
+        descriptionEn: TiptapDocumentSchema,
+        descriptionUk: TiptapDocumentSchema,
         countries: z
             .array(z.object({ code: z.string() }))
             .min(1, 'At least one country field is required')
@@ -11,13 +17,17 @@ export const CreateAlbumSchema = z
             .refine((countries) => countries.some((c) => c.code.length > 0), {
                 message: 'At least one country must be selected',
             }),
-        startDate: z.date(),
-        endDate: z.date(),
+        startDate: z.string().min(1, 'Start date is required'),
+        endDate: z.string().min(1, 'End date is required'),
         activityTypes: z.array(z.string()).min(1, 'At least one activity type is required'),
+        photos: z.object({
+            photoIds: z.array(z.number()),
+            previewImageId: z.number().nullable(),
+        }),
     })
     .refine((data) => data.titleEn || data.titleUk, {
         message: 'At least one of titleEn or titleUk must be provided',
         path: ['titleEn', 'titleUk'],
     });
 
-export type CreateAlbumSchemaType = z.infer<typeof CreateAlbumSchema>;
+export type EditAlbumSchemaType = z.infer<typeof EditAlbumSchema>;

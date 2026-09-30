@@ -59,7 +59,6 @@
     },
     "createAlbumForm": {
         "title": "Назва альбому",
-        "description": "Опис Альбому",
         "countriesLabel": "Країни, де пролягала подорож",
         "countryPlaceholder": "Обери країну",
         "addCountryBtn": "Додати Країну",
@@ -95,7 +94,35 @@
         "captionSaveBtn": "Зберегти",
         "captionCancelBtn": "Скасувати",
         "confirmDelete": "Точно видалити історію? Цю дію неможливо відмінити."
-
+    },
+    "editAlbumForm": {
+        "title": "Назва альбому",
+        "subtitleLabel": "Підзаголовок альбому",
+        "description": "Опис",
+        "countriesLabel": "Країни, де пролягала подорож",
+        "countryPlaceholder": "Обери країну",
+        "addCountryBtn": "Додати Країну",
+        "startDate": "Дата старту подорожі",
+        "endDate": "Дата закінчення подорожі",
+        "activityLabel": "Обери, чим займався у подорожі",
+        "photosLabel": "Фото",
+        "fileTooLargeError": "Файл завеликий (макс. 10МБ). Обери менший файл.",
+        "saveBtn": "Зберегти",
+        "publishBtn": "Опублікувати",
+        "editBtn": "Редагувати",
+        "deleteBtn": "Видалити",
+        "cancelBtn": "Скасувати",
+        "confirmDelete": "Точно видалити альбом? Цю дію неможливо відмінити."
+    },
+    "editNoteForm": {
+        "noteDialogTitle": "Редагувати нотатку до фото",
+        "noteTitleLabel": "Заголовок",
+        "noteDescriptionLabel": "Опис",
+        "noteCountryLabel": "Країна",
+        "noteDateLabel": "Дата",
+        "coverCheckboxLabel": "Зробити це фото обкладинкою альбому",
+        "noteSaveBtn": "Зберегти",
+        "noteCancelBtn": "Скасувати"
     },
     "editUserForm": {
         "username": "Нове ім'я користувача",
@@ -147,7 +174,8 @@
         "albumUpdated": "Ура! Альбом успішно оновлено",
         "storyCreated": "Вітання! Історію створено!",
         "storyUpdated": "Ура! Історію успішно оновлено",
-        "storyDeleted": "Історію успішно видалено"
+        "storyDeleted": "Історію успішно видалено",
+        "albumDeleted": "Альбом успішно видалено"
     },
     "errorPage": {
         "heading": "Навіть равлики іноді гальмують",

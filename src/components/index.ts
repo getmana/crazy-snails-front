@@ -1,6 +1,9 @@
+export { DeleteAlbumDialog } from './album/DeleteAlbumDialog';
+export { EditNoteDialog } from './album/EditNoteDialog';
 export { PublishedAlbumView } from './album/PublishedAlbumView';
 export { ErrorText } from './common/ErrorText';
 export { Footer } from './common/Footer';
+export { AlbumPhotoUpload } from './common/FormElements/AlbumPhotoUpload';
 export { CarouselPhotoUpload } from './common/FormElements/CarouselPhotoUpload';
 export { Checkbox } from './common/FormElements/Checkbox';
 export { FileInput } from './common/FormElements/FileInput';
@@ -20,6 +23,8 @@ export { LocaleSwitcher } from './common/LocaleSwitcher';
 export { PreviewCard } from './common/PreviewCard';
 export { CreateAlbumForm } from './forms/CreateAlbum/CreateAlbumForm';
 export { CreateStoryForm } from './forms/CreateStory/CreateStoryForm';
+export { EditAlbumForm } from './forms/EditAlbum/EditAlbumForm';
+export { EditNoteForm } from './forms/EditNote/EditNoteForm';
 export { EditStoryForm } from './forms/EditStory/EditStoryForm';
 export { EditUserForm } from './forms/EditUser/EditUserForm';
 export { SignInForm } from './forms/SignInForm/SignInForm';

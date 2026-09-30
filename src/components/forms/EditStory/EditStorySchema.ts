@@ -1,10 +1,6 @@
 import { z } from 'zod';
-import type { JSONContent } from '@tiptap/core';
 
-const TiptapDocumentSchema = z
-    .object({ type: z.literal('doc'), content: z.array(z.custom<JSONContent>()) })
-    .optional()
-    .nullable();
+import { TiptapDocumentSchema } from '../shared/tiptapDocumentSchema';
 
 export const EditStorySchema = z
     .object({

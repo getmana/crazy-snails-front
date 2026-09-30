@@ -9,7 +9,7 @@ export type SelectOption = {
     name: string;
 };
 
-type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
+type SelectProps = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value'> & {
     label?: string;
     error?: string;
     className?: string;

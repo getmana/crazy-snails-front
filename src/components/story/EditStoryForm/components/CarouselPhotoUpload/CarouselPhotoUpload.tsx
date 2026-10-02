@@ -2,12 +2,12 @@
 
 import { useRef, useState } from 'react';
 
-import { type ExistingPhoto } from '@/hooks/usePhotoUpload';
+import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
+import { type ExistingPhoto } from '@/components/fields/PhotoUploadField/usePhotoUpload';
 import { type CarouselPhotoInput } from '@/types';
 import { getLocaleFromCookie } from '@/utils';
 
-import { CaptionEditDialog } from './CaptionEditDialog';
-import { PhotoUploadField } from './PhotoUploadField';
+import { CaptionEditDialog } from './components/CaptionEditDialog';
 
 type CarouselCaptionMap = Record<number, { caption?: string; captionEn?: string; captionUk?: string }>;
 

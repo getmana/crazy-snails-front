@@ -1,8 +1,7 @@
 'use client';
 
-import { type ExistingPhoto } from '@/hooks/usePhotoUpload';
-
-import { PhotoUploadField } from './PhotoUploadField';
+import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
+import { type ExistingPhoto } from '@/components/fields/PhotoUploadField/usePhotoUpload';
 
 type HeroPhotoUploadProps = {
     label: string;

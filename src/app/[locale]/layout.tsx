@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Caveat, Pacifico, Raleway } from 'next/font/google';
 
 import { Footer } from '@/components';
-import { ToastMessageWrapper } from '@/components/common/ToastMessageWrapper';
+import { ToastMessageWrapper } from '@/components/layout/ToastMessageWrapper';
 import { DictionaryProvider, ToastMessageProvider } from '@/context';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/utils';

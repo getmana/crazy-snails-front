@@ -1,4 +1,4 @@
-import type { AdminTheme } from '@/components/common/AdminThemeProvider';
+import type { AdminTheme } from '@/components/layout/AdminThemeProvider';
 import type { Locale } from '@/i18n-config';
 
 type ErrorDetail = {

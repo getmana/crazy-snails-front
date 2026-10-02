@@ -6,7 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { updateAlbumPhotoNote } from '@/actions/updateAlbumPhotoNote';
 import { RichTextEditor, Select, TextInput } from '@/components';
-import { type SelectOption } from '@/components/common/FormElements/Select';
+import { type SelectOption } from '@/components/fields/Select';
+import { EMPTY_DOC } from '@/components/fields/tiptapDocumentSchema';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';
@@ -17,7 +18,6 @@ import { getLocaleFromCookie, getLocalizedDescription, getLocalizedTitle } from 
 import { isTiptapDocEmpty } from '@/utils/richText';
 
 import { EditNoteSchema, EditNoteSchemaType } from './EditNoteSchema';
-import { EMPTY_DOC } from '../shared/tiptapDocumentSchema';
 
 type EditNoteFormProps = {
     albumId: number;

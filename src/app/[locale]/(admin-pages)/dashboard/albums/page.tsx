@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { ToastMessage } from '@/components/common/ToastMessage';
+import { ToastMessage } from '@/components/layout/ToastMessage';
 import { Locale } from '@/i18n-config';
 import { OwnAlbumsResponse, SearchParams } from '@/types';
 import { getDictionary } from '@/utils';

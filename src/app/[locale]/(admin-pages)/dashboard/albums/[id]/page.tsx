@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { fetchWithAuth } from '@/api/authFetch';
 import { getActivityTypes } from '@/api/getActivityTypes';
 import { EditAlbumForm, PublishedAlbumView } from '@/components';
-import { ToastMessage } from '@/components/common/ToastMessage';
+import { ToastMessage } from '@/components/layout/ToastMessage';
 import { Locale } from '@/i18n-config';
 import { Album, SearchParams } from '@/types';
 import { getCountriesByLocale } from '@/utils';

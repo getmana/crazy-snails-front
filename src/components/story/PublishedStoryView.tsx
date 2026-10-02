@@ -9,7 +9,7 @@ import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
 import { resolveLocalizedValue } from '@/utils';
 
-import { StoryContent } from './StoryContent';
+import { StoryContent } from './StoryContent/StoryContent';
 
 export const PublishedStoryView = ({ story, locale }: { story: Story; locale: Locale }) => {
     const [isEditing, setIsEditing] = useState(false);

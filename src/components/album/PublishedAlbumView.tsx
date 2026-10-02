@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import { EditAlbumForm, Heading } from '@/components';
-import { type SelectOption } from '@/components/common/FormElements/Select';
+import { type SelectOption } from '@/components/fields/Select';
 import { Button } from '@/components/ui/button';
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';

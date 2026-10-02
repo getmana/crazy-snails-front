@@ -4,6 +4,7 @@ import { GripVertical, Pencil, Star } from 'lucide-react';
 import Image from 'next/image';
 
 import { ErrorText, Icon } from '@/components';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 type PhotoTileProps = {
     previewUrl: string;
@@ -15,6 +16,7 @@ type PhotoTileProps = {
     onEditCaption?: () => void;
     dragHandleRef?: (element: Element | null) => void;
     isCover?: boolean;
+    editDisabledHint?: string;
 };
 
 export const PhotoTile = ({
@@ -27,6 +29,7 @@ export const PhotoTile = ({
     onEditCaption,
     dragHandleRef,
     isCover,
+    editDisabledHint,
 }: PhotoTileProps) => {
     return (
         <div className="w-40">
@@ -50,7 +53,7 @@ export const PhotoTile = ({
                 >
                     <Icon icon="CloseCircle" className="size-5" />
                 </button>
-                {status === 'done' && onEditCaption && (
+                {status === 'done' && onEditCaption && !editDisabledHint && (
                     <button
                         type="button"
                         onClick={onEditCaption}
@@ -59,6 +62,24 @@ export const PhotoTile = ({
                     >
                         <Pencil className="size-3" />
                     </button>
+                )}
+                {status === 'done' && onEditCaption && editDisabledHint && (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <span tabIndex={0} aria-label={editDisabledHint} className="absolute right-1 bottom-1 rounded-full">
+                                <button
+                                    type="button"
+                                    disabled
+                                    aria-hidden
+                                    tabIndex={-1}
+                                    className="text-muted-foreground/50 pointer-events-none flex size-5 items-center justify-center rounded-full bg-white"
+                                >
+                                    <Pencil className="size-3" />
+                                </button>
+                            </span>
+                        </TooltipTrigger>
+                        <TooltipContent>{editDisabledHint}</TooltipContent>
+                    </Tooltip>
                 )}
                 {status === 'done' && dragHandleRef && (
                     <button

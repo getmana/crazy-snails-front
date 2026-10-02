@@ -17,9 +17,21 @@ type PhotoUploadFieldProps = {
     onChange: (photoIds: number[]) => void;
     onEditCaption?: (photoId: number) => void;
     coverPhotoId?: number;
+    editablePhotoIds?: number[];
+    editDisabledHint?: string;
 };
 
-export const PhotoUploadField = ({ max, label, tip, initialPhotos, onChange, onEditCaption, coverPhotoId }: PhotoUploadFieldProps) => {
+export const PhotoUploadField = ({
+    max,
+    label,
+    tip,
+    initialPhotos,
+    onChange,
+    onEditCaption,
+    coverPhotoId,
+    editablePhotoIds,
+    editDisabledHint,
+}: PhotoUploadFieldProps) => {
     const { items, addFiles, retry, remove, reorder, photoIds } = usePhotoUpload(max, initialPhotos);
 
     const onChangeRef = useRef(onChange);
@@ -63,6 +75,11 @@ export const PhotoUploadField = ({ max, label, tip, initialPhotos, onChange, onE
                             onRemove={() => remove(item.tempId)}
                             onEditCaption={onEditCaption && item.photoId !== undefined ? () => onEditCaption(item.photoId!) : undefined}
                             isCover={coverPhotoId !== undefined && item.photoId === coverPhotoId}
+                            editDisabledHint={
+                                editablePhotoIds && (item.photoId === undefined || !editablePhotoIds.includes(item.photoId))
+                                    ? editDisabledHint
+                                    : undefined
+                            }
                         />
                     ))}
                 </div>

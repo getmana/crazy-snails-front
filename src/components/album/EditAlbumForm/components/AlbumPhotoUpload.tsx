@@ -6,6 +6,7 @@ import { EditNoteDialog } from '@/components';
 import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
 import { type ExistingPhoto } from '@/components/fields/PhotoUploadField/usePhotoUpload';
 import { type SelectOption } from '@/components/fields/Select';
+import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 
 export type AlbumPhotoUploadValue = { photoIds: number[]; previewImageId: number | null };
@@ -36,6 +37,11 @@ export const AlbumPhotoUpload = ({
             : null,
     );
     const [editingPhotoId, setEditingPhotoId] = useState<number | null>(null);
+    const {
+        editAlbumForm: { noteUnsavedPhotoHint },
+    } = useDictionary();
+
+    const savedPhotoIds = initialPhotos?.map((photo) => photo.photoId) ?? [];
 
     const onChangeRef = useRef(onChange);
     onChangeRef.current = onChange;
@@ -73,6 +79,8 @@ export const AlbumPhotoUpload = ({
                 onChange={handlePhotoIdsChange}
                 onEditCaption={setEditingPhotoId}
                 coverPhotoId={effectiveCoverPhotoId ?? undefined}
+                editablePhotoIds={savedPhotoIds}
+                editDisabledHint={noteUnsavedPhotoHint}
             />
             <EditNoteDialog
                 key={editingPhotoId ?? 'none'}

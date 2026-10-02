@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { fetchWithAuth } from '@/api/authFetch';
 import { EditStoryForm, PublishedStoryView } from '@/components';
-import { ToastMessage } from '@/components/common/ToastMessage';
+import { ToastMessage } from '@/components/layout/ToastMessage';
 import { Locale } from '@/i18n-config';
 import { SearchParams, Story } from '@/types';
 

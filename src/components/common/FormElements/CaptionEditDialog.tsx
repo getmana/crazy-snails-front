@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 
+import { TextInput } from '@/components/fields/TextInput';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useDictionary } from '@/context/dictionaryContext';
-
-import { TextInput } from './TextInput';
 
 type CaptionEditDialogProps = {
     open: boolean;

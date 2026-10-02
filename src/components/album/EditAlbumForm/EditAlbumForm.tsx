@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type UpdateAlbumPayload, updateAlbumWithRedirect } from '@/actions/updateAlbum';
 import { AlbumPhotoUpload, DeleteAlbumDialog, ErrorText, Icon, RichTextEditor, Select, TextInput } from '@/components';
-import { type SelectOption } from '@/components/common/FormElements/Select';
+import { type SelectOption } from '@/components/fields/Select';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';

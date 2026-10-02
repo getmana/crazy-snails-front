@@ -1,7 +1,7 @@
-import { AdminSidebar } from '@/components/common/AdminSidebar/AdminSidebar';
-import { AdminThemeProvider } from '@/components/common/AdminThemeProvider';
-import { AdminThemeToggle } from '@/components/common/AdminThemeToggle';
-import { LocaleSwitcher } from '@/components/common/LocaleSwitcher';
+import { AdminSidebar } from '@/components/layout/AdminSidebar/AdminSidebar';
+import { AdminThemeProvider } from '@/components/layout/AdminThemeProvider';
+import { AdminThemeToggle } from '@/components/layout/AdminThemeToggle';
+import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { type Locale } from '@/i18n-config';
 

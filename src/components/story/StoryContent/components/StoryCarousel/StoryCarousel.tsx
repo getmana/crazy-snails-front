@@ -7,7 +7,7 @@ import { Locale } from '@/i18n-config';
 import { CarouselPhotoJoin } from '@/types';
 import { getPhotoUrl, resolveLocalizedValue } from '@/utils';
 
-import { CarouselCaption } from './CarouselCaption';
+import { CarouselCaption } from './components/CarouselCaption';
 
 export const StoryCarousel = ({ items, locale }: { items: CarouselPhotoJoin[]; locale: Locale }) => {
     const sorted = items.slice().sort((a, b) => a.position - b.position);

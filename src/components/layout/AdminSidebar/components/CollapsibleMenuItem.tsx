@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubItem } from '@/components/ui/sidebar';
 
-import { CollapsibleItem } from './types';
+import { CollapsibleItem } from '../types';
 
 export const CollapsibleMenuItem = ({ item: { title, icon, subItems } }: { item: CollapsibleItem }) => {
     const [isOpen, setIsOpen] = useState(false);

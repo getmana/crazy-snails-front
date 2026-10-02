@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { Checkbox, EditNoteForm, ErrorText } from '@/components';
-import { type SelectOption } from '@/components/common/FormElements/Select';
+import { type SelectOption } from '@/components/fields/Select';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton';

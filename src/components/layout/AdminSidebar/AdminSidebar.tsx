@@ -18,7 +18,7 @@ import {
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 
-import { CollapsibleMenuItem } from './CollapsibleMenuItem';
+import { CollapsibleMenuItem } from './components/CollapsibleMenuItem';
 import { getSidebarConfig } from './config';
 import { isCollapsibleItem } from './types';
 

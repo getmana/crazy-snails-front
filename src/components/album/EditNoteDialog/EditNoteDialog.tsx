@@ -2,14 +2,16 @@
 
 import { useState } from 'react';
 
-import { Checkbox, EditNoteForm, ErrorText } from '@/components';
+import { Checkbox, ErrorText } from '@/components';
 import { type SelectOption } from '@/components/fields/Select';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useDictionary } from '@/context';
-import { useAlbumPhotoNote } from '@/hooks/useAlbumPhotoNote';
 import { Locale } from '@/i18n-config';
+
+import { EditNoteForm } from './components/EditNoteForm/EditNoteForm';
+import { useAlbumPhotoNote } from './useAlbumPhotoNote';
 
 type EditNoteDialogProps = {
     albumId: number;

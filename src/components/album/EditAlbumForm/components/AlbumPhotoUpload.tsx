@@ -3,11 +3,10 @@
 import { useRef, useState } from 'react';
 
 import { EditNoteDialog } from '@/components';
+import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
+import { type ExistingPhoto } from '@/components/fields/PhotoUploadField/usePhotoUpload';
 import { type SelectOption } from '@/components/fields/Select';
-import { type ExistingPhoto } from '@/hooks/usePhotoUpload';
 import { Locale } from '@/i18n-config';
-
-import { PhotoUploadField } from './PhotoUploadField';
 
 export type AlbumPhotoUploadValue = { photoIds: number[]; previewImageId: number | null };
 

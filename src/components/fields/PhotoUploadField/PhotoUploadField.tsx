@@ -4,10 +4,10 @@ import { useEffect, useRef } from 'react';
 import { move } from '@dnd-kit/helpers';
 import { DragDropProvider } from '@dnd-kit/react';
 
-import { type ExistingPhoto, usePhotoUpload } from '@/hooks/usePhotoUpload';
+import { FileInput } from '@/components/fields/FileInput';
 
-import { FileInput } from './FileInput';
-import { SortablePhotoTile } from './SortablePhotoTile';
+import { SortablePhotoTile } from './components/SortablePhotoTile/SortablePhotoTile';
+import { type ExistingPhoto, usePhotoUpload } from './usePhotoUpload';
 
 type PhotoUploadFieldProps = {
     max: number;

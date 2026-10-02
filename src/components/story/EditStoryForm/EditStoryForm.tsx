@@ -5,16 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type UpdateStoryPayload, updateStoryWithRedirect } from '@/actions/updateStory';
-import {
-    CarouselPhotoUpload,
-    Checkbox,
-    DeleteStoryDialog,
-    GalleryPhotoUpload,
-    HeroPhotoUpload,
-    PairPhotoUpload,
-    RichTextEditor,
-    TextInput,
-} from '@/components';
+import { Checkbox, DeleteStoryDialog, RichTextEditor, TextInput } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';
@@ -24,6 +15,10 @@ import type { TiptapDocument } from '@/types/tiptap';
 import { getLocaleFromCookie, getLocalizedDescription, getLocalizedSubtitle, getLocalizedTitle, getPhotoUrl } from '@/utils';
 import { isTiptapDocEmpty } from '@/utils/richText';
 
+import { CarouselPhotoUpload } from './components/CarouselPhotoUpload/CarouselPhotoUpload';
+import { GalleryPhotoUpload } from './components/GalleryPhotoUpload';
+import { HeroPhotoUpload } from './components/HeroPhotoUpload';
+import { PairPhotoUpload } from './components/PairPhotoUpload';
 import { EditStorySchema, EditStorySchemaType } from './EditStorySchema';
 
 export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; locale: Locale; onCancel?: () => void }) => {

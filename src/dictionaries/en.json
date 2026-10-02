@@ -106,6 +106,7 @@
         "endDate": "End Date",
         "activityLabel": "Select activities your were involved during your trip",
         "photosLabel": "Photos",
+        "noteUnsavedPhotoHint": "Save the album to add a note to this photo",
         "fileTooLargeError": "File is too large (max 10MB). Choose a smaller photo.",
         "saveBtn": "Save",
         "publishBtn": "Publish",

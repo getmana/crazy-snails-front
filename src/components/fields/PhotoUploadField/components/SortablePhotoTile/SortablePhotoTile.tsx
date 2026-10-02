@@ -16,6 +16,7 @@ type SortablePhotoTileProps = {
     onRemove: () => void;
     onEditCaption?: () => void;
     isCover?: boolean;
+    editDisabledHint?: string;
 };
 
 export const SortablePhotoTile = ({ tempId, index, disabled, ...tileProps }: SortablePhotoTileProps) => {

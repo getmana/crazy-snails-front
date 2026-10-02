@@ -5,11 +5,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { updateUser } from '@/actions/updateUser';
 import { TextInput } from '@/components';
 import { Button } from '@/components/ui/button';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { Locale } from '@/i18n-config';
-import { getErrorMessage, internalAPIRoutes } from '@/utils';
+import { getErrorMessage } from '@/utils';
 
 import { EditUserSchema, EditUserSchemaType } from './EditUserSchema';
 
@@ -40,20 +41,14 @@ export const EditUserForm = ({ locale }: { locale: Locale }) => {
         setIsLoading(true);
         reset();
         try {
-            const res = await fetch(internalAPIRoutes.editUser, { body: JSON.stringify(data), method: 'PATCH' });
-            const response = await res.json();
-            const status = res.status;
-            if (status !== 200) {
-                setToastMessage({ message: response.message, type: 'error' });
-                if (status === 401) {
-                    router.push(`/${locale}/signin`);
-                }
+            const result = await updateUser(data);
+            if (result.message) {
+                setToastMessage({ message: result.message, type: 'error' });
             } else {
                 const isEmailChanged = data.email;
 
                 const message = isEmailChanged ? emailUpdated : usernameUpdated;
                 setToastMessage({ message, type: 'success' });
-                console.log('sign up response data ==>', response.data);
 
                 const path = isEmailChanged ? 'signin' : 'dashboard';
                 router.push(`/${locale}/${path}`);

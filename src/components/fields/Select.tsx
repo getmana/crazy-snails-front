@@ -3,11 +3,7 @@
 import { forwardRef } from 'react';
 
 import { ErrorText } from '@/components/shared/ErrorText';
-
-export type SelectOption = {
-    id: number;
-    name: string;
-};
+import { type SelectOption } from '@/types';
 
 type SelectProps = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value'> & {
     label?: string;

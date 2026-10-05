@@ -9,7 +9,9 @@ import { getPhotoUrl, resolveLocalizedValue } from '@/utils';
 
 import { CarouselCaption } from './components/CarouselCaption';
 
-export const StoryCarousel = ({ items, locale }: { items: CarouselPhotoJoin[]; locale: Locale }) => {
+type StoryCarouselProps = { items: CarouselPhotoJoin[]; locale: Locale };
+
+export const StoryCarousel = ({ items, locale }: StoryCarouselProps) => {
     const sorted = items.slice().sort((a, b) => a.position - b.position);
 
     return (

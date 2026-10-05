@@ -4,12 +4,11 @@ import { useRef, useState } from 'react';
 
 import { EditNoteDialog } from '@/components/album/EditNoteDialog/EditNoteDialog';
 import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
-import { type ExistingPhoto } from '@/components/fields/PhotoUploadField/usePhotoUpload';
-import { type SelectOption } from '@/components/fields/Select';
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
+import { type ExistingPhoto, type SelectOption } from '@/types';
 
-export type AlbumPhotoUploadValue = { photoIds: number[]; previewImageId: number | null };
+type AlbumPhotoUploadValue = { photoIds: number[]; previewImageId: number | null };
 
 type AlbumPhotoUploadProps = {
     albumId: number;

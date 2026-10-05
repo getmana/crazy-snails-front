@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { Icon } from '@/components/shared/Icon/Icon';
 import { Locale } from '@/i18n-config';
 
-export const HeaderAdmin = ({ locale }: { locale: Locale }) => {
+type HeaderAdminProps = { locale: Locale };
+
+export const HeaderAdmin = ({ locale }: HeaderAdminProps) => {
     return (
         <header className="bg-white">
             <div className="content">

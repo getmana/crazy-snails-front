@@ -7,9 +7,11 @@ import { ErrorText } from '@/components/shared/ErrorText';
 import { Icon } from '@/components/shared/Icon/Icon';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
+import { type PhotoUploadStatus } from '../usePhotoUpload';
+
 type PhotoTileProps = {
     previewUrl: string;
-    status: 'uploading' | 'done' | 'error';
+    status: PhotoUploadStatus;
     errorMessage?: string;
     retryable?: boolean;
     onRetry: () => void;

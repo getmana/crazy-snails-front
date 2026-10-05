@@ -2,24 +2,22 @@ import { useCallback, useState } from 'react';
 
 import { uploadPhoto } from '@/api/uploadPhoto';
 import { useDictionary } from '@/context';
+import { type ExistingPhoto } from '@/types';
 import { runWithConcurrencyLimit } from '@/utils';
 
 const UPLOAD_CONCURRENCY_LIMIT = 4;
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 
-export type PhotoUploadItem = {
+export type PhotoUploadStatus = 'uploading' | 'done' | 'error';
+
+type PhotoUploadItem = {
     tempId: string;
     file?: File;
     previewUrl: string;
-    status: 'uploading' | 'done' | 'error';
+    status: PhotoUploadStatus;
     photoId?: number;
     errorMessage?: string;
     retryable?: boolean;
-};
-
-export type ExistingPhoto = {
-    photoId: number;
-    url: string;
 };
 
 export const usePhotoUpload = (max: number, initialPhotos: ExistingPhoto[] = []) => {

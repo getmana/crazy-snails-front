@@ -8,7 +8,9 @@ import { SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubItem 
 
 import { CollapsibleItem } from '../types';
 
-export const CollapsibleMenuItem = ({ item: { title, icon, subItems } }: { item: CollapsibleItem }) => {
+type CollapsibleMenuItemProps = { item: CollapsibleItem };
+
+export const CollapsibleMenuItem = ({ item: { title, icon, subItems } }: CollapsibleMenuItemProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const pathname = usePathname();

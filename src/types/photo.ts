@@ -7,3 +7,8 @@ export type Photo = {
     thumbnailMdKey: string | null;
     status: PhotoStatus;
 };
+
+export type ExistingPhoto = {
+    photoId: number;
+    url: string;
+};

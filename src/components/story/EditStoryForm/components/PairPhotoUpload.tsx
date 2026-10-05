@@ -1,7 +1,7 @@
 'use client';
 
 import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
-import { type ExistingPhoto } from '@/components/fields/PhotoUploadField/usePhotoUpload';
+import { type ExistingPhoto } from '@/types';
 
 type PairPhotoUploadProps = {
     label: string;

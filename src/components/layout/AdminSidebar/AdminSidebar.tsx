@@ -22,7 +22,9 @@ import { CollapsibleMenuItem } from './components/CollapsibleMenuItem';
 import { getSidebarConfig } from './config';
 import { isCollapsibleItem } from './types';
 
-export function AdminSidebar({ locale }: { locale: Locale }) {
+type AdminSidebarProps = { locale: Locale };
+
+export const AdminSidebar = ({ locale }: AdminSidebarProps) => {
     const dictionary = useDictionary();
     const menuSections = getSidebarConfig(locale, dictionary);
     const pathname = usePathname();
@@ -61,4 +63,4 @@ export function AdminSidebar({ locale }: { locale: Locale }) {
             </SidebarContent>
         </Sidebar>
     );
-}
+};

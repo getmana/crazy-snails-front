@@ -7,14 +7,14 @@ import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 import { getMenuItems } from '@/utils';
 
-type MenuItemProps = {
+type MenuItemsProps = {
     locale: Locale;
     textClassName: string;
     isFooter?: boolean;
     hasDivider?: boolean;
 };
 
-export const MenuItems = ({ locale, textClassName, isFooter = false, hasDivider = false }: MenuItemProps) => {
+export const MenuItems = ({ locale, textClassName, isFooter = false, hasDivider = false }: MenuItemsProps) => {
     const { menu } = useDictionary();
     const menuItems = getMenuItems(menu, locale);
     const pathname = usePathname();

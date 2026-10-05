@@ -1,6 +1,6 @@
 import { getCountries } from '@/api/getCountries';
-import { SelectOption } from '@/components/fields/Select';
 import { Locale } from '@/i18n-config';
+import { type SelectOption } from '@/types';
 
 import { getLocalizedName } from './getLocalizedField';
 

@@ -13,7 +13,9 @@ const ToastClassMap: Record<ToastType, string> = {
     error: 'bg-error',
 };
 
-export const ToastMessageWrapper = ({ children }: { children: React.ReactNode }) => {
+type ToastMessageWrapperProps = { children: React.ReactNode };
+
+export const ToastMessageWrapper = ({ children }: ToastMessageWrapperProps) => {
     const { toastMessage, setToastMessage } = useToastMessageContext();
     const [animationClass, setAnimationClass] = useState<string>('');
 

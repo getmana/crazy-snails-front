@@ -3,7 +3,9 @@ import Image from 'next/image';
 import { StoryPhotoJoin } from '@/types';
 import { getPhotoUrl } from '@/utils';
 
-export const StoryGallery = ({ items }: { items: StoryPhotoJoin[] }) => {
+type StoryGalleryProps = { items: StoryPhotoJoin[] };
+
+export const StoryGallery = ({ items }: StoryGalleryProps) => {
     const [big, ...rest] = items.slice().sort((a, b) => a.position - b.position);
 
     return (

@@ -6,15 +6,13 @@ import { Locale } from '@/i18n-config';
 import { StoryPreview } from '@/types';
 import { DictionaryType } from '@/utils';
 
-export const StoriesSection = async ({
-    dictionary,
-    locale,
-    previewItems,
-}: {
+type StoriesSectionProps = {
     dictionary: DictionaryType;
     locale: Locale;
     previewItems: StoryPreview[];
-}) => {
+};
+
+export const StoriesSection = async ({ dictionary, locale, previewItems }: StoriesSectionProps) => {
     const { subtitle, title, button } = dictionary;
 
     return (

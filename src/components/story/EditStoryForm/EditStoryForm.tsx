@@ -26,7 +26,9 @@ import { HeroPhotoUpload } from './components/HeroPhotoUpload';
 import { PairPhotoUpload } from './components/PairPhotoUpload';
 import { EditStorySchema, EditStorySchemaType } from './EditStorySchema';
 
-export const EditStoryForm = ({ story, locale }: { story: Story; locale: Locale }) => {
+type EditStoryFormProps = { story: Story; locale: Locale };
+
+export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
     const [isPending, startTransition] = useTransition();
     const { setToastMessage } = useToastMessageContext();
 

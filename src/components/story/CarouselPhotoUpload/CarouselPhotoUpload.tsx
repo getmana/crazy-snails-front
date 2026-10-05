@@ -3,8 +3,7 @@
 import { useRef, useState } from 'react';
 
 import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
-import { type ExistingPhoto } from '@/components/fields/PhotoUploadField/usePhotoUpload';
-import { type CarouselPhotoInput } from '@/types';
+import { type CarouselPhotoInput, type ExistingPhoto } from '@/types';
 import { getLocaleFromCookie } from '@/utils';
 
 import { CaptionEditDialog } from './components/CaptionEditDialog';

@@ -1,6 +1,8 @@
 import { Icon } from '@/components/shared/Icon/Icon';
 
-export const ErrorText = ({ text, className = '' }: { text: string; className?: string }) => {
+type ErrorTextProps = { text: string; className?: string };
+
+export const ErrorText = ({ text, className = '' }: ErrorTextProps) => {
     return (
         <div className="mt-2 flex items-center justify-start">
             <Icon icon="CircleExclamation" className="text-red-600" />

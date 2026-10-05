@@ -2,7 +2,8 @@
 
 import React, { forwardRef, useState } from 'react';
 
-import { ErrorText, Icon } from '@/components';
+import { ErrorText } from '@/components/shared/ErrorText';
+import { Icon } from '@/components/shared/Icon/Icon';
 
 type PasswordInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
     label?: string;

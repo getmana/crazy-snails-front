@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 
-import { EditNoteDialog } from '@/components';
+import { EditNoteDialog } from '@/components/album/EditNoteDialog/EditNoteDialog';
 import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
 import { type ExistingPhoto } from '@/components/fields/PhotoUploadField/usePhotoUpload';
 import { type SelectOption } from '@/components/fields/Select';

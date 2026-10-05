@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 
-import { Icon, LocaleSwitcher } from '@/components';
+import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
+import { Icon } from '@/components/shared/Icon/Icon';
 import { Locale } from '@/i18n-config';
 
 import { MenuItems } from './MenuItems';

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 
-import { ErrorText } from '@/components';
+import { ErrorText } from '@/components/shared/ErrorText';
 import { STORY_EMOJIS } from '@/constants/emojis';
 import { tiptapExtensions } from '@/lib/tiptap';
 import type { TiptapDocument } from '@/types/tiptap';

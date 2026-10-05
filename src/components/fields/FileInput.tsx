@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import React, { forwardRef } from 'react';
 
-import { ErrorText } from '@/components';
+import { ErrorText } from '@/components/shared/ErrorText';
 
 type FileInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
     label?: string;

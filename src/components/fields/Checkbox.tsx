@@ -2,7 +2,7 @@
 
 import { useId } from 'react';
 
-import { ErrorText } from '@/components';
+import { ErrorText } from '@/components/shared/ErrorText';
 import { Checkbox as CheckboxPrimitive } from '@/components/ui/checkbox';
 
 type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive> & {

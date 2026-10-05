@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-import { Heading, StoryPreviewCard } from '@/components';
+import { Heading } from '@/components/shared/Heading';
+import { StoryPreviewCard } from '@/components/story/StoryPreviewCard';
 import { Locale } from '@/i18n-config';
 import { StoryPreview } from '@/types';
 import { DictionaryType } from '@/utils';

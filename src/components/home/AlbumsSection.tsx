@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Heading } from '@/components';
+import { Heading } from '@/components/shared/Heading';
 import { Locale } from '@/i18n-config';
 import { DictionaryType } from '@/utils';
 

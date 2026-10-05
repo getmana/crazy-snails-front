@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { Icon } from '@/components';
+import { Icon } from '@/components/shared/Icon/Icon';
 import {
     Sidebar,
     SidebarContent,

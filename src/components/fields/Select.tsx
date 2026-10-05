@@ -2,7 +2,7 @@
 
 import { forwardRef } from 'react';
 
-import { ErrorText } from '@/components';
+import { ErrorText } from '@/components/shared/ErrorText';
 
 export type SelectOption = {
     id: number;

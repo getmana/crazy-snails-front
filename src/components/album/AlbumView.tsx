@@ -1,46 +1,16 @@
-'use client';
-
 import Image from 'next/image';
-import { useState } from 'react';
+import Link from 'next/link';
 
-import { EditAlbumForm } from '@/components/album/EditAlbumForm/EditAlbumForm';
-import { type SelectOption } from '@/components/fields/Select';
 import { Heading } from '@/components/shared/Heading';
-import { Button } from '@/components/ui/button';
-import { useDictionary } from '@/context';
+import { buttonVariants } from '@/components/ui/button';
 import { Locale } from '@/i18n-config';
 import { Album } from '@/types';
-import { getPhotoUrl, resolveLocalizedValue } from '@/utils';
+import { getDictionary, getPhotoUrl, resolveLocalizedValue } from '@/utils';
 
-export const PublishedAlbumView = ({
-    album,
-    locale,
-    countries,
-    activities,
-}: {
-    album: Album;
-    locale: Locale;
-    countries: SelectOption[];
-    activities: string[];
-}) => {
-    const [isEditing, setIsEditing] = useState(false);
+export const AlbumView = async ({ album, locale }: { album: Album; locale: Locale }) => {
     const {
         editAlbumForm: { editBtn },
-    } = useDictionary();
-
-    if (isEditing) {
-        return (
-            <div className="w-full py-12 lg:w-2xl">
-                <EditAlbumForm
-                    album={album}
-                    locale={locale}
-                    countries={countries}
-                    activities={activities}
-                    onCancel={() => setIsEditing(false)}
-                />
-            </div>
-        );
-    }
+    } = await getDictionary(locale);
 
     const { title, titleEn, titleUk, subtitle, subtitleEn, subtitleUk, photos } = album;
     const localizedTitle = resolveLocalizedValue(titleEn, titleUk, title, locale) ?? '';
@@ -49,9 +19,9 @@ export const PublishedAlbumView = ({
     return (
         <div>
             <div className="flex justify-end px-8 pt-4">
-                <Button type="button" onClick={() => setIsEditing(true)}>
+                <Link href={`/${locale}/dashboard/albums/${album.id}/edit`} className={buttonVariants()}>
                     {editBtn}
-                </Button>
+                </Link>
             </div>
             <Heading heading={localizedTitle} headingTag="h1" subheading={localizedSubtitle} className="heading-3" />
             {photos.length > 0 && (

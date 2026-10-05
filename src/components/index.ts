@@ -1,6 +1,6 @@
+export { AlbumView } from './album/AlbumView';
 export { CreateAlbumForm } from './album/CreateAlbumForm/CreateAlbumForm';
 export { EditAlbumForm } from './album/EditAlbumForm/EditAlbumForm';
-export { PublishedAlbumView } from './album/PublishedAlbumView';
 export { SignInForm } from './auth/SignInForm/SignInForm';
 export { SignUpForm } from './auth/SignUpForm/SignUpForm';
 export { About } from './home/About';
@@ -19,8 +19,8 @@ export { Heading } from './shared/Heading';
 export { Icon } from './shared/Icon/Icon';
 export { CreateStoryForm } from './story/CreateStoryForm/CreateStoryForm';
 export { EditStoryForm } from './story/EditStoryForm/EditStoryForm';
-export { PublishedStoryView } from './story/PublishedStoryView';
 export { StoryContent } from './story/StoryContent/StoryContent';
 export { StoryPreviewCard } from './story/StoryPreviewCard';
 export { StoryRow } from './story/StoryRow';
+export { StoryView } from './story/StoryView';
 export { EditUserForm } from './user/EditUserForm/EditUserForm';

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useTransition } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,10 +11,11 @@ import { RichTextEditor } from '@/components/fields/RichTextEditor';
 import { TextInput } from '@/components/fields/TextInput';
 import { CarouselPhotoUpload } from '@/components/story/CarouselPhotoUpload/CarouselPhotoUpload';
 import { DeleteStoryDialog } from '@/components/story/DeleteStoryDialog';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
+import { cn } from '@/lib/utils';
 import { Story } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
 import { getLocaleFromCookie, getLocalizedDescription, getLocalizedSubtitle, getLocalizedTitle, getPhotoUrl } from '@/utils';
@@ -24,7 +26,7 @@ import { HeroPhotoUpload } from './components/HeroPhotoUpload';
 import { PairPhotoUpload } from './components/PairPhotoUpload';
 import { EditStorySchema, EditStorySchemaType } from './EditStorySchema';
 
-export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; locale: Locale; onCancel?: () => void }) => {
+export const EditStoryForm = ({ story, locale }: { story: Story; locale: Locale }) => {
     const [isPending, startTransition] = useTransition();
     const { setToastMessage } = useToastMessageContext();
 
@@ -238,11 +240,13 @@ export const EditStoryForm = ({ story, locale, onCancel }: { story: Story; local
                 />
 
                 <div className="flex gap-4">
-                    {onCancel && (
-                        <Button type="button" variant="outline" disabled={isPending} onClick={onCancel}>
-                            {cancelBtn}
-                        </Button>
-                    )}
+                    <Link
+                        href={`/${locale}/dashboard/stories/${story.id}`}
+                        aria-disabled={isPending}
+                        className={cn(buttonVariants({ variant: 'outline' }), isPending && 'pointer-events-none opacity-50')}
+                    >
+                        {cancelBtn}
+                    </Link>
                     <Button type="button" disabled={isPending || !isDirty} onClick={submit(false)}>
                         {saveBtn}
                     </Button>

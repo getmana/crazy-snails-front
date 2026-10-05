@@ -44,5 +44,5 @@ export const createStoryWithRedirect = async (payload: CreateStoryPayload) => {
     const headersList = await headers();
     const locale = headersList.get('x-locale');
 
-    redirect(`/${locale}/dashboard/stories/${id}?toast=story-created`);
+    redirect(`/${locale}/dashboard/stories/${id}/edit?toast=story-created`);
 };

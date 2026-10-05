@@ -2,7 +2,7 @@
 
 import { useSortable } from '@dnd-kit/react/sortable';
 
-import { PhotoTile } from './components/PhotoTile';
+import { PhotoTile } from './PhotoTile';
 
 type SortablePhotoTileProps = {
     tempId: string;

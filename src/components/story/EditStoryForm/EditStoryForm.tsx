@@ -8,6 +8,7 @@ import { type UpdateStoryPayload, updateStoryWithRedirect } from '@/actions/upda
 import { Checkbox } from '@/components/fields/Checkbox';
 import { RichTextEditor } from '@/components/fields/RichTextEditor';
 import { TextInput } from '@/components/fields/TextInput';
+import { CarouselPhotoUpload } from '@/components/story/CarouselPhotoUpload/CarouselPhotoUpload';
 import { DeleteStoryDialog } from '@/components/story/DeleteStoryDialog';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -18,7 +19,6 @@ import type { TiptapDocument } from '@/types/tiptap';
 import { getLocaleFromCookie, getLocalizedDescription, getLocalizedSubtitle, getLocalizedTitle, getPhotoUrl } from '@/utils';
 import { isTiptapDocEmpty } from '@/utils/richText';
 
-import { CarouselPhotoUpload } from './components/CarouselPhotoUpload/CarouselPhotoUpload';
 import { GalleryPhotoUpload } from './components/GalleryPhotoUpload';
 import { HeroPhotoUpload } from './components/HeroPhotoUpload';
 import { PairPhotoUpload } from './components/PairPhotoUpload';

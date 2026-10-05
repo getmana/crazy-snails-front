@@ -5,7 +5,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { PasswordInput, TextInput } from '@/components';
+import { PasswordInput } from '@/components/fields/PasswordInput';
+import { TextInput } from '@/components/fields/TextInput';
 import { ADMIN_THEME_STORAGE_KEY, type AdminTheme } from '@/components/layout/AdminThemeProvider';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { Locale } from '@/i18n-config';

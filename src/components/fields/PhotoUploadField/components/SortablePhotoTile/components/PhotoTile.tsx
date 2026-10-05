@@ -3,7 +3,8 @@
 import { GripVertical, Pencil, Star } from 'lucide-react';
 import Image from 'next/image';
 
-import { ErrorText, Icon } from '@/components';
+import { ErrorText } from '@/components/shared/ErrorText';
+import { Icon } from '@/components/shared/Icon/Icon';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 type PhotoTileProps = {

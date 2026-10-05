@@ -1,4 +1,4 @@
-import { PreviewCard } from '@/components';
+import { PreviewCard } from '@/components/shared/PreviewCard';
 import { Locale } from '@/i18n-config';
 import { StoryPreview } from '@/types';
 import { getPhotoUrl, getTiptapTextPreview, resolveLocalizedValue } from '@/utils';

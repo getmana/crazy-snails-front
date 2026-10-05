@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Icon } from '@/components';
+import { Icon } from '@/components/shared/Icon/Icon';
 import { Locale } from '@/i18n-config';
 
 export const HeaderAdmin = ({ locale }: { locale: Locale }) => {

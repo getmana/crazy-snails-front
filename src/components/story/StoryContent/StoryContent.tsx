@@ -1,4 +1,4 @@
-import { RichTextRenderer } from '@/components';
+import { RichTextRenderer } from '@/components/shared/RichTextRenderer';
 import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
 import { resolveLocalizedValue, splitTiptapDocument } from '@/utils';

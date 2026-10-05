@@ -2,7 +2,8 @@ import { CheckIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { DeleteStoryDialog, Icon } from '@/components';
+import { Icon } from '@/components/shared/Icon/Icon';
+import { DeleteStoryDialog } from '@/components/story/DeleteStoryDialog';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/images';
 import { Locale } from '@/i18n-config';

@@ -1,4 +1,4 @@
-import { Icon } from '@/components';
+import { Icon } from '@/components/shared/Icon/Icon';
 
 export const ErrorText = ({ text, className = '' }: { text: string; className?: string }) => {
     return (

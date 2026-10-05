@@ -37,6 +37,23 @@ const eslintConfig = [
             'import/no-duplicates': 'error',
         },
     },
+    {
+        files: ['src/components/**/*.{ts,tsx}'],
+        rules: {
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: '@/components',
+                            message:
+                                'Import from the full path (e.g. @/components/shared/Heading) — importing the barrel from inside components/ creates circular imports.',
+                        },
+                    ],
+                },
+            ],
+        },
+    },
 ];
 
 export default eslintConfig;

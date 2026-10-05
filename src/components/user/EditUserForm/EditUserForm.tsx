@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { updateUser } from '@/actions/updateUser';
-import { TextInput } from '@/components';
+import { TextInput } from '@/components/fields/TextInput';
 import { Button } from '@/components/ui/button';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { Locale } from '@/i18n-config';

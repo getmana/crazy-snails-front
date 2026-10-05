@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Icon } from '@/components';
+import { Icon } from '@/components/shared/Icon/Icon';
 import { ToastType, useToastMessageContext } from '@/context/toastMessageContext';
 
 const TOAST_DURATION = 3000;

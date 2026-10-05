@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 
-import { EditStoryForm, Heading } from '@/components';
+import { Heading } from '@/components/shared/Heading';
+import { EditStoryForm } from '@/components/story/EditStoryForm/EditStoryForm';
 import { Button } from '@/components/ui/button';
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';

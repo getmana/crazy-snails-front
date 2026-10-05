@@ -5,7 +5,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type UpdateStoryPayload, updateStoryWithRedirect } from '@/actions/updateStory';
-import { Checkbox, DeleteStoryDialog, RichTextEditor, TextInput } from '@/components';
+import { Checkbox } from '@/components/fields/Checkbox';
+import { RichTextEditor } from '@/components/fields/RichTextEditor';
+import { TextInput } from '@/components/fields/TextInput';
+import { DeleteStoryDialog } from '@/components/story/DeleteStoryDialog';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';

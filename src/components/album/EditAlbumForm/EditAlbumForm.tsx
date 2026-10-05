@@ -5,8 +5,13 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type UpdateAlbumPayload, updateAlbumWithRedirect } from '@/actions/updateAlbum';
-import { DeleteAlbumDialog, ErrorText, Icon, RichTextEditor, Select, TextInput } from '@/components';
+import { DeleteAlbumDialog } from '@/components/album/DeleteAlbumDialog';
+import { RichTextEditor } from '@/components/fields/RichTextEditor';
+import { Select } from '@/components/fields/Select';
 import { type SelectOption } from '@/components/fields/Select';
+import { TextInput } from '@/components/fields/TextInput';
+import { ErrorText } from '@/components/shared/ErrorText';
+import { Icon } from '@/components/shared/Icon/Icon';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';

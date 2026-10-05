@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type CreateStoryPayload, createStoryWithRedirect } from '@/actions/createStory';
-import { TextInput } from '@/components';
+import { TextInput } from '@/components/fields/TextInput';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';

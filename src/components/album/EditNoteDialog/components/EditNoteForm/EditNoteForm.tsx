@@ -5,8 +5,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { updateAlbumPhotoNote } from '@/actions/updateAlbumPhotoNote';
-import { RichTextEditor, Select, TextInput } from '@/components';
+import { RichTextEditor } from '@/components/fields/RichTextEditor';
+import { Select } from '@/components/fields/Select';
 import { type SelectOption } from '@/components/fields/Select';
+import { TextInput } from '@/components/fields/TextInput';
 import { EMPTY_DOC } from '@/components/fields/tiptapDocumentSchema';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';

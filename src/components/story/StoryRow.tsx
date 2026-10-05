@@ -29,11 +29,12 @@ export const StoryRow = ({
 }) => {
     const localizedTitle = resolveLocalizedValue(story.titleEn, story.titleUk, story.title, locale) ?? '';
     const localizedSubtitle = resolveLocalizedValue(story.subtitleEn, story.subtitleUk, story.subtitle, locale) ?? undefined;
-    const editHref = `/dashboard/stories/${story.id}`;
+    const viewHref = `/dashboard/stories/${story.id}`;
+    const editHref = `${viewHref}/edit`;
 
     return (
         <div className="hover:bg-accent flex items-center gap-4 px-2 py-3 transition-colors">
-            <Link href={editHref} className="flex min-w-0 flex-1 items-center gap-4">
+            <Link href={viewHref} className="flex min-w-0 flex-1 items-center gap-4">
                 <Image
                     src={story.photo ? getPhotoUrl(story.photo.thumbnailSmKey || story.photo.originalKey) : PLACEHOLDER_IMAGE_URL}
                     alt=""

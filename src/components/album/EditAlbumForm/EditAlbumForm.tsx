@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useTransition } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,11 +13,12 @@ import { type SelectOption } from '@/components/fields/Select';
 import { TextInput } from '@/components/fields/TextInput';
 import { ErrorText } from '@/components/shared/ErrorText';
 import { Icon } from '@/components/shared/Icon/Icon';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
+import { cn } from '@/lib/utils';
 import { Album } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
 import {
@@ -37,13 +39,11 @@ export const EditAlbumForm = ({
     locale,
     countries,
     activities,
-    onCancel,
 }: {
     album: Album;
     locale: Locale;
     countries: SelectOption[];
     activities: string[];
-    onCancel?: () => void;
 }) => {
     const [isPending, startTransition] = useTransition();
     const { setToastMessage } = useToastMessageContext();
@@ -259,11 +259,13 @@ export const EditAlbumForm = ({
                 />
 
                 <div className="flex gap-4">
-                    {onCancel && (
-                        <Button type="button" variant="outline" disabled={isPending} onClick={onCancel}>
-                            {cancelBtn}
-                        </Button>
-                    )}
+                    <Link
+                        href={`/${locale}/dashboard/albums/${album.id}`}
+                        aria-disabled={isPending}
+                        className={cn(buttonVariants({ variant: 'outline' }), isPending && 'pointer-events-none opacity-50')}
+                    >
+                        {cancelBtn}
+                    </Link>
                     <Button type="button" disabled={isPending || !isDirty} onClick={submit(false)}>
                         {saveBtn}
                     </Button>

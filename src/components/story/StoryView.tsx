@@ -1,26 +1,16 @@
-'use client';
-
-import { useState } from 'react';
+import Link from 'next/link';
 
 import { Heading } from '@/components/shared/Heading';
-import { EditStoryForm } from '@/components/story/EditStoryForm/EditStoryForm';
-import { Button } from '@/components/ui/button';
-import { useDictionary } from '@/context';
+import { StoryContent } from '@/components/story/StoryContent/StoryContent';
+import { buttonVariants } from '@/components/ui/button';
 import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
-import { resolveLocalizedValue } from '@/utils';
+import { getDictionary, resolveLocalizedValue } from '@/utils';
 
-import { StoryContent } from './StoryContent/StoryContent';
-
-export const PublishedStoryView = ({ story, locale }: { story: Story; locale: Locale }) => {
-    const [isEditing, setIsEditing] = useState(false);
+export const StoryView = async ({ story, locale }: { story: Story; locale: Locale }) => {
     const {
         editStoryForm: { editBtn },
-    } = useDictionary();
-
-    if (isEditing) {
-        return <EditStoryForm story={story} locale={locale} onCancel={() => setIsEditing(false)} />;
-    }
+    } = await getDictionary(locale);
 
     const { titleEn, titleUk, title, subtitleEn, subtitleUk, subtitle } = story;
     const localizedTitle = resolveLocalizedValue(titleEn, titleUk, title, locale) ?? '';
@@ -29,9 +19,9 @@ export const PublishedStoryView = ({ story, locale }: { story: Story; locale: Lo
     return (
         <div>
             <div className="flex justify-end px-8 pt-4">
-                <Button type="button" onClick={() => setIsEditing(true)}>
+                <Link href={`/${locale}/dashboard/stories/${story.id}/edit`} className={buttonVariants()}>
                     {editBtn}
-                </Button>
+                </Link>
             </div>
             <Heading heading={localizedTitle} headingTag="h1" subheading={localizedSubtitle} className="heading-3" />
             <StoryContent story={story} locale={locale} />

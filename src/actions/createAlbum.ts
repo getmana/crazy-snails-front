@@ -48,5 +48,5 @@ export const createAlbumWithRedirect = async (payload: CreateAlbumPayload) => {
     const headersList = await headers();
     const locale = headersList.get('x-locale');
 
-    redirect(`/${locale}/dashboard/albums/${id}?toast=album-created`);
+    redirect(`/${locale}/dashboard/albums/${id}/edit?toast=album-created`);
 };

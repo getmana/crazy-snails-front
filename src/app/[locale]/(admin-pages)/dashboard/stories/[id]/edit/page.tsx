@@ -1,9 +1,9 @@
 import { getAdminStory } from '@/api/getAdminStory';
-import { StoryView, ToastMessage } from '@/components';
+import { EditStoryForm, ToastMessage } from '@/components';
 import { Locale } from '@/i18n-config';
 import { SearchParams } from '@/types';
 
-export default async function StoryAdminPage(props: {
+export default async function StoryEditPage(props: {
     params: Promise<{ id: string; locale: Locale }>;
     searchParams: Promise<SearchParams>;
 }) {
@@ -15,7 +15,9 @@ export default async function StoryAdminPage(props: {
     return (
         <div className="flex w-full flex-col">
             {toast ? <ToastMessage toast={toast} /> : null}
-            <StoryView story={story} locale={locale} />
+            <div className="w-full py-12 lg:w-2xl">
+                <EditStoryForm story={story} locale={locale} />
+            </div>
         </div>
     );
 }

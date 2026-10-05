@@ -1,9 +1,9 @@
 import { RichTextRenderer } from '@/components/shared/RichTextRenderer';
+import { StoryCarousel } from '@/components/story/StoryCarousel/StoryCarousel';
 import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
 import { resolveLocalizedValue, splitTiptapDocument } from '@/utils';
 
-import { StoryCarousel } from './components/StoryCarousel/StoryCarousel';
 import { StoryGallery } from './components/StoryGallery';
 import { StoryHero } from './components/StoryHero';
 import { StoryPair } from './components/StoryPair';

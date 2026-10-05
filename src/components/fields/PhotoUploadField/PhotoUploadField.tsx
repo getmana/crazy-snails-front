@@ -6,7 +6,7 @@ import { DragDropProvider } from '@dnd-kit/react';
 
 import { FileInput } from '@/components/fields/FileInput';
 
-import { SortablePhotoTile } from './components/SortablePhotoTile/SortablePhotoTile';
+import { SortablePhotoTile } from './components/SortablePhotoTile';
 import { type ExistingPhoto, usePhotoUpload } from './usePhotoUpload';
 
 type PhotoUploadFieldProps = {

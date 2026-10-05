@@ -1,7 +1,4 @@
-import { AdminSidebar } from '@/components/layout/AdminSidebar/AdminSidebar';
-import { AdminThemeProvider } from '@/components/layout/AdminThemeProvider';
-import { AdminThemeToggle } from '@/components/layout/AdminThemeToggle';
-import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
+import { AdminSidebar, AdminThemeProvider, AdminThemeToggle, LocaleSwitcher } from '@/components';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { type Locale } from '@/i18n-config';
 

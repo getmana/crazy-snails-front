@@ -1,6 +1,5 @@
 import { fetchWithAuth } from '@/api/authFetch';
-import { StoryRow } from '@/components';
-import { ToastMessage } from '@/components/layout/ToastMessage';
+import { StoryRow, ToastMessage } from '@/components';
 import { Locale } from '@/i18n-config';
 import { OwnStoriesResponse, SearchParams } from '@/types';
 import { getDictionary } from '@/utils';

@@ -4,7 +4,9 @@ import { Heading } from '@/components/shared/Heading';
 import { Locale } from '@/i18n-config';
 import { DictionaryType } from '@/utils';
 
-export const AlbumsSection = ({ dictionary, locale }: { dictionary: DictionaryType; locale: Locale }) => {
+type AlbumsSectionProps = { dictionary: DictionaryType; locale: Locale };
+
+export const AlbumsSection = ({ dictionary, locale }: AlbumsSectionProps) => {
     const { title, subtitle, button } = dictionary;
 
     return (

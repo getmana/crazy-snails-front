@@ -12,7 +12,7 @@ export {
     getLocalizedTitle,
     resolveLocalizedValue,
 } from './getLocalizedField';
-export { getMenuItems, type MenuItem } from './getMenuItems';
+export { getMenuItems, type NavLink } from './getMenuItems';
 export { getPathWithLocale } from './getPathWithLocale';
 export { getPhotoUrl } from './getPhotoUrl';
 export { internalAPIRoutes } from './internalAPIRouts';

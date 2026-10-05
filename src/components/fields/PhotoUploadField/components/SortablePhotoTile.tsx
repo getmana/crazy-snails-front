@@ -3,13 +3,14 @@
 import { useSortable } from '@dnd-kit/react/sortable';
 
 import { PhotoTile } from './PhotoTile';
+import { type PhotoUploadStatus } from '../usePhotoUpload';
 
 type SortablePhotoTileProps = {
     tempId: string;
     index: number;
     disabled: boolean;
     previewUrl: string;
-    status: 'uploading' | 'done' | 'error';
+    status: PhotoUploadStatus;
     errorMessage?: string;
     retryable?: boolean;
     onRetry: () => void;

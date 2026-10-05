@@ -9,7 +9,6 @@ import { type UpdateAlbumPayload, updateAlbumWithRedirect } from '@/actions/upda
 import { DeleteAlbumDialog } from '@/components/album/DeleteAlbumDialog';
 import { RichTextEditor } from '@/components/fields/RichTextEditor';
 import { Select } from '@/components/fields/Select';
-import { type SelectOption } from '@/components/fields/Select';
 import { TextInput } from '@/components/fields/TextInput';
 import { ErrorText } from '@/components/shared/ErrorText';
 import { Icon } from '@/components/shared/Icon/Icon';
@@ -19,6 +18,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import { cn } from '@/lib/utils';
+import { type SelectOption } from '@/types';
 import { Album } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
 import {
@@ -34,17 +34,14 @@ import { isTiptapDocEmpty } from '@/utils/richText';
 import { AlbumPhotoUpload } from './components/AlbumPhotoUpload';
 import { EditAlbumSchema, EditAlbumSchemaType } from './EditAlbumSchema';
 
-export const EditAlbumForm = ({
-    album,
-    locale,
-    countries,
-    activities,
-}: {
+type EditAlbumFormProps = {
     album: Album;
     locale: Locale;
     countries: SelectOption[];
     activities: string[];
-}) => {
+};
+
+export const EditAlbumForm = ({ album, locale, countries, activities }: EditAlbumFormProps) => {
     const [isPending, startTransition] = useTransition();
     const { setToastMessage } = useToastMessageContext();
 

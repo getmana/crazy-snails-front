@@ -12,21 +12,16 @@ import { getPhotoUrl, resolveLocalizedValue } from '@/utils';
 
 type OwnStory = Omit<Story, 'pairImageStories' | 'galleryImageStories' | 'carouselStories'>;
 
-export const StoryRow = ({
-    story,
-    locale,
-    editLabel,
-    deleteLabel,
-    publishedLabel,
-    draftLabel,
-}: {
+type StoryRowProps = {
     story: OwnStory;
     locale: Locale;
     editLabel: string;
     deleteLabel: string;
     publishedLabel: string;
     draftLabel: string;
-}) => {
+};
+
+export const StoryRow = ({ story, locale, editLabel, deleteLabel, publishedLabel, draftLabel }: StoryRowProps) => {
     const localizedTitle = resolveLocalizedValue(story.titleEn, story.titleUk, story.title, locale) ?? '';
     const localizedSubtitle = resolveLocalizedValue(story.subtitleEn, story.subtitleUk, story.subtitle, locale) ?? undefined;
     const viewHref = `/dashboard/stories/${story.id}`;

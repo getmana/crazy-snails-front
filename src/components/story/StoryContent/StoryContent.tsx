@@ -8,7 +8,9 @@ import { StoryGallery } from './components/StoryGallery';
 import { StoryHero } from './components/StoryHero';
 import { StoryPair } from './components/StoryPair';
 
-export const StoryContent = ({ story, locale }: { story: Story; locale: Locale }) => {
+type StoryContentProps = { story: Story; locale: Locale };
+
+export const StoryContent = ({ story, locale }: StoryContentProps) => {
     const { description, descriptionEn, descriptionUk, heroFirst, photo, pairImageStories, galleryImageStories, carouselStories } = story;
     const localizedDescription = resolveLocalizedValue(descriptionEn, descriptionUk, description, locale);
 

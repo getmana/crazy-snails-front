@@ -7,7 +7,9 @@ import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
 import { getDictionary, resolveLocalizedValue } from '@/utils';
 
-export const StoryView = async ({ story, locale }: { story: Story; locale: Locale }) => {
+type StoryViewProps = { story: Story; locale: Locale };
+
+export const StoryView = async ({ story, locale }: StoryViewProps) => {
     const {
         editStoryForm: { editBtn },
     } = await getDictionary(locale);

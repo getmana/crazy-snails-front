@@ -3,13 +3,13 @@
 import { useState } from 'react';
 
 import { Checkbox } from '@/components/fields/Checkbox';
-import { type SelectOption } from '@/components/fields/Select';
 import { ErrorText } from '@/components/shared/ErrorText';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
+import { type SelectOption } from '@/types';
 
 import { EditNoteForm } from './components/EditNoteForm/EditNoteForm';
 import { useAlbumPhotoNote } from './useAlbumPhotoNote';

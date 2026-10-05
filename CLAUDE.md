@@ -77,6 +77,15 @@ so it would create a cycle; they use full paths instead.
   `layout.tsx`, `not-found.tsx`, …) and shadcn-generated files (`components/ui/*`, `hooks/use-mobile.ts`). Don't
   rename them; `npx shadcn add` will keep creating more.
 
+## Types
+
+- `src/types/` holds only types shared across folders (domain models, API shapes, UI shapes like
+  `SelectOption` or `ExistingPhoto`). A type used by one component or folder stays next to it; don't export a type
+  nobody else imports.
+- Component props: always a named `type <Component>Props = { ... }` right above the component, never inline in
+  the signature; not exported unless another file needs it (prefer `React.ComponentProps<typeof X>` there).
+- Use `type`, not `interface`.
+
 ## Forms
 
 - The zod schema lives next to its form (`EditAlbumForm.tsx` + `EditAlbumSchema.ts`); forms use react-hook-form

@@ -35,7 +35,9 @@ export const ToastMessageMap: ToastMessageMapType = {
     },
 };
 
-export const ToastMessage = ({ toast }: { toast: keyof typeof ToastMessageMap }) => {
+type ToastMessageProps = { toast: keyof typeof ToastMessageMap };
+
+export const ToastMessage = ({ toast }: ToastMessageProps) => {
     const { setToastMessage } = useToastMessageContext();
     const { toastMessages } = useDictionary();
 

@@ -14,7 +14,9 @@ import { getErrorMessage } from '@/utils';
 
 import { EditUserSchema, EditUserSchemaType } from './EditUserSchema';
 
-export const EditUserForm = ({ locale }: { locale: Locale }) => {
+type EditUserFormProps = { locale: Locale };
+
+export const EditUserForm = ({ locale }: EditUserFormProps) => {
     const {
         editUserForm,
         button,

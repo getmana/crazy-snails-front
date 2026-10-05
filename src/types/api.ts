@@ -1,5 +1,6 @@
-import type { AdminTheme } from '@/components/layout/AdminThemeProvider';
 import type { Locale } from '@/i18n-config';
+
+import type { AdminTheme } from './common';
 
 type ErrorDetail = {
     validation: string;

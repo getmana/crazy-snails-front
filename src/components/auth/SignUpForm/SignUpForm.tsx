@@ -13,7 +13,9 @@ import { getErrorMessage, internalAPIRoutes } from '@/utils';
 
 import { SignUpSchema, SignUpSchemaType } from './SignUpSchema';
 
-export const SignUpForm = ({ locale }: { locale: Locale }) => {
+type SignUpFormProps = { locale: Locale };
+
+export const SignUpForm = ({ locale }: SignUpFormProps) => {
     const {
         authForms,
         button,

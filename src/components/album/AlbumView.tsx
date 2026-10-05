@@ -7,7 +7,9 @@ import { Locale } from '@/i18n-config';
 import { Album } from '@/types';
 import { getDictionary, getPhotoUrl, resolveLocalizedValue } from '@/utils';
 
-export const AlbumView = async ({ album, locale }: { album: Album; locale: Locale }) => {
+type AlbumViewProps = { album: Album; locale: Locale };
+
+export const AlbumView = async ({ album, locale }: AlbumViewProps) => {
     const {
         editAlbumForm: { editBtn },
     } = await getDictionary(locale);

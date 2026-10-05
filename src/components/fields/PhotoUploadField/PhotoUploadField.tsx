@@ -5,9 +5,10 @@ import { move } from '@dnd-kit/helpers';
 import { DragDropProvider } from '@dnd-kit/react';
 
 import { FileInput } from '@/components/fields/FileInput';
+import { type ExistingPhoto } from '@/types';
 
 import { SortablePhotoTile } from './components/SortablePhotoTile';
-import { type ExistingPhoto, usePhotoUpload } from './usePhotoUpload';
+import { usePhotoUpload } from './usePhotoUpload';
 
 type PhotoUploadFieldProps = {
     max: number;

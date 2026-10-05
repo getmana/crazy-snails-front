@@ -5,7 +5,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type CreateAlbumPayload, createAlbumWithRedirect } from '@/actions/createAlbum';
-import { Select, SelectOption } from '@/components/fields/Select';
+import { Select } from '@/components/fields/Select';
 import { TextInput } from '@/components/fields/TextInput';
 import { ErrorText } from '@/components/shared/ErrorText';
 import { Icon } from '@/components/shared/Icon/Icon';
@@ -14,11 +14,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
+import { type SelectOption } from '@/types';
 import { getLocaleFromCookie, getLocalizedActivityTypes, getLocalizedTitle } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
-export const CreateAlbumForm = ({ countries, locale, activities }: { countries: SelectOption[]; locale: Locale; activities: string[] }) => {
+type CreateAlbumFormProps = { countries: SelectOption[]; locale: Locale; activities: string[] };
+
+export const CreateAlbumForm = ({ countries, locale, activities }: CreateAlbumFormProps) => {
     const [isPending, startTransition] = useTransition();
 
     const { setToastMessage } = useToastMessageContext();

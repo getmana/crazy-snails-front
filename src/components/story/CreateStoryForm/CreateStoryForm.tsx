@@ -14,7 +14,9 @@ import { getLocaleFromCookie, getLocalizedTitle } from '@/utils';
 
 import { CreateStorySchema, CreateStorySchemaType } from './CreateStorySchema';
 
-export const CreateStoryForm = ({ locale }: { locale: Locale }) => {
+type CreateStoryFormProps = { locale: Locale };
+
+export const CreateStoryForm = ({ locale }: CreateStoryFormProps) => {
     const [isPending, startTransition] = useTransition();
 
     const { setToastMessage } = useToastMessageContext();

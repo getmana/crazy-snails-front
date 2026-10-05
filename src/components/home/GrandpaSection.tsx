@@ -4,7 +4,9 @@ import { Icon } from '@/components/shared/Icon/Icon';
 import { Locale } from '@/i18n-config';
 import { DictionaryType } from '@/utils';
 
-export const GrandpaSection = ({ dictionary, locale }: { dictionary: DictionaryType; locale: Locale }) => {
+type GrandpaSectionProps = { dictionary: DictionaryType; locale: Locale };
+
+export const GrandpaSection = ({ dictionary, locale }: GrandpaSectionProps) => {
     const { title, button } = dictionary;
 
     return (

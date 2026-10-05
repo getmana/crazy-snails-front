@@ -9,7 +9,7 @@ import { RichTextEditor } from '@/components/fields/RichTextEditor';
 import { Select } from '@/components/fields/Select';
 import { type SelectOption } from '@/components/fields/Select';
 import { TextInput } from '@/components/fields/TextInput';
-import { EMPTY_DOC } from '@/components/fields/tiptapDocumentSchema';
+import { EMPTY_DOC } from '@/components/fields/TiptapDocumentSchema';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';

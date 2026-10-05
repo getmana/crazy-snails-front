@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { TiptapDocumentSchema } from '@/components/fields/tiptapDocumentSchema';
+import { TiptapDocumentSchema } from '@/components/fields/TiptapDocumentSchema';
 
 export const EditStorySchema = z
     .object({

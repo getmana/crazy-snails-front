@@ -140,6 +140,11 @@
         "draftLabel": "Draft",
         "emptyMessage": "No stories yet."
     },
+    "adminAlbumsList": {
+        "publishedLabel": "Published",
+        "draftLabel": "Draft",
+        "emptyMessage": "No albums yet."
+    },
     "adminSidebar": {
         "sectionContentTitle": "My Content",
         "sectionPagesTitle": "Site Pages",

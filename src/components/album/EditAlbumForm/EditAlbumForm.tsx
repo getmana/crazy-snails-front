@@ -5,11 +5,12 @@ import { useTransition } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { deleteAlbumWithRedirect } from '@/actions/deleteAlbum';
 import { type UpdateAlbumPayload, updateAlbumWithRedirect } from '@/actions/updateAlbum';
-import { DeleteAlbumDialog } from '@/components/album/DeleteAlbumDialog';
 import { RichTextEditor } from '@/components/fields/RichTextEditor';
 import { Select } from '@/components/fields/Select';
 import { TextInput } from '@/components/fields/TextInput';
+import { DeleteConfirmDialog } from '@/components/shared/DeleteConfirmDialog';
 import { ErrorText } from '@/components/shared/ErrorText';
 import { Icon } from '@/components/shared/Icon/Icon';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -61,6 +62,7 @@ export const EditAlbumForm = ({ album, locale, countries, activities }: EditAlbu
             publishBtn,
             cancelBtn,
             deleteBtn,
+            confirmDelete,
         },
     } = useDictionary();
 
@@ -269,8 +271,11 @@ export const EditAlbumForm = ({ album, locale, countries, activities }: EditAlbu
                     <Button type="button" disabled={isPending || !canPublish || (album.isPublished && !isDirty)} onClick={submit(true)}>
                         {publishBtn}
                     </Button>
-                    <DeleteAlbumDialog
-                        albumId={album.id}
+                    <DeleteConfirmDialog
+                        action={() => deleteAlbumWithRedirect(album.id)}
+                        title={confirmDelete}
+                        confirmLabel={deleteBtn}
+                        cancelLabel={cancelBtn}
                         trigger={
                             <Button type="button" variant="destructive" disabled={isPending}>
                                 {deleteBtn}

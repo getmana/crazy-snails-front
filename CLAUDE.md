@@ -86,6 +86,11 @@ so it would create a cycle; they use full paths instead.
   the signature; not exported unless another file needs it (prefer `React.ComponentProps<typeof X>` there).
 - Use `type`, not `interface`.
 
+## Constants
+
+`src/constants/` holds shared constants (e.g. photo-count limits in `photoLimits.ts`). Import them only through the
+`@/constants` barrel — full paths like `@/constants/images` are rejected by ESLint `no-restricted-imports`.
+
 ## Forms
 
 - The zod schema lives next to its form (`EditAlbumForm.tsx` + `EditAlbumSchema.ts`); forms use react-hook-form

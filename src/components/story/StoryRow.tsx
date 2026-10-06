@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/shared/Icon/Icon';
 import { DeleteStoryDialog } from '@/components/story/DeleteStoryDialog';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/images';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants';
 import { Locale } from '@/i18n-config';
 import { Story } from '@/types';
 import { getPhotoUrl, resolveLocalizedValue } from '@/utils';

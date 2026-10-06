@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 
 import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
+import { STORY_CAROUSEL_MAX_PHOTOS } from '@/constants';
 import { type CarouselPhotoInput, type ExistingPhoto } from '@/types';
 import { getLocaleFromCookie } from '@/utils';
 
@@ -61,7 +62,7 @@ export const CarouselPhotoUpload = ({ label, initialPhotos, initialCaptions, onC
     return (
         <>
             <PhotoUploadField
-                max={15}
+                max={STORY_CAROUSEL_MAX_PHOTOS}
                 label={label}
                 initialPhotos={initialPhotos}
                 onChange={handlePhotoIdsChange}

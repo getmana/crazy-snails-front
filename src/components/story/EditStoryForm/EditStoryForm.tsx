@@ -7,12 +7,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type UpdateStoryPayload, updateStoryWithRedirect } from '@/actions/updateStory';
 import { Checkbox } from '@/components/fields/Checkbox';
+import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
 import { RichTextEditor } from '@/components/fields/RichTextEditor';
 import { TextInput } from '@/components/fields/TextInput';
 import { CarouselPhotoUpload } from '@/components/story/CarouselPhotoUpload/CarouselPhotoUpload';
 import { DeleteStoryDialog } from '@/components/story/DeleteStoryDialog';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { STORY_GALLERY_MAX_PHOTOS, STORY_HERO_MAX_PHOTOS, STORY_PAIR_MAX_PHOTOS } from '@/constants';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import { cn } from '@/lib/utils';
@@ -21,9 +23,6 @@ import type { TiptapDocument } from '@/types/tiptap';
 import { getLocaleFromCookie, getLocalizedDescription, getLocalizedSubtitle, getLocalizedTitle, getPhotoUrl } from '@/utils';
 import { isTiptapDocEmpty } from '@/utils/richText';
 
-import { GalleryPhotoUpload } from './components/GalleryPhotoUpload';
-import { HeroPhotoUpload } from './components/HeroPhotoUpload';
-import { PairPhotoUpload } from './components/PairPhotoUpload';
 import { EditStorySchema, EditStorySchemaType } from './EditStorySchema';
 
 type EditStoryFormProps = { story: Story; locale: Locale };
@@ -199,7 +198,8 @@ export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
                     control={control}
                     name="heroPhotoIds"
                     render={({ field: { onChange } }) => (
-                        <HeroPhotoUpload
+                        <PhotoUploadField
+                            max={STORY_HERO_MAX_PHOTOS}
                             label={heroLabel}
                             initialPhotos={heroInitialPhotos}
                             onChange={(photoIds) => onChange(photoIds[0])}
@@ -211,7 +211,13 @@ export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
                     control={control}
                     name="pairPhotoIds"
                     render={({ field: { onChange } }) => (
-                        <PairPhotoUpload label={pairLabel} tip={pairTip} initialPhotos={pairInitialPhotos} onChange={onChange} />
+                        <PhotoUploadField
+                            max={STORY_PAIR_MAX_PHOTOS}
+                            label={pairLabel}
+                            tip={pairTip}
+                            initialPhotos={pairInitialPhotos}
+                            onChange={onChange}
+                        />
                     )}
                 />
 
@@ -219,7 +225,8 @@ export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
                     control={control}
                     name="galleryPhotoIds"
                     render={({ field: { onChange } }) => (
-                        <GalleryPhotoUpload
+                        <PhotoUploadField
+                            max={STORY_GALLERY_MAX_PHOTOS}
                             label={galleryLabel}
                             tip={galleryTip}
                             initialPhotos={galleryInitialPhotos}

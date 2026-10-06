@@ -12,6 +12,11 @@ const compat = new FlatCompat({
     baseDirectory: __dirname,
 });
 
+const constantsBarrelOnly = {
+    group: ['@/constants/*'],
+    message: "Import constants from the '@/constants' barrel.",
+};
+
 const eslintConfig = [
     ...compat.config({
         extends: ['next', 'prettier'],
@@ -38,6 +43,12 @@ const eslintConfig = [
         },
     },
     {
+        files: ['src/**/*.{ts,tsx}'],
+        rules: {
+            'no-restricted-imports': ['error', { patterns: [constantsBarrelOnly] }],
+        },
+    },
+    {
         files: ['src/components/**/*.{ts,tsx}'],
         rules: {
             'no-restricted-imports': [
@@ -50,6 +61,7 @@ const eslintConfig = [
                                 'Import from the full path (e.g. @/components/shared/Heading) — importing the barrel from inside components/ creates circular imports.',
                         },
                     ],
+                    patterns: [constantsBarrelOnly],
                 },
             ],
         },

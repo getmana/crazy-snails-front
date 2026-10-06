@@ -5,13 +5,14 @@ import { useTransition } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { deleteStoryWithRedirect } from '@/actions/deleteStory';
 import { type UpdateStoryPayload, updateStoryWithRedirect } from '@/actions/updateStory';
 import { Checkbox } from '@/components/fields/Checkbox';
 import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
 import { RichTextEditor } from '@/components/fields/RichTextEditor';
 import { TextInput } from '@/components/fields/TextInput';
+import { DeleteConfirmDialog } from '@/components/shared/DeleteConfirmDialog';
 import { CarouselPhotoUpload } from '@/components/story/CarouselPhotoUpload/CarouselPhotoUpload';
-import { DeleteStoryDialog } from '@/components/story/DeleteStoryDialog';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { STORY_GALLERY_MAX_PHOTOS, STORY_HERO_MAX_PHOTOS, STORY_PAIR_MAX_PHOTOS } from '@/constants';
@@ -47,6 +48,7 @@ export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
             publishBtn,
             cancelBtn,
             deleteBtn,
+            confirmDelete,
         },
     } = useDictionary();
 
@@ -262,8 +264,11 @@ export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
                     <Button type="button" disabled={isPending || !canPublish || (story.isPublished && !isDirty)} onClick={submit(true)}>
                         {publishBtn}
                     </Button>
-                    <DeleteStoryDialog
-                        storyId={story.id}
+                    <DeleteConfirmDialog
+                        action={() => deleteStoryWithRedirect(story.id)}
+                        title={confirmDelete}
+                        confirmLabel={deleteBtn}
+                        cancelLabel={cancelBtn}
                         trigger={
                             <Button type="button" variant="destructive" disabled={isPending}>
                                 {deleteBtn}

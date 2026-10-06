@@ -140,6 +140,11 @@
         "draftLabel": "Чернетка",
         "emptyMessage": "Історій ще немає."
     },
+    "adminAlbumsList": {
+        "publishedLabel": "Опубліковано",
+        "draftLabel": "Чернетка",
+        "emptyMessage": "Альбомів ще немає."
+    },
     "adminSidebar": {
         "sectionContentTitle": "Мій контент",
         "sectionPagesTitle": "Лінки на сайт",

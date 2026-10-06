@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 
 import { EditNoteDialog } from '@/components/album/EditNoteDialog/EditNoteDialog';
 import { PhotoUploadField } from '@/components/fields/PhotoUploadField/PhotoUploadField';
+import { ALBUM_MAX_PHOTOS } from '@/constants';
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 import { type ExistingPhoto, type SelectOption } from '@/types';
@@ -72,7 +73,7 @@ export const AlbumPhotoUpload = ({
     return (
         <>
             <PhotoUploadField
-                max={500}
+                max={ALBUM_MAX_PHOTOS}
                 label={label}
                 initialPhotos={initialPhotos}
                 onChange={handlePhotoIdsChange}

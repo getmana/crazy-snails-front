@@ -259,7 +259,7 @@ export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
                     <Button type="button" disabled={isPending || !isDirty} onClick={submit(false)}>
                         {saveBtn}
                     </Button>
-                    <Button type="button" disabled={isPending || !canPublish || !isDirty} onClick={submit(true)}>
+                    <Button type="button" disabled={isPending || !canPublish || (story.isPublished && !isDirty)} onClick={submit(true)}>
                         {publishBtn}
                     </Button>
                     <DeleteStoryDialog

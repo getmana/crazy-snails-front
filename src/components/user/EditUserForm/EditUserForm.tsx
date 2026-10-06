@@ -32,9 +32,10 @@ export const EditUserForm = ({ locale }: EditUserFormProps) => {
         register,
         reset,
         handleSubmit,
-        formState: { errors, isValid },
+        formState: { errors, isValid, isDirty },
     } = useForm({
         resolver: zodResolver(EditUserSchema),
+        mode: 'onTouched',
     });
 
     const disableForm = isLoading;
@@ -79,7 +80,7 @@ export const EditUserForm = ({ locale }: EditUserFormProps) => {
                     {...register('email')}
                     autoComplete="email"
                 />
-                <Button type="submit" disabled={disableForm || !isValid}>
+                <Button type="submit" disabled={disableForm || !isValid || !isDirty}>
                     {button.editUser}
                 </Button>
             </form>

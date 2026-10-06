@@ -98,6 +98,13 @@ so it would create a cycle; they use full paths instead.
 - EN/UK fields go in a `Tabs` block, one tab per locale, the current locale first:
   `[locale, ...i18n.locales.filter((l) => l !== locale)]`. Labels inside a tab are generic ("Title", not
   "Title (English)") — the tab carries the locale.
+- Single-submit forms disable their submit button while saving, until the form is valid, and until something changed
+  (`isPending || !isValid || !isDirty`). Forms using this set `mode: 'onTouched'` so field errors show before a
+  submit — otherwise a disabled button gives no hint why. Exception: sign-in/sign-up are disabled only while
+  saving, because browser autofill doesn't expose values to JS until the user interacts with the page.
+- Multi-action edit forms (story, album) use the order Cancel → Save → Publish → Delete. Cancel is a link back to
+  the view page. Save is disabled while saving and until something changed. Publish is disabled while saving, while required fields are missing, and when the entity is
+  already published with no changes.
 
 ## Server Actions
 

@@ -34,9 +34,10 @@ export const CreateAlbumForm = ({ countries, locale, activities }: CreateAlbumFo
         register,
         control,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid, isDirty },
     } = useForm<CreateAlbumSchemaType>({
         resolver: zodResolver(CreateAlbumSchema),
+        mode: 'onTouched',
         defaultValues: {
             titleEn: '',
             titleUk: '',
@@ -162,7 +163,7 @@ export const CreateAlbumForm = ({ countries, locale, activities }: CreateAlbumFo
                     })}
                     error={errors.endDate?.message}
                 />
-                <Button type="submit" disabled={isPending}>
+                <Button type="submit" disabled={isPending || !isValid || !isDirty}>
                     {submitBtn}
                 </Button>
             </form>

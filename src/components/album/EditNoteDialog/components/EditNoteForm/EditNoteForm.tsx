@@ -26,15 +26,30 @@ type EditNoteFormProps = {
     locale: Locale;
     countries: SelectOption[];
     initialNote?: AlbumNoteValues;
+    hasExternalChanges: boolean;
     onCancel: () => void;
     onSaved: () => void;
 };
 
-export const EditNoteForm = ({ albumId, photoId, locale, countries, initialNote, onCancel, onSaved }: EditNoteFormProps) => {
+export const EditNoteForm = ({
+    albumId,
+    photoId,
+    locale,
+    countries,
+    initialNote,
+    hasExternalChanges,
+    onCancel,
+    onSaved,
+}: EditNoteFormProps) => {
     const [isPending, startTransition] = useTransition();
     const { setToastMessage } = useToastMessageContext();
 
-    const { control, register, handleSubmit } = useForm<EditNoteSchemaType>({
+    const {
+        control,
+        register,
+        handleSubmit,
+        formState: { isValid, isDirty },
+    } = useForm<EditNoteSchemaType>({
         resolver: zodResolver(EditNoteSchema),
         defaultValues: {
             titleEn: initialNote?.titleEn ?? '',
@@ -128,7 +143,7 @@ export const EditNoteForm = ({ albumId, photoId, locale, countries, initialNote,
                 <Button type="button" variant="outline" disabled={isPending} onClick={onCancel}>
                     {noteCancelBtn}
                 </Button>
-                <Button type="button" disabled={isPending} onClick={handleSubmit(onSubmit)}>
+                <Button type="button" disabled={isPending || !isValid || !(isDirty || hasExternalChanges)} onClick={handleSubmit(onSubmit)}>
                     {noteSaveBtn}
                 </Button>
             </div>

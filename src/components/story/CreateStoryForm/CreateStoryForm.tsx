@@ -28,9 +28,10 @@ export const CreateStoryForm = ({ locale }: CreateStoryFormProps) => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid, isDirty },
     } = useForm<CreateStorySchemaType>({
         resolver: zodResolver(CreateStorySchema),
+        mode: 'onTouched',
         defaultValues: {
             titleEn: '',
             titleUk: '',
@@ -79,7 +80,7 @@ export const CreateStoryForm = ({ locale }: CreateStoryFormProps) => {
                         </TabsContent>
                     ))}
                 </Tabs>
-                <Button type="submit" disabled={isPending}>
+                <Button type="submit" disabled={isPending || !isValid || !isDirty}>
                     {submitBtn}
                 </Button>
             </form>

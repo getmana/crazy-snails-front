@@ -71,6 +71,7 @@ export const EditNoteDialog = ({
                         locale={locale}
                         countries={countries}
                         initialNote={state.note ?? undefined}
+                        hasExternalChanges={isCover !== initialIsCover}
                         onCancel={() => onOpenChange(false)}
                         onSaved={() => {
                             onSaved(photoId, isCover);

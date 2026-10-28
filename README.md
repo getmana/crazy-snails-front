@@ -38,6 +38,19 @@ Built as a FE repo to NestJS BE project to grow API design skills through real p
 
 **Server Actions for mutations and authenticated reads** — creating, updating, publishing and deleting stories and albums, updating the user profile, and loading/saving photo notes run as `'use server'` actions. Actions that navigate on success `redirect()` with a `?toast=` key; actions called mid-edit (like saving a photo note) don't navigate.
 
+**Domain-grouped components** — `src/components/` is organised by domain (`story/`, `album/`, `auth/`, `user/`, `home/`) plus shared groups:
+
+- `layout/` for app chrome,
+- `shared/` for domain-agnostic pieces,
+- `fields/` for form inputs,
+- `ui/` for shadcn primitives.
+
+A component with private parts gets its own PascalCase folder (`EditAlbumForm/EditAlbumForm.tsx` with its schema next to it and child components in a flat `components/` folder, at most one level deep).
+
+A single barrel, `src/components/index.ts`, exports what route files in `app/` use; code inside `components/` imports by full path, which an ESLint rule enforces to keep the barrel from creating circular imports.
+
+Admin routes split each entity into a read-only view (`/dashboard/stories/[id]`) and a separate edit page (`/dashboard/stories/[id]/edit`).
+
 ## Current state
 
 **Implemented**
@@ -91,6 +104,14 @@ There are no automated tests yet. The plan:
 - **End-to-end tests** for the main admin flows against a running backend — sign in, create, edit, publish and delete a story and an album
 
 Tooling is not chosen yet; Jest + React Testing Library and Playwright are the likely candidates.
+
+## CI and automation
+
+- **CI** (`.github/workflows/ci.yml`) — runs on every pull request and on pushes to `main`: installs dependencies with `npm ci` (Node version from `.nvmrc`), then runs `npm run lint` and `npm run build`. `next build` also type-checks the project. The build reads `SESSION_SECRET` from a repository secret.
+- **Branch rules on `main`** — a repository ruleset requires the CI `build` job to pass, with the branch up to date with `main`, before changes land. Force-pushes and deleting `main` are blocked.
+- **Dependabot** (`.github/dependabot.yml`) — opens weekly npm update PRs, grouping minor and patch updates into one PR. They go through the same CI check.
+
+Tests aren't part of CI yet; see [Testing](#testing).
 
 ## License
 

@@ -22,13 +22,19 @@ export const readErrorResponse = async (response: Response): Promise<ErrorRespon
     }
     if (!isApiErrorCode(body.code)) {
         console.error(`Unknown API error code "${body.code}": sync API_ERROR_CODES with cs-nest PUBLIC_ERROR_CODES`);
-        return { ...body, code: API_ERROR_CODES.UNEXPECTED_ERROR };
+        return {
+            statusCode: response.status,
+            code: API_ERROR_CODES.UNEXPECTED_ERROR,
+            message: body.message,
+        };
     }
 
     const { statusCode, code, message } = body;
 
     return { statusCode, code, message };
 };
+
+export const toErrorJsonResponse = (error: ErrorResponse): Response => Response.json(error, { status: error.statusCode });
 
 export const toUnexpectedError = (e: unknown): ErrorResponse => ({
     statusCode: HTTP_STATUS.INTERNAL_SERVER_ERROR,

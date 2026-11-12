@@ -2,8 +2,7 @@ import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { readErrorResponse, toUnauthorizedError, toUnexpectedError } from '@/api/readErrorResponse';
-import { HTTP_STATUS } from '@/constants';
+import { readErrorResponse, toErrorJsonResponse, toUnauthorizedError, toUnexpectedError } from '@/api/readErrorResponse';
 import { SessionData, sessionOptions } from '@/lib';
 
 export async function POST(request: Request) {
@@ -14,7 +13,7 @@ export async function POST(request: Request) {
         const { user } = await getIronSession<SessionData>(cookieStore, sessionOptions);
 
         if (!user) {
-            return Response.json(toUnauthorizedError(), { status: HTTP_STATUS.UNAUTHORIZED });
+            return toErrorJsonResponse(toUnauthorizedError());
         }
 
         const response = await fetchWithAuth('/photos', {
@@ -23,16 +22,12 @@ export async function POST(request: Request) {
         });
 
         if (!response.ok) {
-            const error = await readErrorResponse(response);
-            return Response.json(error, { status: error.statusCode });
+            return toErrorJsonResponse(await readErrorResponse(response));
         }
         const responseData = await response.json();
 
-        return new Response(JSON.stringify(responseData), {
-            status: 200,
-        });
+        return Response.json(responseData);
     } catch (e) {
-        const error = toUnexpectedError(e);
-        return Response.json(error, { status: error.statusCode });
+        return toErrorJsonResponse(toUnexpectedError(e));
     }
 }

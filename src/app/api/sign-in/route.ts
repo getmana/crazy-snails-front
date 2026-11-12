@@ -1,7 +1,7 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
-import { readErrorResponse, toUnexpectedError } from '@/api/readErrorResponse';
+import { readErrorResponse, toErrorJsonResponse, toUnexpectedError } from '@/api/readErrorResponse';
 import { LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from '@/i18n-config';
 import { SessionData, sessionOptions } from '@/lib';
 import { SignInResponse } from '@/types';
@@ -20,8 +20,7 @@ export async function POST(request: Request) {
         });
 
         if (!response.ok) {
-            const error = await readErrorResponse(response);
-            return Response.json(error, { status: error.statusCode });
+            return toErrorJsonResponse(await readErrorResponse(response));
         }
         const responseData = await response.json();
 
@@ -40,15 +39,11 @@ export async function POST(request: Request) {
             });
         }
 
-        return new Response(
-            JSON.stringify({
-                message: 'Successfully signed in',
-                adminTheme: isValidAdminTheme(adminTheme) ? adminTheme : undefined,
-            }),
-            { status: 200 },
-        );
+        return Response.json({
+            message: 'Successfully signed in',
+            adminTheme: isValidAdminTheme(adminTheme) ? adminTheme : undefined,
+        });
     } catch (e) {
-        const error = toUnexpectedError(e);
-        return Response.json(error, { status: error.statusCode });
+        return toErrorJsonResponse(toUnexpectedError(e));
     }
 }

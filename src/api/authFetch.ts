@@ -1,14 +1,14 @@
 import { getIronSession, IronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
-import { toUnauthorizedError } from '@/api/readErrorResponse';
+import { toErrorJsonResponse, toUnauthorizedError } from '@/api/readErrorResponse';
 import { HTTP_STATUS } from '@/constants';
 import { SessionData, sessionOptions } from '@/lib';
 
 // No public Next.js API to check this by type; matching by message is the documented workaround.
 const isReadonlyCookiesError = (error: unknown) => error instanceof Error && error.message.includes('Cookies can only be modified');
 
-const unauthorizedResponse = (message: string) => Response.json(toUnauthorizedError(message), { status: HTTP_STATUS.UNAUTHORIZED });
+const unauthorizedResponse = (message: string) => toErrorJsonResponse(toUnauthorizedError(message));
 
 const refreshAccessToken = async (session: IronSession<SessionData>) => {
     const { user } = session;

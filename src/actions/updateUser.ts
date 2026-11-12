@@ -4,9 +4,8 @@ import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
 import { fetchWithAuth } from '@/api/authFetch';
+import { readErrorResponse, toUnauthorizedError, toUnexpectedError } from '@/api/readErrorResponse';
 import { SessionData, sessionOptions } from '@/lib';
-import { ErrorResponse } from '@/types';
-import { getErrorMessage } from '@/utils';
 
 export type UpdateUserPayload = {
     username?: string;
@@ -19,7 +18,7 @@ export const updateUser = async (payload: UpdateUserPayload) => {
         const { user } = await getIronSession<SessionData>(cookieStore, sessionOptions);
 
         if (!user) {
-            return { message: 'Unauthorized. Please sign in.', data: null };
+            return { data: null, error: toUnauthorizedError() };
         }
 
         const response = await fetchWithAuth(`/users/${user.id}`, {
@@ -27,15 +26,13 @@ export const updateUser = async (payload: UpdateUserPayload) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
         });
+        if (!response.ok) {
+            return { data: null, error: await readErrorResponse(response) };
+        }
         const responseData = await response.json();
 
-        if (!response.ok) {
-            const { message }: ErrorResponse = responseData;
-            return { message: `Unexpected Error Occured: ${message}`, data: null };
-        }
-
-        return { data: responseData, message: null };
+        return { data: responseData, error: null };
     } catch (e: unknown) {
-        return { message: `Unexpected Error Occured: ${getErrorMessage(e)}`, data: null };
+        return { data: null, error: toUnexpectedError(e) };
     }
 };

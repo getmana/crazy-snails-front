@@ -1,26 +1,24 @@
 'use server';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { type AlbumPhotoNote, ErrorResponse } from '@/types';
-import { getErrorMessage } from '@/utils';
+import { readErrorResponse, toUnexpectedError } from '@/api/readErrorResponse';
+import { API_ERROR_CODES } from '@/constants';
+import { type AlbumPhotoNote, type ErrorResponse } from '@/types';
 
-export const getAlbumPhotoNote = async (albumId: number, photoId: number): Promise<{ note: AlbumPhotoNote | null } | { error: string }> => {
+export const getAlbumPhotoNote = async (
+    albumId: number,
+    photoId: number,
+): Promise<{ note: AlbumPhotoNote | null } | { error: ErrorResponse }> => {
     try {
         const response = await fetchWithAuth(`/albums/${albumId}/photos/${photoId}/note`);
 
-        if (response.status === 404) {
-            return { note: null };
-        }
-
-        const responseData = await response.json();
-
         if (!response.ok) {
-            const { message }: ErrorResponse = responseData;
-            return { error: message || 'Failed to load the note' };
+            const error = await readErrorResponse(response);
+            return error.code === API_ERROR_CODES.NOTE_NOT_FOUND ? { note: null } : { error };
         }
 
-        return { note: responseData };
+        return { note: await response.json() };
     } catch (e: unknown) {
-        return { error: getErrorMessage(e) };
+        return { error: toUnexpectedError(e) };
     }
 };

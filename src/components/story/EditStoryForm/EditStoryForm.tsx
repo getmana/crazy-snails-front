@@ -21,7 +21,14 @@ import { i18n, Locale } from '@/i18n-config';
 import { cn } from '@/lib/utils';
 import { Story } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
-import { getLocaleFromCookie, getLocalizedDescription, getLocalizedSubtitle, getLocalizedTitle, getPhotoUrl } from '@/utils';
+import {
+    getApiErrorMessage,
+    getLocaleFromCookie,
+    getLocalizedDescription,
+    getLocalizedSubtitle,
+    getLocalizedTitle,
+    getPhotoUrl,
+} from '@/utils';
 import { isTiptapDocEmpty } from '@/utils/richText';
 
 import { EditStorySchema, EditStorySchemaType } from './EditStorySchema';
@@ -33,6 +40,7 @@ export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
     const { setToastMessage } = useToastMessageContext();
 
     const {
+        apiErrors,
         editStoryForm: {
             title,
             subtitleLabel,
@@ -118,7 +126,7 @@ export const EditStoryForm = ({ story, locale }: EditStoryFormProps) => {
             startTransition(async () => {
                 const result = await updateStoryWithRedirect(story.id, buildPayload(data, publish));
                 if (result) {
-                    setToastMessage({ message: result, type: 'error' });
+                    setToastMessage({ message: getApiErrorMessage(result, apiErrors), type: 'error' });
                 }
             });
         });

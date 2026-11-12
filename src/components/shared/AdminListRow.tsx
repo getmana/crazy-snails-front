@@ -7,7 +7,7 @@ import { Icon } from '@/components/shared/Icon/Icon';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants';
 import { Locale } from '@/i18n-config';
-import { AdminListItem } from '@/types';
+import { AdminListItem, type ErrorResponse } from '@/types';
 import { getPhotoUrl, resolveLocalizedValue } from '@/utils';
 
 type AdminListRowProps = {
@@ -15,7 +15,7 @@ type AdminListRowProps = {
     locale: Locale;
     viewHref: string;
     editHref: string;
-    deleteAction: () => Promise<string | undefined>;
+    deleteAction: () => Promise<ErrorResponse | undefined>;
     labels: {
         edit: string;
         delete: string;

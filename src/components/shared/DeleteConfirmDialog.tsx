@@ -4,11 +4,13 @@ import { useState, useTransition } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useToastMessageContext } from '@/context';
+import { useDictionary, useToastMessageContext } from '@/context';
+import { type ErrorResponse } from '@/types';
+import { getApiErrorMessage } from '@/utils';
 
 type DeleteConfirmDialogProps = {
     trigger: React.ReactNode;
-    action: () => Promise<string | undefined>;
+    action: () => Promise<ErrorResponse | undefined>;
     title: string;
     confirmLabel: string;
     cancelLabel: string;
@@ -18,12 +20,13 @@ export const DeleteConfirmDialog = ({ trigger, action, title, confirmLabel, canc
     const [open, setOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
     const { setToastMessage } = useToastMessageContext();
+    const { apiErrors } = useDictionary();
 
     const handleDelete = () => {
         startTransition(async () => {
             const result = await action();
             if (result) {
-                setToastMessage({ message: result, type: 'error' });
+                setToastMessage({ message: getApiErrorMessage(result, apiErrors), type: 'error' });
                 setOpen(false);
             }
         });

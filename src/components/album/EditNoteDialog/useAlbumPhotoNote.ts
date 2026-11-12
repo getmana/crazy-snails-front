@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { getAlbumPhotoNote } from '@/actions/getAlbumPhotoNote';
-import { type AlbumPhotoNote } from '@/types';
+import { type AlbumPhotoNote, type ErrorResponse } from '@/types';
 
-type AlbumPhotoNoteState = { status: 'loading' } | { status: 'error'; message: string } | { status: 'ready'; note: AlbumPhotoNote | null };
+type AlbumPhotoNoteState =
+    { status: 'loading' } | { status: 'error'; error: ErrorResponse } | { status: 'ready'; note: AlbumPhotoNote | null };
 
 export const useAlbumPhotoNote = (albumId: number, photoId: number | null) => {
     const [state, setState] = useState<AlbumPhotoNoteState>({ status: 'loading' });
@@ -16,7 +17,7 @@ export const useAlbumPhotoNote = (albumId: number, photoId: number | null) => {
 
         getAlbumPhotoNote(albumId, photoId).then((result) => {
             if (stale) return;
-            setState('error' in result ? { status: 'error', message: result.error } : { status: 'ready', note: result.note });
+            setState('error' in result ? { status: 'error', error: result.error } : { status: 'ready', note: result.note });
         });
 
         return () => {

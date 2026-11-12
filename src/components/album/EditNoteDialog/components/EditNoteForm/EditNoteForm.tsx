@@ -15,7 +15,7 @@ import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import type { AlbumNoteValues, SelectOption } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
-import { getLocaleFromCookie, getLocalizedDescription, getLocalizedTitle } from '@/utils';
+import { getApiErrorMessage, getLocaleFromCookie, getLocalizedDescription, getLocalizedTitle } from '@/utils';
 import { isTiptapDocEmpty } from '@/utils/richText';
 
 import { EditNoteSchema, EditNoteSchemaType } from './EditNoteSchema';
@@ -62,6 +62,7 @@ export const EditNoteForm = ({
     });
 
     const {
+        apiErrors,
         editAlbumForm: { countryPlaceholder },
         editNoteForm: { noteTitleLabel, noteDescriptionLabel, noteCountryLabel, noteDateLabel, noteSaveBtn, noteCancelBtn },
     } = useDictionary();
@@ -83,8 +84,8 @@ export const EditNoteForm = ({
                 date: data.date ? new Date(data.date).toISOString() : null,
             });
 
-            if (result.message) {
-                setToastMessage({ message: result.message, type: 'error' });
+            if (result.error) {
+                setToastMessage({ message: getApiErrorMessage(result.error, apiErrors), type: 'error' });
                 return;
             }
 

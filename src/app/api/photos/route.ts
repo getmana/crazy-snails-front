@@ -2,9 +2,9 @@ import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
 import { fetchWithAuth } from '@/api/authFetch';
+import { readErrorResponse, toUnauthorizedError, toUnexpectedError } from '@/api/readErrorResponse';
+import { HTTP_STATUS } from '@/constants';
 import { SessionData, sessionOptions } from '@/lib';
-import { ErrorResponse } from '@/types';
-import { getErrorMessage } from '@/utils';
 
 export async function POST(request: Request) {
     try {
@@ -14,30 +14,25 @@ export async function POST(request: Request) {
         const { user } = await getIronSession<SessionData>(cookieStore, sessionOptions);
 
         if (!user) {
-            return new Response(JSON.stringify({ message: `Unauthorized. Please sign in. Redirecting...` }), {
-                status: 401,
-            });
+            return Response.json(toUnauthorizedError(), { status: HTTP_STATUS.UNAUTHORIZED });
         }
 
         const response = await fetchWithAuth('/photos', {
             method: 'POST',
             body: formData,
         });
-        const responseData = await response.json();
 
         if (!response.ok) {
-            const { message, error, statusCode }: ErrorResponse = responseData;
-            return new Response(JSON.stringify({ message: `${error}. ${message}` }), {
-                status: statusCode,
-            });
+            const error = await readErrorResponse(response);
+            return Response.json(error, { status: error.statusCode });
         }
+        const responseData = await response.json();
 
         return new Response(JSON.stringify(responseData), {
             status: 200,
         });
     } catch (e) {
-        return new Response(JSON.stringify({ message: `${getErrorMessage(e)}.` }), {
-            status: 500,
-        });
+        const error = toUnexpectedError(e);
+        return Response.json(error, { status: error.statusCode });
     }
 }

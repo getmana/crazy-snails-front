@@ -5,9 +5,9 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { CarouselPhotoInput, ErrorResponse } from '@/types';
+import { readErrorResponse, toUnexpectedError } from '@/api/readErrorResponse';
+import { CarouselPhotoInput } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
-import { getErrorMessage } from '@/utils';
 
 export type UpdateStoryPayload = {
     title?: string;
@@ -34,26 +34,24 @@ export const updateStory = async (id: number, payload: UpdateStoryPayload) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
         });
-        const responseData = await response.json();
-
         if (!response.ok) {
-            const { message }: ErrorResponse = responseData;
-            return { message: `Unexpected Error Occured: ${message}`, data: null };
+            return { data: null, error: await readErrorResponse(response) };
         }
+        const responseData = await response.json();
 
         revalidatePath('/[locale]/dashboard/stories/[id]', 'page');
         revalidatePath('/[locale]/dashboard/stories', 'page');
 
-        return { data: responseData, message: null };
+        return { data: responseData, error: null };
     } catch (e: unknown) {
-        return { message: `Unexpected Error Occured: ${getErrorMessage(e)}`, data: null };
+        return { data: null, error: toUnexpectedError(e) };
     }
 };
 
 export const updateStoryWithRedirect = async (id: number, payload: UpdateStoryPayload) => {
-    const { message } = await updateStory(id, payload);
-    if (message) {
-        return message;
+    const { error } = await updateStory(id, payload);
+    if (error) {
+        return error;
     }
 
     const headersList = await headers();

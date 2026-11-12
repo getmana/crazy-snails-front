@@ -23,6 +23,7 @@ import { type SelectOption } from '@/types';
 import { Album } from '@/types';
 import type { TiptapDocument } from '@/types/tiptap';
 import {
+    getApiErrorMessage,
     getLocaleFromCookie,
     getLocalizedActivityTypes,
     getLocalizedDescription,
@@ -47,6 +48,7 @@ export const EditAlbumForm = ({ album, locale, countries, activities }: EditAlbu
     const { setToastMessage } = useToastMessageContext();
 
     const {
+        apiErrors,
         editAlbumForm: {
             title,
             subtitleLabel,
@@ -140,7 +142,7 @@ export const EditAlbumForm = ({ album, locale, countries, activities }: EditAlbu
             startTransition(async () => {
                 const result = await updateAlbumWithRedirect(album.id, buildPayload(data, publish));
                 if (result) {
-                    setToastMessage({ message: result, type: 'error' });
+                    setToastMessage({ message: getApiErrorMessage(result, apiErrors), type: 'error' });
                 }
             });
         });

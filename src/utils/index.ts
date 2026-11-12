@@ -1,4 +1,5 @@
 export { capitalizeFirstLetter } from './capitalizeFirstLetter';
+export { getApiErrorMessage } from './getApiErrorMessage';
 export { getCountriesByLocale } from './getCountriesByLocale';
 export { type DictionaryType, getDictionary } from './getDictionary';
 export { getErrorMessage } from './getErrorMessage';

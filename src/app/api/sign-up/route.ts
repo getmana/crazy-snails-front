@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 
+import { readErrorResponse, toUnexpectedError } from '@/api/readErrorResponse';
 import { i18n, LOCALE_COOKIE_NAME } from '@/i18n-config';
-import { ErrorResponse } from '@/types';
 import { isValidLocale } from '@/utils';
 
 export async function POST(request: Request) {
@@ -19,20 +19,18 @@ export async function POST(request: Request) {
             },
             body: JSON.stringify({ ...body, locale }),
         });
+        if (!response.ok) {
+            const error = await readErrorResponse(response);
+            return Response.json(error, { status: error.statusCode });
+        }
         const responseData = await response.json();
         console.log('sign-up response ==>', responseData);
-
-        if (!response.ok) {
-            const { message, error, statusCode }: ErrorResponse = responseData;
-            return new Response(JSON.stringify({ message: `${error}. ${message}` }), {
-                status: statusCode,
-            });
-        }
 
         return new Response(JSON.stringify({ message: 'Account is created', data: responseData }), {
             status: 200,
         });
     } catch (e) {
-        console.log('CATCHHHHH======', e);
+        const error = toUnexpectedError(e);
+        return Response.json(error, { status: error.statusCode });
     }
 }

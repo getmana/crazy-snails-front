@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { uploadPhoto } from '@/api/uploadPhoto';
 import { useDictionary } from '@/context';
 import { type ExistingPhoto } from '@/types';
-import { runWithConcurrencyLimit } from '@/utils';
+import { getApiErrorMessage, runWithConcurrencyLimit } from '@/utils';
 
 const UPLOAD_CONCURRENCY_LIMIT = 4;
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
@@ -32,6 +32,7 @@ export const usePhotoUpload = (max: number, initialPhotos: ExistingPhoto[] = [])
 
     const {
         editStoryForm: { fileTooLargeError },
+        apiErrors,
     } = useDictionary();
 
     const upload = useCallback(
@@ -55,13 +56,13 @@ export const usePhotoUpload = (max: number, initialPhotos: ExistingPhoto[] = [])
                 current.map((existing) =>
                     existing.tempId === item.tempId
                         ? 'error' in result
-                            ? { ...existing, status: 'error', errorMessage: result.error }
+                            ? { ...existing, status: 'error', errorMessage: getApiErrorMessage(result.error, apiErrors) }
                             : { ...existing, status: 'done', photoId: result.photoId }
                         : existing,
                 ),
             );
         },
-        [fileTooLargeError],
+        [fileTooLargeError, apiErrors],
     );
 
     const addFiles = useCallback(

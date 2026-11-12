@@ -8,9 +8,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { updateUser } from '@/actions/updateUser';
 import { TextInput } from '@/components/fields/TextInput';
 import { Button } from '@/components/ui/button';
+import { API_ERROR_CODES } from '@/constants';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { Locale } from '@/i18n-config';
-import { getErrorMessage } from '@/utils';
+import { getApiErrorMessage } from '@/utils';
 
 import { EditUserSchema, EditUserSchemaType } from './EditUserSchema';
 
@@ -18,6 +19,7 @@ type EditUserFormProps = { locale: Locale };
 
 export const EditUserForm = ({ locale }: EditUserFormProps) => {
     const {
+        apiErrors,
         editUserForm,
         button,
         systemMessages: { emailUpdated, usernameUpdated },
@@ -45,8 +47,8 @@ export const EditUserForm = ({ locale }: EditUserFormProps) => {
         reset();
         try {
             const result = await updateUser(data);
-            if (result.message) {
-                setToastMessage({ message: result.message, type: 'error' });
+            if (result.error) {
+                setToastMessage({ message: getApiErrorMessage(result.error, apiErrors), type: 'error' });
             } else {
                 const isEmailChanged = data.email;
 
@@ -56,8 +58,8 @@ export const EditUserForm = ({ locale }: EditUserFormProps) => {
                 const path = isEmailChanged ? 'signin' : 'dashboard';
                 router.push(`/${locale}/${path}`);
             }
-        } catch (e) {
-            setToastMessage({ message: getErrorMessage(e), type: 'error' });
+        } catch {
+            setToastMessage({ message: apiErrors[API_ERROR_CODES.UNEXPECTED_ERROR], type: 'error' });
         } finally {
             setIsLoading(false);
         }

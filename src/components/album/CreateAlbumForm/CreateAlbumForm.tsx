@@ -15,7 +15,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
 import { type SelectOption } from '@/types';
-import { getLocaleFromCookie, getLocalizedActivityTypes, getLocalizedTitle } from '@/utils';
+import { getApiErrorMessage, getLocaleFromCookie, getLocalizedActivityTypes, getLocalizedTitle } from '@/utils';
 
 import { CreateAlbumSchema, CreateAlbumSchemaType } from './CreateAlbumSchema';
 
@@ -27,6 +27,7 @@ export const CreateAlbumForm = ({ countries, locale, activities }: CreateAlbumFo
     const { setToastMessage } = useToastMessageContext();
 
     const {
+        apiErrors,
         createAlbumForm: { title, countriesLabel, countryPlaceholder, addCountryBtn, startDate, endDate, submitBtn, activityLabel },
     } = useDictionary();
 
@@ -70,7 +71,7 @@ export const CreateAlbumForm = ({ countries, locale, activities }: CreateAlbumFo
         startTransition(async () => {
             const result = await createAlbumWithRedirect(payload);
             if (result) {
-                setToastMessage({ message: result, type: 'error' });
+                setToastMessage({ message: getApiErrorMessage(result, apiErrors), type: 'error' });
             }
         });
     };

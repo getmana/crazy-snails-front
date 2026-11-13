@@ -1,0 +1,108 @@
+name: Dependabot review
+
+# Advisory review of new Dependabot PRs. Three stages, so the model never runs a command:
+#   1. Collect: a plain script gathers the diff, registry metadata and tarball diffs into files.
+#   2. Review: Claude reads those files (no shell) and returns the comment as structured output.
+#   3. Post: a plain step checks the comment for secrets and posts it.
+# Instructions for stage 2 live in .github/prompts/dependabot-review.md.
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  review:
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: write
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REVIEW_INPUT_DIR: ${{ github.workspace }}/review-input
+    steps:
+      # The default ref is the PR merge commit; depth 2 makes HEAD^1 the base branch for the lockfile diff.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+
+      # v3.1.0, pinned by SHA
+      - name: Read Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98
+
+      # Both workflows start from the same event, so the CI run may take a moment to become visible.
+      - name: Wait for CI
+        id: ci
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          CI_LOOKUP_ATTEMPTS: 10
+          CI_LOOKUP_DELAY_SECONDS: 6
+          CI_WATCH_INTERVAL_SECONDS: 30
+        run: |
+          run_id=""
+          for _ in $(seq "$CI_LOOKUP_ATTEMPTS"); do
+            run_id=$(gh run list --workflow ci.yml --commit "$HEAD_SHA" --json databaseId --jq '.[0].databaseId')
+            [ -n "$run_id" ] && break
+            sleep "$CI_LOOKUP_DELAY_SECONDS"
+          done
+
+          if [ -z "$run_id" ]; then
+            echo "result=not-found" >> "$GITHUB_OUTPUT"
+          elif gh run watch "$run_id" --exit-status --interval "$CI_WATCH_INTERVAL_SECONDS" > /dev/null; then
+            echo "result=success" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=failure" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Collect review input
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPS_JSON: ${{ steps.metadata.outputs.updated-dependencies-json }}
+          OUT_DIR: ${{ env.REVIEW_INPUT_DIR }}
+        run: bash .github/scripts/collectDependabotReviewInput.sh
+
+      # v1.0.256, pinned by SHA. dontAsk refuses every tool call not allowed below; reads still work inside
+      # the checkout (review input included). No Bash, no edits, WebFetch only for changelogs on known hosts.
+      - name: Review
+        id: claude
+        uses: anthropics/claude-code-action@a5a423f75c251dcbff8a74e99f83b2cb03c72bfa
+        env:
+          CLAUDE_CODE_SUBPROCESS_ENV_SCRUB: 1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          allowed_bots: dependabot
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ env.PR_NUMBER }}
+            CI RESULT: ${{ steps.ci.outputs.result }}
+            REVIEW INPUT: ${{ env.REVIEW_INPUT_DIR }}
+            Follow the instructions in .github/prompts/dependabot-review.md.
+          claude_args: |
+            --permission-mode dontAsk
+            --max-turns 60
+            --allowedTools "WebFetch(domain:github.com),WebFetch(domain:raw.githubusercontent.com),WebFetch(domain:registry.npmjs.org),WebFetch(domain:www.npmjs.com)"
+            --disallowedTools "Bash,Edit,Write,NotebookEdit,WebSearch,Read(//proc/**)"
+            --json-schema '{"type":"object","properties":{"body":{"type":"string"}},"required":["body"]}'
+
+      # The comment comes from model output: pass it through env (never interpolate into the script),
+      # and refuse to post it if it contains either token.
+      - name: Post comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          COMMENT_BODY: ${{ fromJSON(steps.claude.outputs.structured_output).body }}
+        run: |
+          for secret in "$OAUTH_TOKEN" "$GH_TOKEN"; do
+            if [ -n "$secret" ] && grep -qF -- "$secret" <<< "$COMMENT_BODY"; then
+              echo "::error::Comment contains a secret; not posting it."
+              exit 1
+            fi
+          done
+          printf '%s\n' "$COMMENT_BODY" > "$RUNNER_TEMP/comment.md"
+          gh pr comment "$PR_NUMBER" --body-file "$RUNNER_TEMP/comment.md"

@@ -10,6 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useDictionary } from '@/context';
 import { Locale } from '@/i18n-config';
 import { type SelectOption } from '@/types';
+import { getApiErrorMessage } from '@/utils';
 
 import { EditNoteForm } from './components/EditNoteForm/EditNoteForm';
 import { useAlbumPhotoNote } from './useAlbumPhotoNote';
@@ -38,6 +39,7 @@ export const EditNoteDialog = ({
     const [isCover, setIsCover] = useState(initialIsCover);
     const { state, retry } = useAlbumPhotoNote(albumId, photoId);
     const {
+        apiErrors,
         editNoteForm: { noteDialogTitle, coverCheckboxLabel },
         errorPage: { retryBtn },
     } = useDictionary();
@@ -58,7 +60,7 @@ export const EditNoteDialog = ({
                 )}
                 {photoId !== null && state.status === 'error' && (
                     <div className="space-y-2">
-                        <ErrorText text={state.message} />
+                        <ErrorText text={getApiErrorMessage(state.error, apiErrors)} />
                         <Button type="button" variant="outline" onClick={retry}>
                             {retryBtn}
                         </Button>

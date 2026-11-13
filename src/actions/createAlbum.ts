@@ -4,8 +4,7 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { ErrorResponse } from '@/types';
-import { getErrorMessage } from '@/utils';
+import { readErrorResponse, toUnexpectedError } from '@/api/readErrorResponse';
 
 export type CreateAlbumPayload = {
     title: string;
@@ -24,23 +23,21 @@ export const createAlbum = async (payload: CreateAlbumPayload) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
         });
+        if (!response.ok) {
+            return { data: null, error: await readErrorResponse(response) };
+        }
         const responseData = await response.json();
 
-        if (!response.ok) {
-            const { message }: ErrorResponse = responseData;
-            return { message: `Unexpected Error Occured: ${message}`, data: null };
-        }
-
-        return { data: responseData, message: null };
+        return { data: responseData, error: null };
     } catch (e: unknown) {
-        return { message: `Unexpected Error Occured: ${getErrorMessage(e)}`, data: null };
+        return { data: null, error: toUnexpectedError(e) };
     }
 };
 
 export const createAlbumWithRedirect = async (payload: CreateAlbumPayload) => {
-    const { data, message } = await createAlbum(payload);
-    if (message) {
-        return message;
+    const { data, error } = await createAlbum(payload);
+    if (error) {
+        return error;
     }
 
     const { id } = data;

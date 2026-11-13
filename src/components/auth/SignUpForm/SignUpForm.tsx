@@ -5,11 +5,13 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { readErrorResponse } from '@/api/readErrorResponse';
 import { PasswordInput } from '@/components/fields/PasswordInput';
 import { TextInput } from '@/components/fields/TextInput';
+import { API_ERROR_CODES } from '@/constants';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { Locale } from '@/i18n-config';
-import { getErrorMessage, internalAPIRoutes } from '@/utils';
+import { getApiErrorMessage, internalAPIRoutes } from '@/utils';
 
 import { SignUpSchema, SignUpSchemaType } from './SignUpSchema';
 
@@ -17,6 +19,7 @@ type SignUpFormProps = { locale: Locale };
 
 export const SignUpForm = ({ locale }: SignUpFormProps) => {
     const {
+        apiErrors,
         authForms,
         button,
         systemMessages: { signedUp },
@@ -43,17 +46,17 @@ export const SignUpForm = ({ locale }: SignUpFormProps) => {
         reset();
         try {
             const res = await fetch(internalAPIRoutes.signup, { body: JSON.stringify(data), method: 'POST' });
-            const response = await res.json();
-            const status = res.status;
-            if (status !== 200) {
-                setToastMessage({ message: response.message, type: 'error' });
+            if (!res.ok) {
+                const error = await readErrorResponse(res);
+                setToastMessage({ message: getApiErrorMessage(error, apiErrors), type: 'error' });
             } else {
+                const response = await res.json();
                 setToastMessage({ message: signedUp, type: 'success' });
                 console.log('sign up response data ==>', response.data);
                 router.push(`/${locale}/signin`);
             }
-        } catch (e) {
-            setToastMessage({ message: getErrorMessage(e), type: 'error' });
+        } catch {
+            setToastMessage({ message: apiErrors[API_ERROR_CODES.UNEXPECTED_ERROR], type: 'error' });
         } finally {
             setIsLoading(false);
         }

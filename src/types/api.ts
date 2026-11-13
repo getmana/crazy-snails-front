@@ -1,3 +1,4 @@
+import type { ApiErrorCode } from '@/constants';
 import type { Locale } from '@/i18n-config';
 
 import type { AdminTheme } from './common';
@@ -33,9 +34,9 @@ export type SignInResponse = {
 };
 
 export type ErrorResponse = {
-    message: string;
-    error: string;
     statusCode: number;
+    code: ApiErrorCode;
+    message: string;
 };
 
 export type PhotoStatus = 'pending' | 'ready' | 'failed';

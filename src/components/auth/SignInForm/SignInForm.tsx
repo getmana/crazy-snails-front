@@ -5,13 +5,15 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { readErrorResponse } from '@/api/readErrorResponse';
 import { PasswordInput } from '@/components/fields/PasswordInput';
 import { TextInput } from '@/components/fields/TextInput';
 import { ADMIN_THEME_STORAGE_KEY } from '@/components/layout/AdminThemeProvider';
+import { API_ERROR_CODES } from '@/constants';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { Locale } from '@/i18n-config';
 import { type AdminTheme } from '@/types';
-import { getErrorMessage, internalAPIRoutes } from '@/utils';
+import { getApiErrorMessage, internalAPIRoutes } from '@/utils';
 
 import { SignInSchema, SignInSchemaType } from './SignInSchema';
 
@@ -19,6 +21,7 @@ type SignInFormProps = { locale: Locale };
 
 export const SignInForm = ({ locale }: SignInFormProps) => {
     const {
+        apiErrors,
         authForms,
         button,
         systemMessages: { signedIn },
@@ -46,11 +49,11 @@ export const SignInForm = ({ locale }: SignInFormProps) => {
         console.log('===================', JSON.stringify(data));
         try {
             const res = await fetch(internalAPIRoutes.signin, { body: JSON.stringify(data), method: 'POST' });
-            const response = await res.json();
-            const status = res.status;
-            if (status !== 200) {
-                setToastMessage({ message: response.message, type: 'error' });
+            if (!res.ok) {
+                const error = await readErrorResponse(res);
+                setToastMessage({ message: getApiErrorMessage(error, apiErrors), type: 'error' });
             } else {
+                const response = await res.json();
                 setToastMessage({ message: signedIn, type: 'success' });
 
                 const adminTheme = response.adminTheme as AdminTheme | undefined;
@@ -60,8 +63,8 @@ export const SignInForm = ({ locale }: SignInFormProps) => {
 
                 router.push(`/${locale}/dashboard`);
             }
-        } catch (e) {
-            setToastMessage({ message: getErrorMessage(e), type: 'error' });
+        } catch {
+            setToastMessage({ message: apiErrors[API_ERROR_CODES.UNEXPECTED_ERROR], type: 'error' });
         } finally {
             setIsLoading(false);
         }

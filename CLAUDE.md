@@ -108,15 +108,30 @@ so it would create a cycle; they use full paths instead.
 
 ## Server Actions
 
-- `src/actions/<verb><Entity>.ts`, `'use server'`. A mutation returns `{ data, message }` / `{ message }`.
+- `src/actions/<verb><Entity>.ts`, `'use server'`. A mutation returns `{ data, error }` / `{ error }`, where
+  `error` is the backend's `ErrorResponse` (`{ statusCode, code, message }`) or `null`. Read failed responses with
+  `readErrorResponse` and wrap thrown errors with `toUnexpectedError` (`src/api/readErrorResponse.ts`).
 - When a mutation should navigate on success, add an outer `...WithRedirect` wrapper that calls it, returns the
-  error string on failure, or `redirect()`s to `<path>?toast=<key>` on success. Not every action needs one — an
+  `ErrorResponse` on failure, or `redirect()`s to `<path>?toast=<key>` on success. Not every action needs one — an
   action called mid-edit (e.g. saving one photo's note from a dialog) must not navigate.
 - Every new `?toast=<key>` needs an entry in `ToastMessageMap` (`components/layout/ToastMessage.tsx`), mapped to a
   string under `toastMessages` in the dictionaries.
 - Server Actions are also used for authenticated reads triggered by user interaction (e.g. loading a note when a
   dialog opens). Their arguments must be serializable, so they can't take an `AbortSignal` — a hook that needs to
   discard a stale result uses a plain flag instead of cancelling the request.
+
+## Error messages
+
+Never show the backend's `message` to users: translate `code` with `getApiErrorMessage(error, apiErrors)`
+(`src/utils`). The one exception is `VALIDATION_FAILED`, shown as the translated title followed by the raw Zod
+details, because those name the invalid fields.
+
+`API_ERROR_CODES` (`src/constants/apiErrorCodes.ts`) is the source of truth for codes: it mirrors cs-nest's
+`PUBLIC_ERROR_CODES` by hand, plus the frontend-only `UNEXPECTED_ERROR`. `ErrorResponse.code` is typed as
+`ApiErrorCode`; `readErrorResponse` maps any code missing from the list to `UNEXPECTED_ERROR` and logs it. Refer to
+codes through the constant, never as string literals. The `apiErrors` dictionary namespace is keyed by the codes
+verbatim and must cover every one — `getApiErrorMessage` takes `Record<ApiErrorCode, string>`, so tsc flags a
+missing key. When the backend adds or removes a public code, update the constant and both dictionaries.
 
 ## Photo upload
 

@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDictionary, useToastMessageContext } from '@/context';
 import { i18n, Locale } from '@/i18n-config';
-import { getLocaleFromCookie, getLocalizedTitle } from '@/utils';
+import { getApiErrorMessage, getLocaleFromCookie, getLocalizedTitle } from '@/utils';
 
 import { CreateStorySchema, CreateStorySchemaType } from './CreateStorySchema';
 
@@ -22,6 +22,7 @@ export const CreateStoryForm = ({ locale }: CreateStoryFormProps) => {
     const { setToastMessage } = useToastMessageContext();
 
     const {
+        apiErrors,
         createStoryForm: { title, submitBtn },
     } = useDictionary();
 
@@ -51,7 +52,7 @@ export const CreateStoryForm = ({ locale }: CreateStoryFormProps) => {
         startTransition(async () => {
             const result = await createStoryWithRedirect(payload);
             if (result) {
-                setToastMessage({ message: result, type: 'error' });
+                setToastMessage({ message: getApiErrorMessage(result, apiErrors), type: 'error' });
             }
         });
     };

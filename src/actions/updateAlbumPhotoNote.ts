@@ -1,9 +1,8 @@
 'use server';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { ErrorResponse } from '@/types';
+import { readErrorResponse, toUnexpectedError } from '@/api/readErrorResponse';
 import type { TiptapDocument } from '@/types/tiptap';
-import { getErrorMessage } from '@/utils';
 
 export type UpdateAlbumPhotoNotePayload = {
     title?: string | null;
@@ -25,13 +24,11 @@ export const updateAlbumPhotoNote = async (albumId: number, photoId: number, pay
         });
 
         if (!response.ok) {
-            const responseData = await response.json().catch(() => null);
-            const message = (responseData as ErrorResponse | null)?.message ?? response.statusText;
-            return { message: `Unexpected Error Occured: ${message}` };
+            return { error: await readErrorResponse(response) };
         }
 
-        return { message: null };
+        return { error: null };
     } catch (e: unknown) {
-        return { message: `Unexpected Error Occured: ${getErrorMessage(e)}` };
+        return { error: toUnexpectedError(e) };
     }
 };

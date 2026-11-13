@@ -1,15 +1,15 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
+import { readErrorResponse, toErrorJsonResponse, toUnexpectedError } from '@/api/readErrorResponse';
 import { LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from '@/i18n-config';
 import { SessionData, sessionOptions } from '@/lib';
-import { ErrorResponse, SignInResponse } from '@/types';
+import { SignInResponse } from '@/types';
 import { isValidAdminTheme, isValidLocale } from '@/utils';
 
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        console.log('body', body);
 
         const response = await fetch(`${process.env.CS_API}/auth/sign-in`, {
             method: 'POST',
@@ -18,15 +18,11 @@ export async function POST(request: Request) {
             },
             body: JSON.stringify(body),
         });
-        const responseData = await response.json();
 
         if (!response.ok) {
-            const { message, error, statusCode }: ErrorResponse = responseData;
-            return new Response(JSON.stringify({ message: `${error}. ${message}` }), {
-                status: statusCode,
-            });
+            return toErrorJsonResponse(await readErrorResponse(response));
         }
-        console.log('sign in data ==> ', responseData);
+        const responseData = await response.json();
 
         const { accessToken, refreshToken, id, locale, adminTheme } = responseData as SignInResponse;
 
@@ -43,14 +39,11 @@ export async function POST(request: Request) {
             });
         }
 
-        return new Response(
-            JSON.stringify({
-                message: 'Successfully signed in',
-                adminTheme: isValidAdminTheme(adminTheme) ? adminTheme : undefined,
-            }),
-            { status: 200 },
-        );
+        return Response.json({
+            message: 'Successfully signed in',
+            adminTheme: isValidAdminTheme(adminTheme) ? adminTheme : undefined,
+        });
     } catch (e) {
-        console.log('CATCHHHHH======', e);
+        return toErrorJsonResponse(toUnexpectedError(e));
     }
 }

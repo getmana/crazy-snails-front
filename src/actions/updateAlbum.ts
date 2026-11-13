@@ -5,9 +5,8 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { fetchWithAuth } from '@/api/authFetch';
-import { ErrorResponse } from '@/types';
+import { readErrorResponse, toUnexpectedError } from '@/api/readErrorResponse';
 import type { TiptapDocument } from '@/types/tiptap';
-import { getErrorMessage } from '@/utils';
 
 export type UpdateAlbumPayload = {
     title?: string;
@@ -35,26 +34,24 @@ export const updateAlbum = async (id: number, payload: UpdateAlbumPayload) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
         });
-        const responseData = await response.json();
-
         if (!response.ok) {
-            const { message }: ErrorResponse = responseData;
-            return { message: `Unexpected Error Occured: ${message}`, data: null };
+            return { data: null, error: await readErrorResponse(response) };
         }
+        const responseData = await response.json();
 
         revalidatePath('/[locale]/dashboard/albums/[id]', 'page');
         revalidatePath('/[locale]/dashboard/albums', 'page');
 
-        return { data: responseData, message: null };
+        return { data: responseData, error: null };
     } catch (e: unknown) {
-        return { message: `Unexpected Error Occured: ${getErrorMessage(e)}`, data: null };
+        return { data: null, error: toUnexpectedError(e) };
     }
 };
 
 export const updateAlbumWithRedirect = async (id: number, payload: UpdateAlbumPayload) => {
-    const { message } = await updateAlbum(id, payload);
-    if (message) {
-        return message;
+    const { error } = await updateAlbum(id, payload);
+    if (error) {
+        return error;
     }
 
     const headersList = await headers();

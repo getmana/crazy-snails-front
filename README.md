@@ -107,7 +107,7 @@ Tooling is not chosen yet; Jest + React Testing Library and Playwright are the l
 
 ## CI and automation
 
-- **CI** (`.github/workflows/ci.yml`) — runs on every pull request and on pushes to `main`: installs dependencies with `npm ci` (Node version from `.nvmrc`), then runs `npm run lint` and `npm run build`. `next build` also type-checks the project. The build reads `SESSION_SECRET` from a repository secret.
+- **CI** (`.github/workflows/ci.yml`) — runs on every pull request and on pushes to `main`: installs dependencies with `npm ci` (Node version from `.nvmrc`), then runs `npm run lint` and `npm run build`. `next build` also type-checks the project. The build needs no secrets, so dependency code that runs during install or build has none to read.
 - **Branch rules on `main`** — a repository ruleset requires the CI `build` job to pass, with the branch up to date with `main`, before changes land. Force-pushes and deleting `main` are blocked.
 - **Dependabot** (`.github/dependabot.yml`) — opens weekly npm update PRs, grouping minor and patch updates into one PR. They go through the same CI check.
 

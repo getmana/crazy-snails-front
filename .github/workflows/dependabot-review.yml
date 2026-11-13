@@ -11,8 +11,35 @@ on:
     types: [opened]
 
 jobs:
-  review:
+  # A PR runs the workflow from its own merge commit, so a Dependabot bump of an action used below would be
+  # reviewed by the new, unreviewed version of that action, with the OAuth token. Those PRs get a manual review.
+  guard:
     if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pull-requests: write
+    outputs:
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - name: Skip PRs that change this workflow
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SELF_PATH: .github/workflows/dependabot-review.yml
+        run: |
+          if gh pr diff "$PR_NUMBER" --name-only | grep -qxF "$SELF_PATH"; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            gh pr comment "$PR_NUMBER" --body "🤖 Dependabot review skipped: this PR updates an action used by \`$SELF_PATH\` itself, so it needs a manual review."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  review:
+    needs: guard
+    if: needs.guard.outputs.skip == 'false'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -63,11 +90,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           DEPS_JSON: ${{ steps.metadata.outputs.updated-dependencies-json }}
+          PACKAGE_ECOSYSTEM: ${{ steps.metadata.outputs.package-ecosystem }}
           OUT_DIR: ${{ env.REVIEW_INPUT_DIR }}
         run: bash .github/scripts/collectDependabotReviewInput.sh
 
-      # v1.0.256, pinned by SHA. dontAsk refuses every tool call not allowed below; reads still work inside
-      # the checkout (review input included). No Bash, no edits, WebFetch only for changelogs on known hosts.
+      # v1.0.256, pinned by SHA. dontAsk refuses every tool call that isn't pre-approved; reads still work inside
+      # the checkout (review input included). No shell, no edits, no network. .git is denied because the action
+      # writes the GitHub token into the remote URL there.
       - name: Review
         id: claude
         uses: anthropics/claude-code-action@a5a423f75c251dcbff8a74e99f83b2cb03c72bfa
@@ -86,8 +115,7 @@ jobs:
           claude_args: |
             --permission-mode dontAsk
             --max-turns 60
-            --allowedTools "WebFetch(domain:github.com),WebFetch(domain:raw.githubusercontent.com),WebFetch(domain:registry.npmjs.org),WebFetch(domain:www.npmjs.com)"
-            --disallowedTools "Bash,Edit,Write,NotebookEdit,WebSearch,Read(//proc/**)"
+            --disallowedTools "Bash,Edit,Write,NotebookEdit,WebFetch,WebSearch,Read(//proc/**),Read(./.git/**)"
             --json-schema '{"type":"object","properties":{"body":{"type":"string"}},"required":["body"]}'
 
       # The comment comes from model output: pass it through env (never interpolate into the script),

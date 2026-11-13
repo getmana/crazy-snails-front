@@ -8,13 +8,15 @@ name: Dependabot review
 
 on:
   pull_request:
-    types: [opened]
+    # synchronize: Dependabot pushes new versions or rebases into the PR it already opened.
+    types: [opened, synchronize]
 
 jobs:
   # A PR runs the workflow from its own merge commit, so a Dependabot bump of an action used below would be
   # reviewed by the new, unreviewed version of that action, with the OAuth token. Those PRs get a manual review.
   guard:
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    # Only Dependabot's own pushes: someone else's push to its branch runs without the Dependabot secret.
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:

@@ -12,7 +12,7 @@ readonly ACTIONS_ECOSYSTEM='github_actions'
 readonly REGISTRY_PREFIX='https://registry.npmjs.org/'
 readonly MAX_TARBALL_BYTES=$((25 * 1024 * 1024))
 readonly MAX_DIFF_BYTES=$((200 * 1024))
-readonly MAX_LOCKFILE_LOOKUPS=60
+readonly MAX_LOCKFILE_LOOKUPS=150
 readonly MAX_RELEASE_VERSIONS=20
 readonly MAX_RELEASE_NOTES_BYTES=$((100 * 1024))
 readonly MAX_ACTION_RELEASES_SCANNED=100
@@ -269,10 +269,34 @@ collectActionUpdates() {
 
 # --- npm ---
 
+readonly BASE_LOCKFILE="$RUNNER_TEMP/base-lock.json"
+readonly HEAD_LOCKFILE='package-lock.json'
+
+prepareBaseLockfile() {
+    git show HEAD^1:package-lock.json > "$BASE_LOCKFILE" 2>> "$NOTES" || echo '{}' > "$BASE_LOCKFILE"
+}
+
+# Version of a top-level package in a lockfile, or nothing.
+lockfileVersion() {
+    jq -r --arg key "node_modules/$2" '.packages[$key].version // empty' "$1" 2> /dev/null
+}
+
 # Direct updates: metadata for both versions, a tarball diff and release notes.
+# Versions come from the lockfiles, which is what actually gets installed; Dependabot's metadata can lag behind
+# (seen after "@dependabot recreate": its YAML block kept the old target versions).
 collectNpmUpdates() {
-    local name prev next repo
+    local name prev next repo lockPrev lockNext
     while IFS=$'\t' read -r name prev next; do
+        lockPrev=$(lockfileVersion "$BASE_LOCKFILE" "$name")
+        lockNext=$(lockfileVersion "$HEAD_LOCKFILE" "$name")
+        if [ -n "$lockNext" ] && [ "$lockNext" != "$next" ]; then
+            note "$name: Dependabot metadata says $next, lockfile installs $lockNext; reviewing $lockNext"
+            next=$lockNext
+        fi
+        if [ -n "$lockPrev" ] && [ "$lockPrev" != "$prev" ]; then
+            note "$name: Dependabot metadata says previous $prev, base lockfile has $lockPrev; using $lockPrev"
+            prev=$lockPrev
+        fi
         if ! isValidSpec "$name" "$next" || { [ -n "$prev" ] && ! isValidSpec "$name" "$prev"; }; then
             note "skipped invalid package spec: $name $prev -> $next"
             continue
@@ -292,9 +316,10 @@ collectNpmUpdates() {
 }
 
 # Lockfile: changed entries, registry URLs, integrity, metadata for new packages.
+# Bundled entries (inBundle) ship inside their parent's tarball, so npm records no resolved/integrity for them;
+# the parent's integrity covers them, and they're left out of those two checks.
 collectLockfileChecks() {
-    git show HEAD^1:package-lock.json > "$RUNNER_TEMP/base-lock.json" 2>> "$NOTES" || echo '{}' > "$RUNNER_TEMP/base-lock.json"
-    jq -n --slurpfile base "$RUNNER_TEMP/base-lock.json" --slurpfile head package-lock.json '
+    jq -n --slurpfile base "$BASE_LOCKFILE" --slurpfile head "$HEAD_LOCKFILE" '
         ($base[0].packages // {}) as $b
         | [ ($head[0].packages // {}) | to_entries[]
             | select(.key != "" and (.value.link // false | not))
@@ -303,10 +328,11 @@ collectLockfileChecks() {
                 name: (.value.name // (.key | sub("^.*node_modules/"; ""))),
                 from: ($b[.key].version // null),
                 to: .value.version,
+                inBundle: (.value.inBundle // false),
                 resolved: .value.resolved,
                 integrity: .value.integrity } ]' > "$OUT_DIR/lockfile-changes.json"
 
-    jq '[.[] | select((.resolved // "") | startswith("'"$REGISTRY_PREFIX"'") | not)]' \
+    jq '[.[] | select(.inBundle | not) | select((.resolved // "") | startswith("'"$REGISTRY_PREFIX"'") | not)]' \
         "$OUT_DIR/lockfile-changes.json" > "$OUT_DIR/lockfile-unexpected-resolved.json"
 
     : > "$OUT_DIR/lockfile-integrity-mismatches.txt"
@@ -323,7 +349,13 @@ collectLockfileChecks() {
             echo "$name@$to lockfile=$integrity registry=${registryIntegrity:-none}" >> "$OUT_DIR/lockfile-integrity-mismatches.txt"
         fi
         [ -z "$from" ] && collectMetadata "$name" "$to"
-    done < <(jq -r 'unique_by(.name + "@" + .to)[] | [.name, (.from // ""), .to, (.integrity // "")] | @tsv' "$OUT_DIR/lockfile-changes.json")
+    # Riskiest first, so the limit cuts off the least interesting entries: new packages, then major bumps.
+    done < <(jq -r '[.[] | select(.inBundle | not)]
+        | unique_by(.name + "@" + .to)
+        | sort_by(if .from == null then 0
+                  elif (.from | split(".")[0]) != (.to | split(".")[0]) then 1
+                  else 2 end)
+        | .[] | [.name, (.from // ""), .to, (.integrity // "")] | @tsv' "$OUT_DIR/lockfile-changes.json")
 }
 
 # --- Main ---
@@ -333,6 +365,7 @@ echo "$DEPS_JSON" > "$OUT_DIR/dependabot-metadata.json"
 
 case "$PACKAGE_ECOSYSTEM" in
     "$NPM_ECOSYSTEM")
+        prepareBaseLockfile
         collectNpmUpdates
         collectLockfileChecks
         ;;

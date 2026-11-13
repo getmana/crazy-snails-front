@@ -33,7 +33,7 @@ npm updates add:
 | `packages/<name>/meta-<version>.json` | `_npmUser` (publisher), `maintainers`, `dist` (integrity, attestations), `scripts`, `repository` |
 | `packages/<name>/time.json` | Publish date of every version |
 | `packages/<name>/tarball.diff` | `diff -r` of the old and new published tarballs (may be truncated) |
-| `lockfile-changes.json` | Every lockfile entry whose version changed; `from: null` means a new package |
+| `lockfile-changes.json` | Every lockfile entry whose version changed; `from: null` means a new package. `inBundle: true` entries ship inside their parent's tarball, have no `resolved`/`integrity` by design and are covered by the parent's integrity — not a red flag |
 | `lockfile-unexpected-resolved.json` | Changed entries not resolved from `https://registry.npmjs.org/` |
 | `lockfile-integrity-mismatches.txt` | Entries whose lockfile integrity differs from the registry |
 

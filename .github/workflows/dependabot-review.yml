@@ -101,7 +101,7 @@ jobs:
       # writes the GitHub token into the remote URL there.
       - name: Review
         id: claude
-        uses: anthropics/claude-code-action@a5a423f75c251dcbff8a74e99f83b2cb03c72bfa
+        uses: anthropics/claude-code-action@4fa93a88de49bbef68b10eb15aabedf28ca0e1ed
         env:
           CLAUDE_CODE_SUBPROCESS_ENV_SCRUB: 1
         with:

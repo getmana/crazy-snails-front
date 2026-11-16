@@ -58,10 +58,10 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
 
-      # v3.1.0, pinned by SHA
+      # Pinned by SHA; the version comment on the same line is what Dependabot keeps in sync.
       - name: Read Dependabot metadata
         id: metadata
-        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
 
       # Both workflows start from the same event, so the CI run may take a moment to become visible.
       - name: Wait for CI
@@ -96,12 +96,12 @@ jobs:
           OUT_DIR: ${{ env.REVIEW_INPUT_DIR }}
         run: bash .github/scripts/collectDependabotReviewInput.sh
 
-      # v1.0.256, pinned by SHA. dontAsk refuses every tool call that isn't pre-approved; reads still work inside
-      # the checkout (review input included). No shell, no edits, no network. .git is denied because the action
-      # writes the GitHub token into the remote URL there.
+      # Pinned by SHA. dontAsk refuses every tool call that isn't pre-approved; reads still work inside
+      # the checkout (review input included). No shell, no edits, no network. .git is denied as a backstop:
+      # versions before v1.0.273 wrote the GitHub token into the remote URL there.
       - name: Review
         id: claude
-        uses: anthropics/claude-code-action@4d75e5f390ee76b2e09c1980ecc99ff3a2e088c8
+        uses: anthropics/claude-code-action@4d75e5f390ee76b2e09c1980ecc99ff3a2e088c8 # v1.0.275
         env:
           CLAUDE_CODE_SUBPROCESS_ENV_SCRUB: 1
         with:

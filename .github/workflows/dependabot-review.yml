@@ -53,7 +53,7 @@ jobs:
       REVIEW_INPUT_DIR: ${{ github.workspace }}/review-input
     steps:
       # The default ref is the PR merge commit; depth 2 makes HEAD^1 the base branch for the lockfile diff.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 2
           persist-credentials: false

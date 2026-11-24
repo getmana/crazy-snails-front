@@ -1,6 +1,5 @@
 export { capitalizeFirstLetter } from './capitalizeFirstLetter';
 export { getApiErrorMessage } from './getApiErrorMessage';
-export { getCountriesByLocale } from './getCountriesByLocale';
 export { type DictionaryType, getDictionary } from './getDictionary';
 export { getErrorMessage } from './getErrorMessage';
 export { getLocaleFromAcceptLanguage, getLocaleFromPathname, isValidLocale } from './getLocale';
@@ -9,6 +8,7 @@ export { getLocalizedActivityTypes } from './getLocalizedActivityTypes';
 export {
     getLocalizedCaption,
     getLocalizedDescription,
+    getLocalizedName,
     getLocalizedSubtitle,
     getLocalizedTitle,
     resolveLocalizedValue,

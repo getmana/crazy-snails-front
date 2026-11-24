@@ -1,6 +1,7 @@
 import { getIronSession, IronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
+import { apiFetch } from '@/api/apiFetch';
 import { toErrorJsonResponse, toUnauthorizedError } from '@/api/readErrorResponse';
 import { HTTP_STATUS } from '@/constants';
 import { SessionData, sessionOptions } from '@/lib';
@@ -17,7 +18,7 @@ const refreshAccessToken = async (session: IronSession<SessionData>) => {
     }
 
     try {
-        const response = await fetch(`${process.env.CS_API}/auth/refresh`, {
+        const response = await apiFetch(`/auth/refresh`, {
             method: 'POST',
             headers: { Authorization: `Bearer ${user.refreshToken}` },
         });
@@ -68,7 +69,7 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
         };
     }
 
-    let response = await fetch(`${process.env.CS_API}${url}`, options);
+    let response = await apiFetch(url, options);
 
     if (response.status === HTTP_STATUS.UNAUTHORIZED) {
         if (!refreshInProgress) {
@@ -87,7 +88,7 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
             ...options.headers,
             Authorization: `Bearer ${session.user?.accessToken}`,
         };
-        response = await fetch(`${process.env.CS_API}${url}`, options);
+        response = await apiFetch(url, options);
     }
 
     return response;

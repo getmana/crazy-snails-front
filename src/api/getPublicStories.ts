@@ -1,3 +1,4 @@
+import { apiFetch } from '@/api/apiFetch';
 import { PublicStoriesResponse } from '@/types';
 
 export const getPublicStories = async (): Promise<PublicStoriesResponse> => {
@@ -7,7 +8,7 @@ export const getPublicStories = async (): Promise<PublicStoriesResponse> => {
     }
 
     try {
-        const response = await fetch(`${process.env.CS_API}/users/${process.env.SITE_OWNER_ID}/stories`);
+        const response = await apiFetch(`/users/${process.env.SITE_OWNER_ID}/stories`);
 
         if (!response.ok) {
             throw new Error(`Public stories request failed with status ${response.status}`);

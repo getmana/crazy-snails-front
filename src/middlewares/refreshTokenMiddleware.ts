@@ -3,6 +3,7 @@ import { decodeJwt } from 'jose/jwt/decode';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
+import { apiFetch } from '@/api/apiFetch';
 import { SessionData, sessionOptions } from '@/lib';
 import { getLocaleFromPathname } from '@/utils';
 
@@ -29,7 +30,7 @@ export const refreshTokenMiddleware: MiddlewareFunction = {
 
                 const locale = getLocaleFromPathname(pathname);
                 try {
-                    const response = await fetch(`${process.env.CS_API}/auth/refresh`, {
+                    const response = await apiFetch(`/auth/refresh`, {
                         method: 'POST',
                         headers: { Authorization: `Bearer ${user.refreshToken}` },
                     });

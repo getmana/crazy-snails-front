@@ -1,9 +1,9 @@
 import { getActivityTypes } from '@/api/getActivityTypes';
 import { getAdminAlbum } from '@/api/getAdminAlbum';
+import { getCountriesByLocale } from '@/api/getCountriesByLocale';
 import { EditAlbumForm, ToastMessage } from '@/components';
 import { Locale } from '@/i18n-config';
 import { SearchParams } from '@/types';
-import { getCountriesByLocale } from '@/utils';
 
 export default async function AlbumEditPage(props: {
     params: Promise<{ id: string; locale: Locale }>;

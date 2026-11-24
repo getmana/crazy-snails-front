@@ -1,6 +1,7 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 
+import { apiFetch } from '@/api/apiFetch';
 import { readErrorResponse, toErrorJsonResponse, toUnexpectedError } from '@/api/readErrorResponse';
 import { LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from '@/i18n-config';
 import { SessionData, sessionOptions } from '@/lib';
@@ -11,7 +12,7 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
 
-        const response = await fetch(`${process.env.CS_API}/auth/sign-in`, {
+        const response = await apiFetch(`/auth/sign-in`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

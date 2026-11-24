@@ -1,8 +1,7 @@
 import { getCountries } from '@/api/getCountries';
 import { Locale } from '@/i18n-config';
 import { type SelectOption } from '@/types';
-
-import { getLocalizedName } from './getLocalizedField';
+import { getLocalizedName } from '@/utils';
 
 export const getCountriesByLocale = async (locale: Locale): Promise<SelectOption[]> => {
     const countries = await getCountries();

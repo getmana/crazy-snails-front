@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 
+import { apiFetch } from '@/api/apiFetch';
 import { readErrorResponse, toErrorJsonResponse, toUnexpectedError } from '@/api/readErrorResponse';
 import { i18n, LOCALE_COOKIE_NAME } from '@/i18n-config';
 import { isValidLocale } from '@/utils';
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
         const cookieLocale = cookieStore.get(LOCALE_COOKIE_NAME)?.value;
         const locale = cookieLocale && isValidLocale(cookieLocale) ? cookieLocale : i18n.defaultLocale;
 
-        const response = await fetch(`${process.env.CS_API}/users` as string, {
+        const response = await apiFetch(`/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

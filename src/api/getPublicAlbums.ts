@@ -1,3 +1,4 @@
+import { apiFetch } from '@/api/apiFetch';
 import { PublicAlbumsResponse } from '@/types';
 
 export const getPublicAlbums = async (): Promise<PublicAlbumsResponse> => {
@@ -7,7 +8,7 @@ export const getPublicAlbums = async (): Promise<PublicAlbumsResponse> => {
     }
 
     try {
-        const response = await fetch(`${process.env.CS_API}/users/${process.env.SITE_OWNER_ID}/albums`);
+        const response = await apiFetch(`/users/${process.env.SITE_OWNER_ID}/albums`);
         if (!response.ok) {
             throw new Error(`Public albums request failed with status ${response.status}`);
         }

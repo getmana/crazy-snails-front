@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { apiFetch } from '@/api/apiFetch';
 import { Heading, StoryContent } from '@/components';
 import { Locale } from '@/i18n-config';
 import { SearchParams, Story } from '@/types';
@@ -14,7 +15,7 @@ export default async function StoryPublicPage(props: {
         subtitle: { stories: defaultSubtitle },
     } = await getDictionary(locale);
 
-    const response = await fetch(`${process.env.CS_API}/stories/${id}`);
+    const response = await apiFetch(`/stories/${id}`);
     if (response.status === 404) {
         notFound();
     }

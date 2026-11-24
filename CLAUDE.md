@@ -148,3 +148,19 @@ strings currently match — they're allowed to diverge later.
 
 shadcn/ui ("new-york" style) + Tailwind v4. Tailwind v4 has a built-in named width scale (`3xs` … `7xl`) usable as
 `w-*`/`max-w-*` (e.g. `lg:w-2xl`) — it's real, not a typo.
+
+## Docs
+
+- Flows and decisions that involve the API or infrastructure live in cs-nest:
+  `~/projects/CS/cs-nest/docs/flows/` and `docs/decisions/`. Read the relevant flow before
+  changing code it covers. Its `covers:` list names FE items with a `cs-front:` prefix.
+- Frontend-only flows and decisions live here: `docs/flows/<feature>.md` (plain language,
+  with a `covers:` list of the code they describe and a `last-reviewed` date) and
+  `docs/decisions/NNNN-<title>.md` (ADR: Date, Status, Context, Decision, Alternatives
+  considered, Consequences).
+- Keeping them current: before finishing a change, check the changed files against the
+  `covers:` lists in both repos. If a flow covers a changed file, update it in the same commit
+  when it's no longer true (a cs-nest flow is updated in cs-nest). Write flows at the design
+  level: name constants, don't copy values, and cite symbols, never line numbers.
+- Decisions are never rewritten. A changed decision gets a new ADR that supersedes the old one.
+- No code comments. If code seems to need one, say so in chat instead.

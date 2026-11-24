@@ -1,3 +1,5 @@
+import { apiFetch } from '@/api/apiFetch';
+
 export type Country = {
     id: number;
     nameEn: string;
@@ -11,7 +13,7 @@ export const getCountries = async (): Promise<Country[]> => {
     }
 
     try {
-        const response = await fetch(`${process.env.CS_API}/countries`);
+        const response = await apiFetch(`/countries`);
         if (!response.ok) {
             throw new Error(`Countries request failed with status ${response.status}`);
         }

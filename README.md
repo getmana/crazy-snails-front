@@ -85,6 +85,7 @@ CS_API=http://localhost:4000              # backend API, used server-side
 NEXT_PUBLIC_CS_API=http://localhost:4000  # same backend, used in the browser to load uploaded images
 SESSION_SECRET=<random string, min 32 chars>
 SITE_OWNER_ID=<backend user id whose public stories and albums this site shows>
+FRONTEND_API_SECRET=<same value as FRONTEND_API_SECRET in the backend's .env>  # server-only, never NEXT_PUBLIC_
 ```
 
 `4000` matches the `PORT` in the backend's example `.env`; change both if you run the backend elsewhere.

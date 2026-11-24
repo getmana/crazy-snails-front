@@ -1,7 +1,8 @@
 import { getActivityTypes } from '@/api/getActivityTypes';
+import { getCountriesByLocale } from '@/api/getCountriesByLocale';
 import { CreateAlbumForm } from '@/components';
 import { Locale } from '@/i18n-config';
-import { getCountriesByLocale, getDictionary } from '@/utils';
+import { getDictionary } from '@/utils';
 
 export default async function CreateAlbum(props: { params: Promise<{ locale: Locale }> }) {
     const { locale } = await props.params;
